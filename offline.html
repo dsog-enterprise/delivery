@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSOG Delivery - Offline</title>
+    <style>
+        :root {
+            --primary-green: #25D366;
+            --primary-black: #000000;
+            --primary-gold: #D4AF37;
+            --secondary-green: #128C7E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, var(--primary-black), var(--secondary-green));
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .offline-container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(0,0,0,0.85);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 3px solid var(--primary-green);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo-container {
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            height: 70px;
+            filter: drop-shadow(0 4px 8px rgba(37, 211, 102, 0.3));
+        }
+        
+        .icon {
+            font-size: 5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        h1 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+        
+        .offline-features {
+            background: rgba(37, 211, 102, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid var(--primary-green);
+            text-align: left;
+        }
+        
+        .offline-features h3 {
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .offline-features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .offline-features li {
+            margin-bottom: 8px;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .offline-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-green);
+        }
+        
+        .connection-status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .status-online {
+            background: rgba(37, 211, 102, 0.2);
+            color: var(--primary-green);
+            display: none;
+        }
+        
+        .status-offline {
+            background: rgba(255, 68, 68, 0.2);
+            color: #FF4444;
+        }
+        
+        @media (max-width: 480px) {
+            .offline-container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .icon {
+                font-size: 4rem;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png" alt="DSOG Delivery" class="logo">
+        </div>
+        
+        <div class="icon">📶</div>
+        
+        <h1>You're Offline</h1>
+        
+        <p>We couldn't connect to the internet. Please check your connection and try again.</p>
+        
+        <div class="offline-features">
+            <h3><i class="fas fa-info-circle"></i> What you can do offline:</h3>
+            <ul>
+                <li>View previously loaded delivery requests</li>
+                <li>Access saved delivery assistant information</li>
+                <li>View your profile information</li>
+                <li>Prepare new delivery requests (will sync when online)</li>
+            </ul>
+        </div>
+        
+        <div class="connection-status status-offline" id="connectionStatus">
+            <i class="fas fa-wifi-slash"></i> Currently offline
+        </div>
+        
+        <div class="connection-status status-online" id="onlineStatus">
+            <i class="fas fa-wifi"></i> Connection restored! Page will refresh automatically.
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="retryBtn">
+                <i class="fas fa-sync-alt"></i> Try Again
+            </button>
+            <button class="btn btn-secondary" id="viewCachedBtn">
+                <i class="fas fa-history"></i> View Cached Content
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Connection monitoring
+        const connectionStatus = document.getElementById('connectionStatus');
+        const onlineStatus = document.getElementById('onlineStatus');
+        const retryBtn = document.getElementById('retryBtn');
+        const viewCachedBtn = document.getElementById('viewCachedBtn');
+        
+        // Check initial connection
+        updateConnectionStatus();
+        
+        // Monitor connection changes
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        
+        function updateConnectionStatus() {
+            if (navigator.onLine) {
+                connectionStatus.style.display = 'none';
+                onlineStatus.style.display = 'block';
+                
+                // Auto-refresh after 2 seconds when back online
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                connectionStatus.style.display = 'block';
+                onlineStatus.style.display = 'none';
+            }
+        }
+        
+        // Button event listeners
+        retryBtn.addEventListener('click', () => {
+            retryBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+            retryBtn.disabled = true;
+            
+            // Try to reload
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        });
+        
+        viewCachedBtn.addEventListener('click', () => {
+            // Try to load the main app from cache
+            window.location.href = '/delivery/';
+        });
+        
+        // Service Worker registration check
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then((registration) => {
+                console.log('Service Worker is ready:', registration);
+            });
+        }
+        
+        // Display last cached time if available
+        if (window.localStorage) {
+            const lastOnline = localStorage.getItem('dsog_last_online');
+            if (lastOnline) {
+                const offlineTime = new Date().getTime() - parseInt(lastOnline);
+                const minutes = Math.floor(offlineTime / 60000);
+                
+                if (minutes > 0) {
+                    const timeInfo = document.createElement('p');
+                    timeInfo.style.fontSize = '0.9rem';
+                    timeInfo.style.opacity = '0.7';
+                    timeInfo.style.marginTop = '10px';
+                    timeInfo.innerHTML = `<i class="fas fa-clock"></i> Offline for ${minutes} minute${minutes === 1 ? '' : 's'}`;
+                    connectionStatus.parentNode.insertBefore(timeInfo, connectionStatus.nextSibling);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
