@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=1.0, user-scalable=no">
     
     <!-- App Version -->
-    <meta name="app-version" content="2.0.0">
+    <meta name="app-version" content="2.1.0">
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#25D366">
@@ -702,6 +702,144 @@
             text-decoration: underline;
         }
         
+        /* User Registration Modal */
+        .user-registration-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2006;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 1rem;
+        }
+        
+        .user-registration-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .registration-content {
+            background: var(--white);
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+            border: 3px solid var(--primary-green);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .registration-header {
+            background: var(--primary-black);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-green);
+            position: relative;
+        }
+        
+        .registration-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .registration-close:hover {
+            background: var(--secondary-green);
+            transform: rotate(90deg);
+        }
+        
+        .registration-body {
+            padding: 2rem;
+        }
+        
+        .registration-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .registration-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .registration-form .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .registration-form .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+        }
+        
+        .registration-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .registration-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .registration-btn-primary {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+        
+        .registration-btn-primary:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
+        .registration-btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .registration-btn-secondary:hover {
+            background: var(--border-color);
+        }
+        
         /* User Profile Modal */
         .user-profile-modal {
             position: fixed;
@@ -982,6 +1120,78 @@
             opacity: 1;
         }
         
+        /* LOCATION DETECTION IMPROVED */
+        .location-detection {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(37, 211, 102, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(37, 211, 102, 0.2);
+        }
+        
+        .location-info {
+            flex: 1;
+        }
+        
+        .location-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .location-status i {
+            color: var(--primary-green);
+        }
+        
+        .detect-location-btn {
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .detect-location-btn:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
+        .detect-location-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .location-manual-input {
+            display: none;
+            margin-top: 1rem;
+        }
+        
+        .location-manual-input.active {
+            display: block;
+        }
+        
+        .location-error {
+            color: var(--error);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .location-error.active {
+            display: block;
+        }
+        
         /* MAIN CONTENT SECTIONS */
         .section {
             max-width: 1400px;
@@ -1096,42 +1306,6 @@
             background: rgba(255, 255, 255, 0.9);
             padding: 2px 6px;
             border-radius: 10px;
-        }
-        
-        /* LOCATION DETECTION */
-        .location-detection {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: rgba(37, 211, 102, 0.05);
-            border-radius: 8px;
-            border: 1px solid rgba(37, 211, 102, 0.2);
-        }
-        
-        .location-info {
-            flex: 1;
-        }
-        
-        .detect-location-btn {
-            background: var(--primary-green);
-            color: var(--white);
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .detect-location-btn:hover {
-            background: var(--secondary-green);
-            transform: translateY(-2px);
         }
         
         /* PACKAGE TYPE SELECTION */
@@ -1911,7 +2085,7 @@
 </head>
 <body>
     <!-- ENHANCED PROFESSIONAL GOOGLE SIGN-IN MODAL -->
-    <div class="google-signin-modal active" id="googleSigninModal">
+    <div class="google-signin-modal" id="googleSigninModal">
         <div class="google-signin-content">
             <!-- Left Panel - Branding -->
             <div class="signin-left-panel">
@@ -2000,9 +2174,49 @@
                         <span style="color: var(--primary-green); font-weight: 600;">WhatsApp Tracking Enabled</span>
                     </p>
                     <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">
-                        Version 2.0.0 • WhatsApp Edition
+                        Version 2.1.0 • WhatsApp Edition
                     </p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Registration Modal (Phone Number Collection) -->
+    <div class="user-registration-modal" id="userRegistrationModal">
+        <div class="registration-content">
+            <div class="registration-header">
+                <button class="registration-close" id="registrationClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="profile-avatar" id="registrationAvatar">
+                    <!-- Avatar will be populated -->
+                </div>
+                <h3>Complete Your Registration</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-top: 0.5rem;">Please provide your phone number for delivery notifications</p>
+            </div>
+            <div class="registration-body">
+                <form class="registration-form" id="registrationForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="userPhone">Phone Number *</label>
+                        <input type="tel" id="userPhone" class="form-control" placeholder="Enter your WhatsApp number (e.g., 254712345678)" required>
+                        <small style="color: var(--text-secondary); font-size: 0.85rem;">This will be used for delivery notifications and WhatsApp communication</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userLocation">Default Pickup Location *</label>
+                        <input type="text" id="userLocation" class="form-control" placeholder="Enter your default pickup address" required>
+                        <small style="color: var(--text-secondary); font-size: 0.85rem;">You can update this later in your profile</small>
+                    </div>
+                    
+                    <div class="registration-actions">
+                        <button type="button" class="registration-btn registration-btn-secondary" onclick="useCurrentLocation()">
+                            <i class="fas fa-map-marker-alt"></i> Use Current Location
+                        </button>
+                        <button type="submit" class="registration-btn registration-btn-primary" onclick="completeRegistration()">
+                            <i class="fas fa-check"></i> Complete Registration
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -2024,7 +2238,10 @@
                     <!-- Profile info will be populated -->
                 </div>
                 <div class="profile-actions">
-                    <button class="profile-btn profile-btn-primary" onclick="editUserLocation()">
+                    <button class="profile-btn profile-btn-primary" onclick="updateUserPhone()">
+                        <i class="fas fa-phone"></i> Update Phone Number
+                    </button>
+                    <button class="profile-btn profile-btn-primary" onclick="updateUserLocation()">
                         <i class="fas fa-map-marker-alt"></i> Update Default Location
                     </button>
                     <button class="profile-btn sign-out-btn" onclick="signOut()">
@@ -2151,15 +2368,25 @@
                 <p>Fill in package details and select a delivery assistant in your area</p>
             </div>
             
-            <!-- Location Detection -->
+            <!-- Improved Location Detection -->
             <div class="location-detection" id="locationDetection">
                 <div class="location-info">
-                    <h4 style="margin-bottom: 0.3rem; color: var(--primary-green);">
-                        <i class="fas fa-map-marker-alt"></i> Your Location
-                    </h4>
-                    <p id="currentLocationText">Detecting your location...</p>
+                    <div class="location-status">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4 style="margin: 0; color: var(--primary-green);">Your Location</h4>
+                    </div>
+                    <p id="currentLocationText">Click "Detect Location" to find your position</p>
+                    <div class="location-error" id="locationError">
+                        <!-- Error messages will appear here -->
+                    </div>
+                    <div class="location-manual-input" id="locationManualInput">
+                        <input type="text" id="manualLocationInput" class="form-control" placeholder="Enter your location manually">
+                        <button class="detect-location-btn" onclick="useManualLocation()" style="margin-top: 0.5rem;">
+                            <i class="fas fa-check"></i> Use This Location
+                        </button>
+                    </div>
                 </div>
-                <button class="detect-location-btn" onclick="detectUserLocation()">
+                <button class="detect-location-btn" onclick="detectUserLocation()" id="detectLocationBtn">
                     <i class="fas fa-sync-alt"></i> Detect Location
                 </button>
             </div>
@@ -2379,6 +2606,8 @@
     let userLocation = null;
     let deliveryAssistants = [];
     let userDeliveryHistory = [];
+    let locationDetectionAttempts = 0;
+    const MAX_LOCATION_ATTEMPTS = 3;
     
     // PWA variables
     let deferredPrompt = null;
@@ -2387,7 +2616,7 @@
     
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 DSOG Delivery Platform v2.0.0 - WhatsApp Tracking');
+        console.log('🚀 DSOG Delivery Platform v2.1.0 - WhatsApp Tracking');
         
         // Initialize components
         initMobileMenu();
@@ -2396,12 +2625,17 @@
         initConfirmationModal();
         initPWA();
         initProfileModal();
+        initRegistrationModal();
         
         // Check for existing Google Sign-in
-        checkGoogleSignIn();
+        if (checkGoogleSignIn()) {
+            showMainContent();
+        } else {
+            showGoogleSignInModal();
+        }
         
         // Initialize Google Sign-in
-        initializeGoogleSignIn();
+        setTimeout(initializeGoogleSignIn, 1000);
     });
     
     // Google Sign-in Functions
@@ -2420,15 +2654,6 @@
             ux_mode: 'popup',
             login_uri: window.location.origin,
             prompt_parent_id: 'googleSignInButton'
-        });
-        
-        google.accounts.id.initialize({
-            client_id: GOOGLE_CLIENT_ID,
-            callback: handleGoogleSignIn,
-            auto_select: false,
-            cancel_on_tap_outside: true,
-            context: 'signin',
-            ux_mode: 'popup'
         });
         
         google.accounts.id.renderButton(
@@ -2456,12 +2681,6 @@
                 width: 250
             }
         );
-        
-        if (!userProfile || !userProfile.googleId) {
-            setTimeout(() => {
-                showGoogleSignInModal();
-            }, 1000);
-        }
     }
     
     function triggerGoogleSignIn() {
@@ -2476,11 +2695,9 @@
     
     function checkGoogleSignIn() {
         if (userProfile && userProfile.googleId) {
-            showMainContent();
             updateUserProfileUI();
             autoFillRequestForm();
             setupNavigation();
-            detectUserLocation();
             loadUserDeliveryHistory();
             return true;
         }
@@ -2504,27 +2721,28 @@
                 familyName: googleUser.family_name,
                 picture: googleUser.picture,
                 emailVerified: googleUser.email_verified,
-                phone: '',
-                defaultLocation: '',
-                locationUpdated: false,
-                createdAt: new Date().toISOString(),
+                phone: userProfile ? userProfile.phone : '',
+                defaultLocation: userProfile ? userProfile.defaultLocation : '',
+                phoneRegistered: userProfile ? userProfile.phoneRegistered || false : false,
+                locationUpdated: userProfile ? userProfile.locationUpdated || false : false,
+                createdAt: userProfile ? userProfile.createdAt : new Date().toISOString(),
                 lastLogin: new Date().toISOString()
             };
             
             localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
             hideGoogleSignInModal();
             showNotification(`Welcome ${googleUser.name}!`, 'success');
-            updateUserProfileUI();
-            showMainContent();
-            autoFillRequestForm();
-            setupNavigation();
-            detectUserLocation();
-            loadUserDeliveryHistory();
             
-            if (!userProfile.defaultLocation || !userProfile.locationUpdated) {
-                setTimeout(() => {
-                    askForDefaultLocation();
-                }, 2000);
+            // Check if phone number is registered
+            if (!userProfile.phoneRegistered) {
+                showRegistrationModal();
+            } else {
+                showMainContent();
+                updateUserProfileUI();
+                autoFillRequestForm();
+                setupNavigation();
+                detectUserLocation();
+                loadUserDeliveryHistory();
             }
         } else {
             console.error('Failed to decode Google Sign-in response');
@@ -2568,76 +2786,259 @@
         document.body.style.overflow = 'auto';
     }
     
-    function showMainContent() {
-        const overlay = document.getElementById('contentOverlay');
-        const mainContent = document.getElementById('mainContent');
-        const bottomNav = document.querySelector('.bottom-nav');
-        const userProfileHeader = document.getElementById('userProfileHeader');
-        const header = document.querySelector('header');
-        overlay.style.display = 'none';
-        mainContent.style.display = 'block';
-        bottomNav.style.display = 'block';
-        userProfileHeader.style.display = 'flex';
-        header.style.display = 'block';
+    // User Registration (Phone Number Collection)
+    function initRegistrationModal() {
+        const registrationModal = document.getElementById('userRegistrationModal');
+        const registrationClose = document.getElementById('registrationClose');
+        
+        registrationClose.addEventListener('click', closeRegistrationModal);
+        
+        registrationModal.addEventListener('click', function(e) {
+            if (e.target === registrationModal) {
+                closeRegistrationModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && registrationModal.classList.contains('active')) {
+                closeRegistrationModal();
+            }
+        });
     }
     
-    // Location Detection
-    function detectUserLocation() {
-        const locationText = document.getElementById('currentLocationText');
-        locationText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting your location...';
+    function showRegistrationModal() {
+        if (!userProfile || !userProfile.googleId) return;
         
-        if (!navigator.geolocation) {
-            locationText.textContent = 'Geolocation not supported by your browser';
+        const registrationModal = document.getElementById('userRegistrationModal');
+        const registrationAvatar = document.getElementById('registrationAvatar');
+        
+        // Set avatar
+        if (userProfile.picture) {
+            registrationAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
+        } else {
+            const initials = userProfile.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+            registrationAvatar.textContent = initials;
+            registrationAvatar.style.background = 'linear-gradient(135deg, var(--primary-green), var(--primary-gold))';
+        }
+        
+        // Pre-fill phone if available
+        const phoneField = document.getElementById('userPhone');
+        if (userProfile.phone) {
+            phoneField.value = userProfile.phone;
+        }
+        
+        // Pre-fill location if available
+        const locationField = document.getElementById('userLocation');
+        if (userProfile.defaultLocation) {
+            locationField.value = userProfile.defaultLocation;
+        }
+        
+        registrationModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeRegistrationModal() {
+        const registrationModal = document.getElementById('userRegistrationModal');
+        registrationModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    function useCurrentLocation() {
+        const locationField = document.getElementById('userLocation');
+        locationField.value = 'Detecting your location...';
+        
+        detectUserLocation(true).then(location => {
+            if (location && location.address) {
+                locationField.value = location.address;
+                showNotification('Location detected successfully!');
+            }
+        }).catch(() => {
+            locationField.value = '';
+            showNotification('Unable to detect location. Please enter manually.', 'error');
+        });
+    }
+    
+    function completeRegistration() {
+        const phoneField = document.getElementById('userPhone');
+        const locationField = document.getElementById('userLocation');
+        
+        const phone = phoneField.value.trim();
+        const location = locationField.value.trim();
+        
+        // Validate phone number
+        if (!phone) {
+            showNotification('Please enter your phone number', 'error');
             return;
         }
         
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                userLocation = { lat, lng };
-                
-                // Reverse geocode to get address
-                reverseGeocode(lat, lng);
-                
-                // Load assistants for this location
-                loadDeliveryAssistantsForLocation(lat, lng);
-            },
-            function(error) {
-                console.error('Geolocation error:', error);
-                locationText.textContent = 'Unable to detect location. Please enter manually.';
-                userLocation = null;
-                loadAllDeliveryAssistants();
-            },
-            {
+        // Validate location
+        if (!location) {
+            showNotification('Please enter your default location', 'error');
+            return;
+        }
+        
+        // Update user profile
+        userProfile.phone = phone;
+        userProfile.defaultLocation = location;
+        userProfile.phoneRegistered = true;
+        userProfile.locationUpdated = true;
+        
+        localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
+        
+        closeRegistrationModal();
+        showMainContent();
+        updateUserProfileUI();
+        autoFillRequestForm();
+        setupNavigation();
+        detectUserLocation();
+        loadUserDeliveryHistory();
+        
+        showNotification('Registration completed successfully!');
+    }
+    
+    // Improved Location Detection
+    function detectUserLocation(fromRegistration = false) {
+        return new Promise((resolve, reject) => {
+            locationDetectionAttempts++;
+            
+            const locationText = document.getElementById('currentLocationText');
+            const detectBtn = document.getElementById('detectLocationBtn');
+            const locationError = document.getElementById('locationError');
+            const manualInput = document.getElementById('locationManualInput');
+            
+            locationText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting your location...';
+            locationError.classList.remove('active');
+            manualInput.classList.remove('active');
+            detectBtn.disabled = true;
+            
+            if (!navigator.geolocation) {
+                locationText.textContent = 'Geolocation not supported by your browser';
+                locationError.textContent = 'Your browser does not support location services. Please enter your location manually.';
+                locationError.classList.add('active');
+                manualInput.classList.add('active');
+                detectBtn.disabled = false;
+                reject(new Error('Geolocation not supported'));
+                return;
+            }
+            
+            const options = {
                 enableHighAccuracy: true,
                 timeout: 10000,
                 maximumAge: 0
-            }
-        );
+            };
+            
+            navigator.geolocation.getCurrentPosition(
+                async function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    userLocation = { lat, lng };
+                    
+                    locationDetectionAttempts = 0; // Reset attempts on success
+                    
+                    try {
+                        const address = await reverseGeocode(lat, lng);
+                        locationText.textContent = address;
+                        
+                        if (!fromRegistration) {
+                            // Auto-fill pickup location
+                            document.getElementById('pickupLocation').value = address;
+                            
+                            // Load assistants for this location
+                            loadDeliveryAssistantsForLocation(lat, lng);
+                        }
+                        
+                        resolve({ lat, lng, address });
+                    } catch (error) {
+                        locationText.textContent = `Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                        resolve({ lat, lng });
+                    }
+                    
+                    detectBtn.disabled = false;
+                },
+                function(error) {
+                    console.error('Geolocation error:', error);
+                    detectBtn.disabled = false;
+                    
+                    let errorMessage = '';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = 'Location permission denied. Please allow location access in your browser settings.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = 'Location information unavailable.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = 'Location request timed out.';
+                            break;
+                        default:
+                            errorMessage = 'An unknown error occurred while detecting location.';
+                    }
+                    
+                    locationText.textContent = 'Unable to detect location';
+                    locationError.textContent = errorMessage;
+                    locationError.classList.add('active');
+                    
+                    // Show manual input option after multiple failed attempts
+                    if (locationDetectionAttempts >= MAX_LOCATION_ATTEMPTS) {
+                        manualInput.classList.add('active');
+                    }
+                    
+                    if (!fromRegistration) {
+                        loadAllDeliveryAssistants();
+                    }
+                    
+                    reject(error);
+                },
+                options
+            );
+        });
     }
     
-    function reverseGeocode(lat, lng) {
-        if (typeof google === 'undefined') {
-            document.getElementById('currentLocationText').textContent = `Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+    async function reverseGeocode(lat, lng) {
+        return new Promise((resolve, reject) => {
+            if (typeof google === 'undefined') {
+                resolve(`Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+                return;
+            }
+            
+            const geocoder = new google.maps.Geocoder();
+            const latlng = { lat: lat, lng: lng };
+            
+            geocoder.geocode({ location: latlng }, function(results, status) {
+                if (status === 'OK' && results[0]) {
+                    resolve(results[0].formatted_address);
+                } else {
+                    reject(new Error('Geocoding failed'));
+                }
+            });
+        });
+    }
+    
+    function useManualLocation() {
+        const manualInput = document.getElementById('manualLocationInput');
+        const locationText = document.getElementById('currentLocationText');
+        const pickupField = document.getElementById('pickupLocation');
+        const locationError = document.getElementById('locationError');
+        
+        const manualLocation = manualInput.value.trim();
+        
+        if (!manualLocation) {
+            showNotification('Please enter a location', 'error');
             return;
         }
         
-        const geocoder = new google.maps.Geocoder();
-        const latlng = { lat: lat, lng: lng };
+        locationText.textContent = manualLocation;
+        pickupField.value = manualLocation;
+        userLocation = { manual: true, address: manualLocation };
         
-        geocoder.geocode({ location: latlng }, function(results, status) {
-            const locationText = document.getElementById('currentLocationText');
-            if (status === 'OK' && results[0]) {
-                const address = results[0].formatted_address;
-                locationText.textContent = address;
-                
-                // Auto-fill pickup location
-                document.getElementById('pickupLocation').value = address;
-            } else {
-                locationText.textContent = `Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-            }
-        });
+        // Load assistants based on manual location
+        loadAllDeliveryAssistants();
+        
+        // Hide manual input
+        document.getElementById('locationManualInput').classList.remove('active');
+        locationError.classList.remove('active');
+        
+        showNotification('Location set successfully!');
     }
     
     // Load delivery assistants for specific location
@@ -2915,6 +3316,693 @@
         }
     }
     
+    // User Profile Functions
+    function showMainContent() {
+        const overlay = document.getElementById('contentOverlay');
+        const mainContent = document.getElementById('mainContent');
+        const bottomNav = document.querySelector('.bottom-nav');
+        const userProfileHeader = document.getElementById('userProfileHeader');
+        const header = document.querySelector('header');
+        
+        overlay.style.display = 'none';
+        mainContent.style.display = 'block';
+        bottomNav.style.display = 'block';
+        userProfileHeader.style.display = 'flex';
+        header.style.display = 'block';
+        
+        updateUserProfileUI();
+        autoFillRequestForm();
+        setupNavigation();
+        detectUserLocation();
+        loadUserDeliveryHistory();
+    }
+    
+    function updateUserPhone() {
+        if (!userProfile || !userProfile.googleId) return;
+        
+        const currentPhone = userProfile.phone || '';
+        const newPhone = prompt(
+            'Enter your new phone number (WhatsApp):',
+            currentPhone
+        );
+        
+        if (newPhone !== null && newPhone.trim() !== '') {
+            userProfile.phone = newPhone.trim();
+            userProfile.phoneRegistered = true;
+            localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
+            updateUserProfileUI();
+            autoFillRequestForm();
+            showNotification('Phone number updated successfully!');
+        }
+        closeProfileModal();
+    }
+    
+    function updateUserLocation() {
+        if (!userProfile || !userProfile.googleId) return;
+        
+        const currentLocation = userProfile.defaultLocation || '';
+        const newLocation = prompt(
+            'Enter your new default pickup location:',
+            currentLocation
+        );
+        
+        if (newLocation !== null && newLocation.trim() !== '') {
+            userProfile.defaultLocation = newLocation.trim();
+            userProfile.locationUpdated = true;
+            localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
+            updateUserProfileUI();
+            autoFillRequestForm();
+            showNotification('Default location updated successfully!');
+        }
+        closeProfileModal();
+    }
+    
+    function autoFillRequestForm() {
+        if (userProfile) {
+            const nameField = document.getElementById('customerName');
+            const phoneField = document.getElementById('customerPhone');
+            const pickupField = document.getElementById('pickupLocation');
+            
+            if (nameField && userProfile.name) {
+                nameField.value = userProfile.name;
+                showAutoFillBadge('nameBadge');
+            }
+            
+            if (phoneField && userProfile.phone) {
+                phoneField.value = userProfile.phone;
+                showAutoFillBadge('phoneBadge');
+            }
+            
+            if (pickupField && userProfile.defaultLocation) {
+                pickupField.value = userProfile.defaultLocation;
+            }
+        }
+    }
+    
+    function showAutoFillBadge(badgeId) {
+        const badge = document.getElementById(badgeId);
+        if (badge) {
+            badge.style.display = 'block';
+            setTimeout(() => {
+                badge.style.display = 'none';
+            }, 3000);
+        }
+    }
+    
+    function updateUserProfileUI() {
+        if (userProfile) {
+            const userAvatar = document.getElementById('userAvatar');
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const profileAvatar = document.getElementById('profileAvatar');
+            const profileName = document.getElementById('profileName');
+            const profileInfo = document.getElementById('profileInfo');
+            
+            if (userProfile.picture) {
+                if (userAvatar) {
+                    userAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
+                }
+                if (profileAvatar) {
+                    profileAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
+                }
+            } else {
+                const initials = userProfile.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                
+                if (userAvatar) {
+                    userAvatar.textContent = initials;
+                    userAvatar.style.background = 'linear-gradient(135deg, var(--primary-green), var(--primary-gold))';
+                }
+                
+                if (profileAvatar) {
+                    profileAvatar.textContent = initials;
+                    profileAvatar.style.background = 'linear-gradient(135deg, var(--primary-green), var(--primary-gold))';
+                }
+            }
+            
+            if (userNameDisplay) {
+                userNameDisplay.textContent = userProfile.givenName || userProfile.name.split(' ')[0];
+            }
+            
+            if (profileName) {
+                profileName.textContent = userProfile.name;
+            }
+            
+            if (profileInfo) {
+                profileInfo.innerHTML = `
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Full Name:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.name}</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Email:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.email}</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Phone:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.phone || 'Not set'}</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Default Location:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.defaultLocation || 'Not set'}</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Account Created:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${new Date(userProfile.createdAt).toLocaleDateString()}</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Last Login:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${new Date(userProfile.lastLogin).toLocaleDateString()}</div>
+                    </div>
+                `;
+            }
+        }
+    }
+    
+    function initProfileModal() {
+        const profileModal = document.getElementById('userProfileModal');
+        const profileClose = document.getElementById('profileClose');
+        
+        profileClose.addEventListener('click', closeProfileModal);
+        
+        profileModal.addEventListener('click', function(e) {
+            if (e.target === profileModal) {
+                closeProfileModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && profileModal.classList.contains('active')) {
+                closeProfileModal();
+            }
+        });
+    }
+    
+    function openProfileModal() {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        const profileModal = document.getElementById('userProfileModal');
+        updateUserProfileUI();
+        profileModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeProfileModal() {
+        const profileModal = document.getElementById('userProfileModal');
+        profileModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    function signOut() {
+        if (confirm('Are you sure you want to sign out?')) {
+            // Preserve phone number and location for next sign-in
+            const savedPhone = userProfile.phone;
+            const savedLocation = userProfile.defaultLocation;
+            const savedPhoneRegistered = userProfile.phoneRegistered;
+            
+            userProfile = null;
+            googleUser = null;
+            googleToken = null;
+            
+            // Clear everything except essential user data
+            localStorage.removeItem('dsog_delivery_profile');
+            
+            const mainContent = document.getElementById('mainContent');
+            const bottomNav = document.querySelector('.bottom-nav');
+            const userProfileHeader = document.getElementById('userProfileHeader');
+            const header = document.querySelector('header');
+            
+            mainContent.style.display = 'none';
+            bottomNav.style.display = 'none';
+            userProfileHeader.style.display = 'none';
+            header.style.display = 'none';
+            
+            showGoogleSignInModal();
+            showNotification('Signed out successfully');
+        }
+    }
+    
+    // Rest of the functions remain the same (initPackageTypeSelection, initCharCounter, etc.)
+    // These include:
+    // - initPackageTypeSelection()
+    // - initCharCounter()
+    // - initConfirmationModal()
+    // - confirmPickupRequest()
+    // - submitPickupRequestViaWhatsApp()
+    // - saveToDeliveryHistory()
+    // - resetRequestForm()
+    // - initMobileMenu()
+    // - setupNavigation()
+    // - initPWA()
+    // - showNotification()
+    // - WhatsApp tracking functions
+    // - Delivery history functions
+    
+    // Initialize Package Type Selection
+    function initPackageTypeSelection() {
+        const packageCards = document.querySelectorAll('.package-type-card');
+        const packageTypeInput = document.getElementById('packageType');
+        const packageSizeInput = document.getElementById('packageSize');
+        const packageDetails = document.getElementById('packageDetails');
+        
+        packageCards.forEach(card => {
+            card.addEventListener('click', function() {
+                packageCards.forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedPackageType = this.dataset.type;
+                selectedPackageSize = this.dataset.size;
+                packageTypeInput.value = selectedPackageType;
+                packageSizeInput.value = selectedPackageSize;
+                
+                if (selectedAssistant) {
+                    packageDetails.style.display = 'block';
+                    updatePackageDetails();
+                }
+            });
+        });
+    }
+    
+    function updatePackageDetails() {
+        const detailsGrid = document.getElementById('detailsGrid');
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value;
+        
+        if (!packageType || !packageSize || !selectedAssistant) return;
+        
+        const typeDescriptions = {
+            'small': 'Small packages suitable for documents, small electronics, or clothing',
+            'medium': 'Medium packages for books, shoes, or small household items',
+            'large': 'Large packages for bulk items, furniture, or appliances',
+            'fragile': 'Fragile items requiring special handling and care'
+        };
+        
+        detailsGrid.innerHTML = `
+            <div class="detail-item">
+                <div class="detail-label">Package Type</div>
+                <div class="detail-value">${packageType.charAt(0).toUpperCase() + packageType.slice(1)}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Package Size</div>
+                <div class="detail-value">${packageSize}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Selected Assistant</div>
+                <div class="detail-value">${selectedAssistant.name}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Assistant Phone</div>
+                <div class="detail-value">${selectedAssistant.phone}</div>
+            </div>
+            ${itemDescription ? `
+            <div class="detail-item">
+                <div class="detail-label">Item Details</div>
+                <div class="detail-value">${itemDescription.substring(0, 50)}${itemDescription.length > 50 ? '...' : ''}</div>
+            </div>
+            ` : ''}
+        `;
+    }
+    
+    // Initialize Character Counter
+    function initCharCounter() {
+        const textarea = document.getElementById('itemDescription');
+        const charCount = document.getElementById('charCount');
+        
+        textarea.addEventListener('input', function() {
+            const length = this.value.length;
+            charCount.textContent = `${length}/200`;
+            
+            if (length > 200) {
+                charCount.style.color = 'var(--error)';
+            } else if (length > 150) {
+                charCount.style.color = 'var(--warning)';
+            } else {
+                charCount.style.color = 'var(--gray)';
+            }
+            
+            if (selectedAssistant && document.getElementById('packageType').value) {
+                document.getElementById('packageDetails').style.display = 'block';
+                updatePackageDetails();
+            }
+        });
+    }
+    
+    // Initialize Confirmation Modal
+    function initConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        const confirmationClose = document.getElementById('confirmationClose');
+        
+        confirmationClose.addEventListener('click', closeConfirmationModal);
+        
+        confirmationModal.addEventListener('click', function(e) {
+            if (e.target === confirmationModal) {
+                closeConfirmationModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && confirmationModal.classList.contains('active')) {
+                closeConfirmationModal();
+            }
+        });
+    }
+    
+    function openConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Confirm Pickup Request
+    function confirmPickupRequest() {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const pickupLocation = document.getElementById('pickupLocation').value.trim();
+        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value.trim();
+        const specialInstructions = document.getElementById('specialInstructions').value.trim();
+        
+        // Validation
+        if (!customerName || !customerPhone || !pickupLocation || !deliveryLocation || !packageType || !packageSize || !itemDescription) {
+            showNotification('Please fill in all required fields', 'error');
+            return;
+        }
+        
+        if (!selectedAssistant) {
+            showNotification('Please select a delivery assistant', 'error');
+            return;
+        }
+        
+        if (itemDescription.length > 200) {
+            showNotification('Item description must be 200 characters or less', 'error');
+            return;
+        }
+        
+        // Generate tracking number
+        const trackingNumber = 'DSOG-' + Date.now().toString().slice(-6);
+        
+        // Build confirmation message
+        const confirmationBody = document.getElementById('confirmationBody');
+        confirmationBody.innerHTML = `
+            <div class="confirmation-details">
+                <h3>Pickup Request Details</h3>
+                <div style="display: grid; gap: 1rem;">
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Customer:</span>
+                        <div style="margin-top: 0.3rem;">${customerName} | ${customerPhone}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Selected Assistant:</span>
+                        <div style="margin-top: 0.3rem;">
+                            ${selectedAssistant.name} (${selectedAssistant.phone})
+                            <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                                <i class="fas fa-info-circle"></i> You will communicate directly with this assistant via WhatsApp
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Pickup:</span>
+                        <div style="margin-top: 0.3rem;">${pickupLocation}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Delivery:</span>
+                        <div style="margin-top: 0.3rem;">${deliveryLocation}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Package:</span>
+                        <div style="margin-top: 0.3rem;">${packageType.charAt(0).toUpperCase() + packageType.slice(1)} - ${packageSize}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Items:</span>
+                        <div style="margin-top: 0.3rem;">${itemDescription}</div>
+                    </div>
+                    ${specialInstructions ? `
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Special Instructions:</span>
+                        <div style="margin-top: 0.3rem;">${specialInstructions}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+            
+            <div style="background: rgba(37, 211, 102, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid var(--primary-green);">
+                <div style="font-weight: 600; color: var(--primary-green); margin-bottom: 0.5rem;">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Tracking Enabled
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                    After confirmation, you will be redirected to WhatsApp to message the assistant directly. Save their number for tracking updates.
+                </div>
+            </div>
+            
+            <div class="confirmation-actions">
+                <button class="cancel-btn" onclick="closeConfirmationModal()">Cancel</button>
+                <button class="confirm-btn" onclick="submitPickupRequestViaWhatsApp('${trackingNumber}')">
+                    <i class="fab fa-whatsapp"></i> Open WhatsApp
+                </button>
+            </div>
+        `;
+        
+        openConfirmationModal();
+    }
+    
+    // Submit Pickup Request via WhatsApp
+    function submitPickupRequestViaWhatsApp(trackingNumber) {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        // Get form values
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const pickupLocation = document.getElementById('pickupLocation').value.trim();
+        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value.trim();
+        const specialInstructions = document.getElementById('specialInstructions').value.trim();
+        
+        // Build WhatsApp message for the assistant
+        let whatsappMessage = `*📦 NEW PICKUP REQUEST - DSOG DELIVERY*%0A%0A`;
+        whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
+        whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A`;
+        whatsappMessage += `*Time:* ${new Date().toLocaleTimeString()}%0A%0A`;
+        
+        whatsappMessage += `*👤 CUSTOMER DETAILS*%0A`;
+        whatsappMessage += `Name: ${customerName}%0A`;
+        whatsappMessage += `Phone: ${customerPhone}%0A`;
+        whatsappMessage += `Email: ${userProfile.email}%0A%0A`;
+        
+        whatsappMessage += `*📍 PICKUP LOCATION*%0A`;
+        whatsappMessage += `${pickupLocation}%0A%0A`;
+        
+        whatsappMessage += `*🎯 DELIVERY DESTINATION*%0A`;
+        whatsappMessage += `${deliveryLocation}%0A%0A`;
+        
+        whatsappMessage += `*📦 PACKAGE DETAILS*%0A`;
+        whatsappMessage += `Type: ${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A`;
+        whatsappMessage += `Size: ${packageSize}%0A`;
+        whatsappMessage += `Items: ${itemDescription}%0A%0A`;
+        
+        if (specialInstructions) {
+            whatsappMessage += `*📝 SPECIAL INSTRUCTIONS*%0A`;
+            whatsappMessage += `${specialInstructions}%0A%0A`;
+        }
+        
+        whatsappMessage += `_Please confirm pickup time and provide ETA_%0A`;
+        whatsappMessage += `_Customer will track delivery via this WhatsApp conversation_`;
+        
+        // Open WhatsApp with the selected assistant
+        const assistantPhone = selectedAssistant.phone.replace(/\D/g, '');
+        const whatsappUrl = `https://wa.me/${assistantPhone}?text=${whatsappMessage}`;
+        window.open(whatsappUrl, '_blank');
+        
+        // Also send a copy to support for backup
+        let supportMessage = `*BACKUP: PICKUP REQUEST - ${selectedAssistant.name}*%0A%0A${whatsappMessage}`;
+        const supportWhatsappUrl = `https://wa.me/${SUPPORT_WHATSAPP}?text=${supportMessage}`;
+        window.open(supportWhatsappUrl, '_blank');
+        
+        // Save to local history
+        saveToDeliveryHistory(
+            trackingNumber,
+            customerName,
+            customerPhone,
+            pickupLocation,
+            deliveryLocation,
+            packageType,
+            packageSize,
+            itemDescription,
+            specialInstructions,
+            selectedAssistant.name,
+            selectedAssistant.phone
+        );
+        
+        // Close confirmation modal
+        closeConfirmationModal();
+        
+        // Reset form
+        resetRequestForm();
+        
+        // Show success notification
+        showNotification(`Pickup request sent to ${selectedAssistant.name}! Save their number for tracking.`);
+        
+        // Reload history
+        setTimeout(() => {
+            loadUserDeliveryHistory();
+            scrollToSection('history');
+        }, 1000);
+    }
+    
+    function saveToDeliveryHistory(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions, assistantName, assistantPhone) {
+        const deliveryRecord = {
+            trackingNumber,
+            customerName,
+            customerPhone,
+            pickupLocation,
+            deliveryLocation,
+            packageType,
+            packageSize,
+            itemDescription,
+            specialInstructions,
+            assistantName,
+            assistantPhone,
+            status: 'pending',
+            requestDate: new Date().toISOString(),
+            googleUserId: userProfile.googleId
+        };
+        
+        // Add to local history
+        userDeliveryHistory.unshift(deliveryRecord);
+        localStorage.setItem('dsog_delivery_history', JSON.stringify(userDeliveryHistory));
+        
+        // Also try to save to backend
+        saveToBackend(deliveryRecord);
+    }
+    
+    async function saveToBackend(deliveryRecord) {
+        try {
+            const response = await fetch(scriptUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'saveDeliveryRequest',
+                    ...deliveryRecord
+                })
+            });
+            
+            if (response.ok) {
+                console.log('✅ Delivery request saved to backend');
+            }
+        } catch (error) {
+            console.error('Error saving to backend:', error);
+        }
+    }
+    
+    function resetRequestForm() {
+        document.getElementById('pickupLocation').value = userProfile.defaultLocation || '';
+        document.getElementById('deliveryLocation').value = '';
+        document.getElementById('packageType').value = '';
+        document.getElementById('packageSize').value = '';
+        document.getElementById('itemDescription').value = '';
+        document.getElementById('specialInstructions').value = '';
+        document.getElementById('charCount').textContent = '0/200';
+        document.getElementById('charCount').style.color = 'var(--gray)';
+        
+        const packageCards = document.querySelectorAll('.package-type-card');
+        packageCards.forEach(card => card.classList.remove('selected'));
+        
+        const assistantCards = document.querySelectorAll('.assistant-option');
+        assistantCards.forEach(card => card.classList.remove('selected'));
+        
+        selectedAssistant = null;
+        document.getElementById('packageDetails').style.display = 'none';
+    }
+    
+    // Initialize Mobile Menu
+    function initMobileMenu() {
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        const closeMenu = document.getElementById('closeMenu');
+        
+        function toggleMobileMenu() {
+            const isOpen = mobileMenu.classList.contains('active');
+            if (!isOpen) {
+                mobileMenu.classList.add('active');
+                menuBackdrop.classList.add('active');
+                hamburgerBtn.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.remove('active');
+                menuBackdrop.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        hamburgerBtn.addEventListener('click', toggleMobileMenu);
+        closeMenu.addEventListener('click', toggleMobileMenu);
+        menuBackdrop.addEventListener('click', toggleMobileMenu);
+        
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+    }
+    
+    window.closeMobileMenu = function() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        
+        mobileMenu.classList.remove('active');
+        menuBackdrop.classList.remove('active');
+        hamburgerBtn.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    };
+    
+    // Setup Navigation
+    function setupNavigation() {
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                navItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        window.scrollToSection = function(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        };
+    }
+    
     // WhatsApp Tracking System
     function openWhatsAppForHelp() {
         const whatsappUrl = `https://wa.me/${SUPPORT_WHATSAPP}?text=Hello%20DSOG%20Delivery,%20I%20need%20help%20with%20tracking%20my%20package.`;
@@ -3060,652 +4148,6 @@
     function viewTrackingHistory() {
         scrollToSection('history');
         loadUserDeliveryHistory();
-    }
-    
-    // Initialize Package Type Selection
-    function initPackageTypeSelection() {
-        const packageCards = document.querySelectorAll('.package-type-card');
-        const packageTypeInput = document.getElementById('packageType');
-        const packageSizeInput = document.getElementById('packageSize');
-        const packageDetails = document.getElementById('packageDetails');
-        
-        packageCards.forEach(card => {
-            card.addEventListener('click', function() {
-                packageCards.forEach(c => c.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedPackageType = this.dataset.type;
-                selectedPackageSize = this.dataset.size;
-                packageTypeInput.value = selectedPackageType;
-                packageSizeInput.value = selectedPackageSize;
-                
-                if (selectedAssistant) {
-                    packageDetails.style.display = 'block';
-                    updatePackageDetails();
-                }
-            });
-        });
-    }
-    
-    function updatePackageDetails() {
-        const detailsGrid = document.getElementById('detailsGrid');
-        const packageType = document.getElementById('packageType').value;
-        const packageSize = document.getElementById('packageSize').value;
-        const itemDescription = document.getElementById('itemDescription').value;
-        
-        if (!packageType || !packageSize || !selectedAssistant) return;
-        
-        const typeDescriptions = {
-            'small': 'Small packages suitable for documents, small electronics, or clothing',
-            'medium': 'Medium packages for books, shoes, or small household items',
-            'large': 'Large packages for bulk items, furniture, or appliances',
-            'fragile': 'Fragile items requiring special handling and care'
-        };
-        
-        detailsGrid.innerHTML = `
-            <div class="detail-item">
-                <div class="detail-label">Package Type</div>
-                <div class="detail-value">${packageType.charAt(0).toUpperCase() + packageType.slice(1)}</div>
-            </div>
-            <div class="detail-item">
-                <div class="detail-label">Package Size</div>
-                <div class="detail-value">${packageSize}</div>
-            </div>
-            <div class="detail-item">
-                <div class="detail-label">Selected Assistant</div>
-                <div class="detail-value">${selectedAssistant.name}</div>
-            </div>
-            <div class="detail-item">
-                <div class="detail-label">Assistant Phone</div>
-                <div class="detail-value">${selectedAssistant.phone}</div>
-            </div>
-            ${itemDescription ? `
-            <div class="detail-item">
-                <div class="detail-label">Item Details</div>
-                <div class="detail-value">${itemDescription.substring(0, 50)}${itemDescription.length > 50 ? '...' : ''}</div>
-            </div>
-            ` : ''}
-        `;
-    }
-    
-    // Initialize Character Counter
-    function initCharCounter() {
-        const textarea = document.getElementById('itemDescription');
-        const charCount = document.getElementById('charCount');
-        
-        textarea.addEventListener('input', function() {
-            const length = this.value.length;
-            charCount.textContent = `${length}/200`;
-            
-            if (length > 200) {
-                charCount.style.color = 'var(--error)';
-            } else if (length > 150) {
-                charCount.style.color = 'var(--warning)';
-            } else {
-                charCount.style.color = 'var(--gray)';
-            }
-            
-            if (selectedAssistant && document.getElementById('packageType').value) {
-                document.getElementById('packageDetails').style.display = 'block';
-                updatePackageDetails();
-            }
-        });
-    }
-    
-    // Confirm Pickup Request
-    function confirmPickupRequest() {
-        if (!userProfile || !userProfile.googleId) {
-            showNotification('Please sign in first', 'error');
-            return;
-        }
-        
-        const customerName = document.getElementById('customerName').value.trim();
-        const customerPhone = document.getElementById('customerPhone').value.trim();
-        const pickupLocation = document.getElementById('pickupLocation').value.trim();
-        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
-        const packageType = document.getElementById('packageType').value;
-        const packageSize = document.getElementById('packageSize').value;
-        const itemDescription = document.getElementById('itemDescription').value.trim();
-        const specialInstructions = document.getElementById('specialInstructions').value.trim();
-        
-        // Validation
-        if (!customerName || !customerPhone || !pickupLocation || !deliveryLocation || !packageType || !packageSize || !itemDescription) {
-            showNotification('Please fill in all required fields', 'error');
-            return;
-        }
-        
-        if (!selectedAssistant) {
-            showNotification('Please select a delivery assistant', 'error');
-            return;
-        }
-        
-        if (itemDescription.length > 200) {
-            showNotification('Item description must be 200 characters or less', 'error');
-            return;
-        }
-        
-        // Generate tracking number
-        const trackingNumber = 'DSOG-' + Date.now().toString().slice(-6);
-        
-        // Build confirmation message
-        const confirmationBody = document.getElementById('confirmationBody');
-        confirmationBody.innerHTML = `
-            <div class="confirmation-details">
-                <h3>Pickup Request Details</h3>
-                <div style="display: grid; gap: 1rem;">
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Customer:</span>
-                        <div style="margin-top: 0.3rem;">${customerName} | ${customerPhone}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Selected Assistant:</span>
-                        <div style="margin-top: 0.3rem;">
-                            ${selectedAssistant.name} (${selectedAssistant.phone})
-                            <div style="font-size: 0.9rem; color: var(--text-secondary);">
-                                <i class="fas fa-info-circle"></i> You will communicate directly with this assistant via WhatsApp
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Pickup:</span>
-                        <div style="margin-top: 0.3rem;">${pickupLocation}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Delivery:</span>
-                        <div style="margin-top: 0.3rem;">${deliveryLocation}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Package:</span>
-                        <div style="margin-top: 0.3rem;">${packageType.charAt(0).toUpperCase() + packageType.slice(1)} - ${packageSize}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Items:</span>
-                        <div style="margin-top: 0.3rem;">${itemDescription}</div>
-                    </div>
-                    ${specialInstructions ? `
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Special Instructions:</span>
-                        <div style="margin-top: 0.3rem;">${specialInstructions}</div>
-                    </div>
-                    ` : ''}
-                </div>
-            </div>
-            
-            <div style="background: rgba(37, 211, 102, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid var(--primary-green);">
-                <div style="font-weight: 600; color: var(--primary-green); margin-bottom: 0.5rem;">
-                    <i class="fab fa-whatsapp"></i> WhatsApp Tracking Enabled
-                </div>
-                <div style="font-size: 0.9rem; color: var(--text-secondary);">
-                    After confirmation, you will be redirected to WhatsApp to message the assistant directly. Save their number for tracking updates.
-                </div>
-            </div>
-            
-            <div class="confirmation-actions">
-                <button class="cancel-btn" onclick="closeConfirmationModal()">Cancel</button>
-                <button class="confirm-btn" onclick="submitPickupRequestViaWhatsApp('${trackingNumber}')">
-                    <i class="fab fa-whatsapp"></i> Open WhatsApp
-                </button>
-            </div>
-        `;
-        
-        openConfirmationModal();
-    }
-    
-    // Submit Pickup Request via WhatsApp (Direct to Assistant)
-    function submitPickupRequestViaWhatsApp(trackingNumber) {
-        if (!userProfile || !userProfile.googleId) {
-            showNotification('Please sign in first', 'error');
-            return;
-        }
-        
-        // Get form values
-        const customerName = document.getElementById('customerName').value.trim();
-        const customerPhone = document.getElementById('customerPhone').value.trim();
-        const pickupLocation = document.getElementById('pickupLocation').value.trim();
-        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
-        const packageType = document.getElementById('packageType').value;
-        const packageSize = document.getElementById('packageSize').value;
-        const itemDescription = document.getElementById('itemDescription').value.trim();
-        const specialInstructions = document.getElementById('specialInstructions').value.trim();
-        
-        // Build WhatsApp message for the assistant
-        let whatsappMessage = `*📦 NEW PICKUP REQUEST - DSOG DELIVERY*%0A%0A`;
-        whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
-        whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A`;
-        whatsappMessage += `*Time:* ${new Date().toLocaleTimeString()}%0A%0A`;
-        
-        whatsappMessage += `*👤 CUSTOMER DETAILS*%0A`;
-        whatsappMessage += `Name: ${customerName}%0A`;
-        whatsappMessage += `Phone: ${customerPhone}%0A`;
-        whatsappMessage += `Email: ${userProfile.email}%0A%0A`;
-        
-        whatsappMessage += `*📍 PICKUP LOCATION*%0A`;
-        whatsappMessage += `${pickupLocation}%0A%0A`;
-        
-        whatsappMessage += `*🎯 DELIVERY DESTINATION*%0A`;
-        whatsappMessage += `${deliveryLocation}%0A%0A`;
-        
-        whatsappMessage += `*📦 PACKAGE DETAILS*%0A`;
-        whatsappMessage += `Type: ${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A`;
-        whatsappMessage += `Size: ${packageSize}%0A`;
-        whatsappMessage += `Items: ${itemDescription}%0A%0A`;
-        
-        if (specialInstructions) {
-            whatsappMessage += `*📝 SPECIAL INSTRUCTIONS*%0A`;
-            whatsappMessage += `${specialInstructions}%0A%0A`;
-        }
-        
-        whatsappMessage += `_Please confirm pickup time and provide ETA_%0A`;
-        whatsappMessage += `_Customer will track delivery via this WhatsApp conversation_`;
-        
-        // Open WhatsApp with the selected assistant
-        const assistantPhone = selectedAssistant.phone.replace(/\D/g, '');
-        const whatsappUrl = `https://wa.me/${assistantPhone}?text=${whatsappMessage}`;
-        window.open(whatsappUrl, '_blank');
-        
-        // Also send a copy to support for backup
-        let supportMessage = `*BACKUP: PICKUP REQUEST - ${selectedAssistant.name}*%0A%0A${whatsappMessage}`;
-        const supportWhatsappUrl = `https://wa.me/${SUPPORT_WHATSAPP}?text=${supportMessage}`;
-        window.open(supportWhatsappUrl, '_blank');
-        
-        // Save to local history
-        saveToDeliveryHistory(
-            trackingNumber,
-            customerName,
-            customerPhone,
-            pickupLocation,
-            deliveryLocation,
-            packageType,
-            packageSize,
-            itemDescription,
-            specialInstructions,
-            selectedAssistant.name,
-            selectedAssistant.phone
-        );
-        
-        // Close confirmation modal
-        closeConfirmationModal();
-        
-        // Reset form
-        resetRequestForm();
-        
-        // Show success notification
-        showNotification(`Pickup request sent to ${selectedAssistant.name}! Save their number for tracking.`);
-        
-        // Reload history
-        setTimeout(() => {
-            loadUserDeliveryHistory();
-            scrollToSection('history');
-        }, 1000);
-    }
-    
-    function saveToDeliveryHistory(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions, assistantName, assistantPhone) {
-        const deliveryRecord = {
-            trackingNumber,
-            customerName,
-            customerPhone,
-            pickupLocation,
-            deliveryLocation,
-            packageType,
-            packageSize,
-            itemDescription,
-            specialInstructions,
-            assistantName,
-            assistantPhone,
-            status: 'pending',
-            requestDate: new Date().toISOString(),
-            googleUserId: userProfile.googleId
-        };
-        
-        // Add to local history
-        userDeliveryHistory.unshift(deliveryRecord);
-        localStorage.setItem('dsog_delivery_history', JSON.stringify(userDeliveryHistory));
-        
-        // Also try to save to backend
-        saveToBackend(deliveryRecord);
-    }
-    
-    async function saveToBackend(deliveryRecord) {
-        try {
-            const response = await fetch(scriptUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: 'saveDeliveryRequest',
-                    ...deliveryRecord
-                })
-            });
-            
-            if (response.ok) {
-                console.log('✅ Delivery request saved to backend');
-            }
-        } catch (error) {
-            console.error('Error saving to backend:', error);
-        }
-    }
-    
-    function resetRequestForm() {
-        document.getElementById('pickupLocation').value = '';
-        document.getElementById('deliveryLocation').value = '';
-        document.getElementById('packageType').value = '';
-        document.getElementById('packageSize').value = '';
-        document.getElementById('itemDescription').value = '';
-        document.getElementById('specialInstructions').value = '';
-        document.getElementById('charCount').textContent = '0/200';
-        document.getElementById('charCount').style.color = 'var(--gray)';
-        
-        const packageCards = document.querySelectorAll('.package-type-card');
-        packageCards.forEach(card => card.classList.remove('selected'));
-        
-        const assistantCards = document.querySelectorAll('.assistant-option');
-        assistantCards.forEach(card => card.classList.remove('selected'));
-        
-        selectedAssistant = null;
-        document.getElementById('packageDetails').style.display = 'none';
-        
-        if (userProfile && userProfile.defaultLocation) {
-            document.getElementById('pickupLocation').value = userProfile.defaultLocation;
-        }
-    }
-    
-    // Initialize Confirmation Modal
-    function initConfirmationModal() {
-        const confirmationModal = document.getElementById('confirmationModal');
-        const confirmationClose = document.getElementById('confirmationClose');
-        
-        confirmationClose.addEventListener('click', closeConfirmationModal);
-        
-        confirmationModal.addEventListener('click', function(e) {
-            if (e.target === confirmationModal) {
-                closeConfirmationModal();
-            }
-        });
-        
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && confirmationModal.classList.contains('active')) {
-                closeConfirmationModal();
-            }
-        });
-    }
-    
-    function openConfirmationModal() {
-        const confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeConfirmationModal() {
-        const confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-    
-    // User Profile Functions
-    function askForDefaultLocation() {
-        if (!userProfile || !userProfile.googleId) return;
-        
-        const location = prompt(
-            'Please enter your default pickup location/address:',
-            userProfile.defaultLocation || ''
-        );
-        
-        if (location !== null) {
-            userProfile.defaultLocation = location.trim();
-            userProfile.locationUpdated = true;
-            localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
-            autoFillRequestForm();
-            showNotification('Default location saved successfully!');
-        }
-    }
-    
-    function editUserLocation() {
-        if (!userProfile || !userProfile.googleId) return;
-        
-        const location = prompt(
-            'Update your default pickup location/address:',
-            userProfile.defaultLocation || ''
-        );
-        
-        if (location !== null) {
-            userProfile.defaultLocation = location.trim();
-            userProfile.locationUpdated = true;
-            localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
-            autoFillRequestForm();
-            updateUserProfileUI();
-            showNotification('Location updated successfully!');
-        }
-        closeProfileModal();
-    }
-    
-    function autoFillRequestForm() {
-        if (userProfile) {
-            const nameField = document.getElementById('customerName');
-            const phoneField = document.getElementById('customerPhone');
-            const pickupField = document.getElementById('pickupLocation');
-            
-            if (nameField && userProfile.name) {
-                nameField.value = userProfile.name;
-                showAutoFillBadge('nameBadge');
-            }
-            
-            if (phoneField && userProfile.phone) {
-                phoneField.value = userProfile.phone;
-                showAutoFillBadge('phoneBadge');
-            }
-            
-            if (pickupField && userProfile.defaultLocation) {
-                pickupField.value = userProfile.defaultLocation;
-            }
-        }
-    }
-    
-    function showAutoFillBadge(badgeId) {
-        const badge = document.getElementById(badgeId);
-        if (badge) {
-            badge.style.display = 'block';
-            setTimeout(() => {
-                badge.style.display = 'none';
-            }, 3000);
-        }
-    }
-    
-    function updateUserProfileUI() {
-        if (userProfile) {
-            const userAvatar = document.getElementById('userAvatar');
-            const userNameDisplay = document.getElementById('userNameDisplay');
-            const profileAvatar = document.getElementById('profileAvatar');
-            const profileName = document.getElementById('profileName');
-            const profileInfo = document.getElementById('profileInfo');
-            
-            if (userProfile.picture) {
-                if (userAvatar) {
-                    userAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
-                }
-                if (profileAvatar) {
-                    profileAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
-                }
-            } else {
-                const initials = userProfile.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-                
-                if (userAvatar) {
-                    userAvatar.textContent = initials;
-                    userAvatar.style.background = 'linear-gradient(135deg, var(--primary-green), var(--primary-gold))';
-                }
-                
-                if (profileAvatar) {
-                    profileAvatar.textContent = initials;
-                    profileAvatar.style.background = 'linear-gradient(135deg, var(--primary-green), var(--primary-gold))';
-                }
-            }
-            
-            if (userNameDisplay) {
-                userNameDisplay.textContent = userProfile.givenName || userProfile.name.split(' ')[0];
-            }
-            
-            if (profileName) {
-                profileName.textContent = userProfile.name;
-            }
-            
-            if (profileInfo) {
-                profileInfo.innerHTML = `
-                    <div style="margin-bottom: 1rem;">
-                        <span style="font-weight: 600; color: var(--text-secondary);">Full Name:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.name}</div>
-                    </div>
-                    <div style="margin-bottom: 1rem;">
-                        <span style="font-weight: 600; color: var(--text-secondary);">Email:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.email}</div>
-                    </div>
-                    ${userProfile.phone ? `
-                    <div style="margin-bottom: 1rem;">
-                        <span style="font-weight: 600; color: var(--text-secondary);">Phone:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.phone}</div>
-                    </div>
-                    ` : ''}
-                    <div style="margin-bottom: 1rem;">
-                        <span style="font-weight: 600; color: var(--text-secondary);">Default Location:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.defaultLocation || 'Not set'}</div>
-                    </div>
-                    <div style="margin-bottom: 1rem;">
-                        <span style="font-weight: 600; color: var(--text-secondary);">Account Created:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 500;">${new Date(userProfile.createdAt).toLocaleDateString()}</div>
-                    </div>
-                    <div style="margin-bottom: 1rem;">
-                        <span style="font-weight: 600; color: var(--text-secondary);">Last Login:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 500;">${new Date(userProfile.lastLogin).toLocaleDateString()}</div>
-                    </div>
-                `;
-            }
-        }
-    }
-    
-    function initProfileModal() {
-        const profileModal = document.getElementById('userProfileModal');
-        const profileClose = document.getElementById('profileClose');
-        
-        profileClose.addEventListener('click', closeProfileModal);
-        
-        profileModal.addEventListener('click', function(e) {
-            if (e.target === profileModal) {
-                closeProfileModal();
-            }
-        });
-        
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && profileModal.classList.contains('active')) {
-                closeProfileModal();
-            }
-        });
-    }
-    
-    function openProfileModal() {
-        if (!userProfile || !userProfile.googleId) {
-            showNotification('Please sign in first', 'error');
-            return;
-        }
-        
-        const profileModal = document.getElementById('userProfileModal');
-        updateUserProfileUI();
-        profileModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeProfileModal() {
-        const profileModal = document.getElementById('userProfileModal');
-        profileModal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-    
-    function signOut() {
-        if (confirm('Are you sure you want to sign out?')) {
-            userProfile = null;
-            googleUser = null;
-            googleToken = null;
-            localStorage.removeItem('dsog_delivery_profile');
-            
-            const mainContent = document.getElementById('mainContent');
-            const bottomNav = document.querySelector('.bottom-nav');
-            const userProfileHeader = document.getElementById('userProfileHeader');
-            const header = document.querySelector('header');
-            
-            mainContent.style.display = 'none';
-            bottomNav.style.display = 'none';
-            userProfileHeader.style.display = 'none';
-            header.style.display = 'none';
-            
-            showGoogleSignInModal();
-            showNotification('Signed out successfully');
-        }
-    }
-    
-    // Initialize Mobile Menu
-    function initMobileMenu() {
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuBackdrop = document.getElementById('menuBackdrop');
-        const closeMenu = document.getElementById('closeMenu');
-        
-        function toggleMobileMenu() {
-            const isOpen = mobileMenu.classList.contains('active');
-            if (!isOpen) {
-                mobileMenu.classList.add('active');
-                menuBackdrop.classList.add('active');
-                hamburgerBtn.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            } else {
-                mobileMenu.classList.remove('active');
-                menuBackdrop.classList.remove('active');
-                hamburgerBtn.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-        
-        hamburgerBtn.addEventListener('click', toggleMobileMenu);
-        closeMenu.addEventListener('click', toggleMobileMenu);
-        menuBackdrop.addEventListener('click', toggleMobileMenu);
-        
-        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMobileMenu);
-        });
-    }
-    
-    window.closeMobileMenu = function() {
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuBackdrop = document.getElementById('menuBackdrop');
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        
-        mobileMenu.classList.remove('active');
-        menuBackdrop.classList.remove('active');
-        hamburgerBtn.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    };
-    
-    // Setup Navigation
-    function setupNavigation() {
-        const navItems = document.querySelectorAll('.nav-item');
-        
-        navItems.forEach(item => {
-            item.addEventListener('click', function() {
-                navItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        
-        window.scrollToSection = function(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        };
     }
     
     // PWA Installation
@@ -3862,6 +4304,133 @@
                 notification.remove();
             }
         }, 3000);
+    }
+    
+    // Fallback for loading all assistants when location fails
+    function loadAllDeliveryAssistants() {
+        const allAssistants = [
+            {
+                id: 'DA001',
+                name: 'John Kamau',
+                phone: '+254712345678',
+                vehicle: 'Toyota Probox - KDA 123A',
+                status: 'available',
+                currentCapacity: 3,
+                maxCapacity: 10,
+                rating: 4.8,
+                completedDeliveries: 120,
+                location: 'Nairobi CBD',
+                zones: ['Nairobi CBD', 'Upper Hill', 'Westlands'],
+                latitude: -1.286389,
+                longitude: 36.817223,
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Reliable and punctual'
+            },
+            {
+                id: 'DA002',
+                name: 'Susan Wanjiku',
+                phone: '+254723456789',
+                vehicle: 'Suzuki Every - KCB 456B',
+                status: 'available',
+                currentCapacity: 5,
+                maxCapacity: 8,
+                rating: 4.9,
+                completedDeliveries: 95,
+                location: 'Westlands',
+                zones: ['Westlands', 'Parklands', 'Lavington'],
+                latitude: -1.2684,
+                longitude: 36.8065,
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Excellent customer service'
+            },
+            {
+                id: 'DA003',
+                name: 'Peter Odhiambo',
+                phone: '+254734567890',
+                vehicle: 'Nissan NV350 - KDC 789C',
+                status: 'busy',
+                currentCapacity: 8,
+                maxCapacity: 12,
+                rating: 4.7,
+                completedDeliveries: 150,
+                location: 'Industrial Area',
+                zones: ['Industrial Area', 'South B', 'South C'],
+                latitude: -1.3200,
+                longitude: 36.8900,
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Handles large orders efficiently'
+            }
+        ];
+        
+        deliveryAssistants = allAssistants.filter(assistant => 
+            assistant.isActive !== false && 
+            assistant.status !== 'offline'
+        );
+        
+        displayAllAssistants(deliveryAssistants);
+    }
+    
+    function displayAllAssistants(assistants) {
+        const optionsElement = document.getElementById('assistantOptions');
+        optionsElement.innerHTML = '';
+        
+        assistants.forEach(assistant => {
+            const capacityPercentage = (assistant.currentCapacity / assistant.maxCapacity) * 100;
+            const capacityColor = capacityPercentage > 80 ? 'var(--error)' : 
+                                 capacityPercentage > 60 ? 'var(--warning)' : 
+                                 'var(--success)';
+            
+            const card = document.createElement('div');
+            card.className = 'assistant-option';
+            card.dataset.assistantId = assistant.id;
+            
+            card.innerHTML = `
+                <div class="assistant-badge ${assistant.status === 'available' ? 'badge-available' : 'badge-busy'}">
+                    ${assistant.status === 'available' ? 'Available' : 'Busy'}
+                </div>
+                
+                <h4 class="assistant-name">${assistant.name}</h4>
+                <div class="assistant-details">
+                    <div class="assistant-detail">
+                        <i class="fas fa-phone"></i>
+                        <span>${assistant.phone}</span>
+                    </div>
+                    <div class="assistant-detail">
+                        <i class="fas fa-car"></i>
+                        <span>${assistant.vehicle}</span>
+                    </div>
+                    <div class="assistant-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${assistant.location}</span>
+                    </div>
+                    <div class="assistant-detail">
+                        <div class="assistant-rating">
+                            <i class="fas fa-star"></i>
+                            <span>${assistant.rating} (${assistant.completedDeliveries} deliveries)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Current Load:</span>
+                        <span style="font-size: 0.85rem;">${assistant.currentCapacity}/${assistant.maxCapacity}</span>
+                    </div>
+                    <div style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
+                        <div style="height: 100%; width: ${capacityPercentage}%; background: ${capacityColor}; border-radius: 3px;"></div>
+                    </div>
+                </div>
+            `;
+            
+            card.addEventListener('click', function() {
+                selectAssistant(assistant);
+            });
+            
+            optionsElement.appendChild(card);
+        });
     }
     </script>
 </body>
