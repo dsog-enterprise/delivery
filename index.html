@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=1.0, user-scalable=no">
     
     <!-- App Version -->
-    <meta name="app-version" content="1.0.0">
+    <meta name="app-version" content="2.0.0">
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#25D366">
@@ -17,13 +17,13 @@
     <meta name="msapplication-TileColor" content="#25D366">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="DSOG Delivery | Pickup Request Platform">
-    <meta property="og:description" content="Professional delivery service for DSOG customers">
+    <meta property="og:title" content="DSOG Delivery | WhatsApp Pickup Platform">
+    <meta property="og:description" content="Professional delivery service with WhatsApp tracking">
     <meta property="og:image" content="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png">
     <meta property="og:url" content="https://dsogstores.com/delivery">
     <meta property="og:type" content="website">
     
-    <title>DSOG DELIVERY | Pickup Request Platform</title>
+    <title>DSOG DELIVERY | WhatsApp Pickup Platform</title>
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/delivery-manifest.json" crossorigin="use-credentials">
@@ -39,6 +39,9 @@
     
     <!-- Google Sign-in SDK -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-YeKzSqilwE0eAYQnYfK7H-kc0GjJiX4&libraries=places&callback=initMap" async defer></script>
     
     <!-- DELIVERY PLATFORM STYLES -->
     <style>
@@ -1095,6 +1098,42 @@
             border-radius: 10px;
         }
         
+        /* LOCATION DETECTION */
+        .location-detection {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(37, 211, 102, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(37, 211, 102, 0.2);
+        }
+        
+        .location-info {
+            flex: 1;
+        }
+        
+        .detect-location-btn {
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .detect-location-btn:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
         /* PACKAGE TYPE SELECTION */
         .package-type-selection {
             display: grid;
@@ -1146,6 +1185,165 @@
         .package-size {
             font-size: 0.85rem;
             color: var(--gray);
+        }
+        
+        /* ASSISTANT SELECTION */
+        .assistant-selection {
+            margin: 1.5rem 0;
+        }
+        
+        .assistant-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .assistant-option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .assistant-option:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .assistant-option.selected {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.05));
+            border-color: var(--primary-green);
+        }
+        
+        .assistant-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .badge-available {
+            background: var(--success);
+            color: var(--white);
+        }
+        
+        .badge-busy {
+            background: var(--warning);
+            color: var(--white);
+        }
+        
+        .assistant-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .assistant-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .assistant-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .assistant-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--primary-gold);
+        }
+        
+        .distance-indicator {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+        
+        /* WHATSAPP TRACKING */
+        .whatsapp-tracking {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .whatsapp-tracking h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .tracking-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .tracking-instructions ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tracking-instructions li {
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .whatsapp-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .whatsapp-btn {
+            background: var(--white);
+            color: var(--primary-green);
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            font-size: 1rem;
+        }
+        
+        .whatsapp-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+        
+        .whatsapp-btn-primary {
+            background: var(--primary-black);
+            color: var(--white);
+        }
+        
+        .whatsapp-btn-primary:hover {
+            background: var(--secondary-black);
         }
         
         /* PACKAGE DETAILS SECTION */
@@ -1218,8 +1416,8 @@
             transform: none;
         }
         
-        /* TRACKING SECTION */
-        .tracking-section {
+        /* TRACKING HISTORY */
+        .tracking-history {
             background: var(--white);
             padding: 2rem;
             border-radius: 12px;
@@ -1228,32 +1426,70 @@
             border: 2px solid var(--info);
         }
         
-        .tracking-input-group {
+        .history-list {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
         
-        .tracking-input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--border-color);
+        .history-item {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
             border-radius: 8px;
-            font-size: 1rem;
+            border-left: 4px solid var(--info);
+            transition: var(--transition);
+        }
+        
+        .history-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .tracking-number {
+            font-weight: 700;
+            color: var(--info);
+            font-size: 1.1rem;
+        }
+        
+        .tracking-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .history-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .history-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
         }
         
         .track-btn {
             background: var(--info);
             color: var(--white);
             border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 0.9rem;
         }
         
         .track-btn:hover {
@@ -1261,175 +1497,36 @@
             transform: translateY(-2px);
         }
         
-        .tracking-result {
-            background: var(--bg-secondary);
-            padding: 1.5rem;
-            border-radius: 8px;
-            display: none;
-        }
-        
-        .tracking-result.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* DELIVERY ASSISTANTS SECTION */
-        .assistants-section {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 3rem;
-            border: 2px solid var(--primary-gold);
-        }
-        
-        .assistants-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .assistant-card {
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-        }
-        
-        .assistant-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-green);
-        }
-        
-        .assistant-header {
-            background: linear-gradient(135deg, var(--primary-black), var(--secondary-black));
-            color: var(--white);
-            padding: 1.5rem;
-            position: relative;
-        }
-        
-        .assistant-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-green), var(--primary-gold));
-        }
-        
-        .assistant-status {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
+        .status-badge {
             padding: 0.4rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         
-        .status-available {
-            background: var(--success);
-            color: var(--white);
+        .status-pending {
+            background: rgba(255, 165, 0, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 165, 0, 0.3);
         }
         
-        .status-busy {
-            background: var(--warning);
-            color: var(--white);
+        .status-assigned {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--info);
+            border: 1px solid rgba(66, 133, 244, 0.3);
         }
         
-        .assistant-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--white);
+        .status-picked {
+            background: rgba(37, 211, 102, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(37, 211, 102, 0.3);
         }
         
-        .assistant-id {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 0.5rem;
-        }
-        
-        .assistant-vehicle {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .assistant-body {
-            padding: 1.5rem;
-        }
-        
-        .assistant-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .assistant-actions {
-            display: flex;
-            gap: 0.8rem;
-        }
-        
-        .assign-btn {
-            flex: 1;
-            background: var(--primary-green);
-            color: var(--white);
-            border: none;
-            padding: 0.8rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .assign-btn:hover:not(:disabled) {
-            background: var(--secondary-green);
-            transform: translateY(-2px);
-        }
-        
-        .assign-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .whatsapp-btn {
-            width: 45px;
-            height: 45px;
-            background: var(--whatsapp-green);
-            color: var(--white);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            font-size: 1.2rem;
-        }
-        
-        .whatsapp-btn:hover {
-            background: var(--whatsapp-dark);
-            transform: scale(1.1);
+        .status-delivered {
+            background: rgba(0, 128, 0, 0.1);
+            color: var(--dark-green);
+            border: 1px solid rgba(0, 128, 0, 0.3);
         }
         
         /* MODAL STYLES */
@@ -1708,6 +1805,21 @@
             opacity: 0.8;
         }
         
+        /* No Assistants Message */
+        .no-assistants {
+            text-align: center;
+            padding: 3rem;
+            background: var(--white);
+            border-radius: 12px;
+            border: 2px dashed var(--border-color);
+        }
+        
+        .no-assistants i {
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .hamburger {
@@ -1730,7 +1842,11 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .assistants-grid {
+            .assistant-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .whatsapp-buttons {
                 grid-template-columns: 1fr;
             }
             
@@ -1754,6 +1870,10 @@
             .signin-title {
                 font-size: 1.5rem;
             }
+            
+            .history-actions {
+                flex-direction: column;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1765,12 +1885,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .tracking-input-group {
-                flex-direction: column;
-            }
-            
-            .track-btn {
-                width: 100%;
+            .history-details {
+                grid-template-columns: 1fr;
             }
             
             .nav-item {
@@ -1802,23 +1918,23 @@
                 <div class="signin-logo-container">
                     <img src="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png" alt="DSOG Delivery" class="signin-logo">
                     <h1 class="signin-brand-title">DSOG DELIVERY</h1>
-                    <p class="signin-brand-subtitle">Professional Pickup Request Platform</p>
+                    <p class="signin-brand-subtitle">WhatsApp-Based Delivery Platform</p>
                 </div>
                 
                 <div class="signin-divider"></div>
                 
                 <ul class="signin-features">
-                    <li>Single WhatsApp number pickup requests</li>
+                    <li>Direct WhatsApp communication with assistants</li>
+                    <li>Location-based assistant matching</li>
+                    <li>Real-time WhatsApp tracking</li>
                     <li>Package size & type confirmation</li>
-                    <li>Real-time delivery tracking</li>
-                    <li>Automated assistant assignment</li>
                     <li>Secure customer data protection</li>
                 </ul>
                 
                 <div style="margin-top: auto; text-align: center; width: 100%;">
                     <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-top: 2rem;">
                         <i class="fas fa-lock" style="margin-right: 0.5rem;"></i>
-                        Enterprise-grade security
+                        WhatsApp-powered tracking
                     </p>
                 </div>
             </div>
@@ -1828,8 +1944,8 @@
                 <div class="signin-header">
                     <h2 class="signin-title">Welcome to DSOG Delivery Platform</h2>
                     <p class="signin-subtitle">
-                        Sign in with your Google account to request pickups and track deliveries.
-                        Your information is securely authenticated and used solely for delivery operations.
+                        Sign in with your Google account to request pickups and track deliveries via WhatsApp.
+                        Your information is securely authenticated for delivery operations.
                     </p>
                 </div>
                 
@@ -1838,9 +1954,9 @@
                         <h3><i class="fas fa-shield-alt"></i> Platform Requirements</h3>
                         <ul class="requirements-list">
                             <li>Valid Google account for authentication</li>
-                            <li>Customer contact information required</li>
+                            <li>WhatsApp installed on your device</li>
+                            <li>Location services enabled</li>
                             <li>Package details must be accurate</li>
-                            <li>Secure HTTPS connection enforced</li>
                             <li>Delivery-specific use only</li>
                         </ul>
                     </div>
@@ -1881,10 +1997,10 @@
                 <div class="signin-footer">
                     <p>
                         <i class="fas fa-copyright"></i> 2024 DSOG Delivery System. 
-                        <span style="color: var(--primary-green); font-weight: 600;">Authorized Use Only</span>
+                        <span style="color: var(--primary-green); font-weight: 600;">WhatsApp Tracking Enabled</span>
                     </p>
                     <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">
-                        Version 1.0.0 • Delivery Edition
+                        Version 2.0.0 • WhatsApp Edition
                     </p>
                 </div>
             </div>
@@ -1948,7 +2064,7 @@
             </div>
             <div>
                 <div class="pwa-install-title">Install DSOG Delivery App</div>
-                <div class="pwa-install-subtitle">Professional delivery management on your device</div>
+                <div class="pwa-install-subtitle">WhatsApp-powered delivery management</div>
             </div>
         </div>
         <div class="pwa-install-buttons">
@@ -1987,7 +2103,7 @@
             <nav class="nav-links">
                 <a href="#request" class="active">Request Pickup</a>
                 <a href="#tracking">Track Delivery</a>
-                <a href="#assistants">Delivery Assistants</a>
+                <a href="#history">My Requests</a>
                 <a href="#" class="install-app-btn" id="installAppBtn">
                     <i class="fas fa-download"></i>
                     <span>Install App</span>
@@ -2011,7 +2127,7 @@
         <nav class="mobile-nav-links">
             <a href="#request" onclick="closeMobileMenu()">Request Pickup</a>
             <a href="#tracking" onclick="closeMobileMenu()">Track Delivery</a>
-            <a href="#assistants" onclick="closeMobileMenu()">Delivery Assistants</a>
+            <a href="#history" onclick="closeMobileMenu()">My Requests</a>
             <a href="#" onclick="openProfileModal(); closeMobileMenu();">
                 <i class="fas fa-user"></i> My Profile
             </a>
@@ -2032,7 +2148,20 @@
         <section class="section" id="request">
             <div class="section-title">
                 <h2>Request Package Pickup</h2>
-                <p>Fill in package details for pickup by DSOG Delivery</p>
+                <p>Fill in package details and select a delivery assistant in your area</p>
+            </div>
+            
+            <!-- Location Detection -->
+            <div class="location-detection" id="locationDetection">
+                <div class="location-info">
+                    <h4 style="margin-bottom: 0.3rem; color: var(--primary-green);">
+                        <i class="fas fa-map-marker-alt"></i> Your Location
+                    </h4>
+                    <p id="currentLocationText">Detecting your location...</p>
+                </div>
+                <button class="detect-location-btn" onclick="detectUserLocation()">
+                    <i class="fas fa-sync-alt"></i> Detect Location
+                </button>
             </div>
             
             <div class="request-form">
@@ -2110,6 +2239,32 @@
                     <textarea id="specialInstructions" class="form-control" rows="2" placeholder="Any special handling requirements or delivery instructions"></textarea>
                 </div>
                 
+                <!-- Assistant Selection -->
+                <div class="assistant-selection" id="assistantSelection">
+                    <h3>Select Delivery Assistant *</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> Only showing assistants available in your area
+                    </p>
+                    
+                    <div class="loading" id="assistantsLoading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading assistants in your area...</p>
+                    </div>
+                    
+                    <div class="assistant-options" id="assistantOptions">
+                        <!-- Assistants will be loaded here -->
+                    </div>
+                    
+                    <div class="no-assistants" id="noAssistants" style="display: none;">
+                        <i class="fas fa-users-slash"></i>
+                        <h4>No Assistants Available</h4>
+                        <p>There are currently no delivery assistants available in your area.</p>
+                        <button class="track-btn" onclick="detectUserLocation()" style="margin-top: 1rem;">
+                            <i class="fas fa-sync-alt"></i> Refresh Location
+                        </button>
+                    </div>
+                </div>
+                
                 <!-- Package Details Summary -->
                 <div class="package-details" id="packageDetails" style="display: none;">
                     <h3>Package Details Summary</h3>
@@ -2124,42 +2279,62 @@
             </div>
         </section>
         
-        <!-- Track Delivery Section -->
+        <!-- WhatsApp Tracking Section -->
         <section class="section" id="tracking">
             <div class="section-title">
-                <h2>Track Your Delivery</h2>
-                <p>Enter your tracking number to check delivery status</p>
+                <h2>Track Your Delivery via WhatsApp</h2>
+                <p>Use WhatsApp to track your delivery in real-time</p>
             </div>
             
-            <div class="tracking-section">
-                <div class="tracking-input-group">
-                    <input type="text" id="trackingNumber" class="tracking-input" placeholder="Enter your tracking number (e.g., DSOG-XXXXXX)">
-                    <button class="track-btn" onclick="trackDelivery()">
-                        <i class="fas fa-search"></i> Track
-                    </button>
+            <div class="whatsapp-tracking">
+                <h3><i class="fab fa-whatsapp"></i> WhatsApp Tracking System</h3>
+                <p>Track your delivery directly through WhatsApp with the assistant assigned to your package.</p>
+                
+                <div class="tracking-instructions">
+                    <h4>How WhatsApp Tracking Works:</h4>
+                    <ol>
+                        <li>After submitting your request, you'll receive the assistant's WhatsApp number</li>
+                        <li>Save the assistant's number in your contacts</li>
+                        <li>Message the assistant directly for updates</li>
+                        <li>Receive real-time status updates via WhatsApp</li>
+                        <li>Get notified when package is picked up and delivered</li>
+                    </ol>
+                    
+                    <p><strong>Tracking Number Format:</strong> DSOG-XXXXXX (6 digits)</p>
                 </div>
                 
-                <div class="tracking-result" id="trackingResult">
-                    <!-- Tracking result will be displayed here -->
+                <div class="whatsapp-buttons">
+                    <button class="whatsapp-btn" onclick="openWhatsAppForHelp()">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Support
+                    </button>
+                    <button class="whatsapp-btn whatsapp-btn-primary" onclick="viewTrackingHistory()">
+                        <i class="fas fa-history"></i> View My Requests
+                    </button>
                 </div>
             </div>
         </section>
         
-        <!-- Delivery Assistants Section -->
-        <section class="section" id="assistants">
+        <!-- Tracking History Section -->
+        <section class="section" id="history">
             <div class="section-title">
-                <h2>Available Delivery Assistants</h2>
-                <p>View and assign packages to delivery assistants</p>
+                <h2>My Delivery Requests</h2>
+                <p>View and track your previous delivery requests</p>
             </div>
             
-            <div class="assistants-section">
-                <div class="loading" id="assistantsLoading">
+            <div class="tracking-history">
+                <div class="loading" id="historyLoading">
                     <div class="loading-spinner"></div>
-                    <p>Loading delivery assistants...</p>
+                    <p>Loading your delivery history...</p>
                 </div>
                 
-                <div class="assistants-grid" id="assistantsGrid">
-                    <!-- Delivery assistants will be loaded here -->
+                <div class="history-list" id="historyList">
+                    <!-- History items will be loaded here -->
+                </div>
+                
+                <div class="no-assistants" id="noHistory" style="display: none;">
+                    <i class="fas fa-box-open"></i>
+                    <h4>No Delivery Requests Yet</h4>
+                    <p>You haven't made any delivery requests yet. Start by requesting a pickup above.</p>
                 </div>
             </div>
         </section>
@@ -2173,12 +2348,12 @@
                 <span class="nav-label">Request</span>
             </button>
             <button class="nav-item" onclick="scrollToSection('tracking')">
-                <i class="fas fa-map-marker-alt nav-icon"></i>
+                <i class="fab fa-whatsapp nav-icon"></i>
                 <span class="nav-label">Track</span>
             </button>
-            <button class="nav-item" onclick="scrollToSection('assistants')">
-                <i class="fas fa-users nav-icon"></i>
-                <span class="nav-label">Assistants</span>
+            <button class="nav-item" onclick="scrollToSection('history')">
+                <i class="fas fa-history nav-icon"></i>
+                <span class="nav-label">History</span>
             </button>
             <button class="nav-item" onclick="openProfileModal()">
                 <i class="fas fa-user nav-icon"></i>
@@ -2191,7 +2366,7 @@
     <script>
     // Configuration
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbzmBoCu_jXpp8oKpNAnX7Ly-bqvfdfhgiHge74ZW0oYae0wUlZERDERJYB-ZC76J9kQYQ/exec';
-    const DELIVERY_OWNER_WHATSAPP = '254733737983'; // Single WhatsApp number for business owner
+    const SUPPORT_WHATSAPP = '254733737983';
     const GOOGLE_CLIENT_ID = '369304497158-8ub6b68v2bjvsfciome6q56flh2rd1m4.apps.googleusercontent.com';
     
     // State management
@@ -2200,7 +2375,10 @@
     let googleToken = null;
     let selectedPackageType = null;
     let selectedPackageSize = null;
+    let selectedAssistant = null;
+    let userLocation = null;
     let deliveryAssistants = [];
+    let userDeliveryHistory = [];
     
     // PWA variables
     let deferredPrompt = null;
@@ -2209,7 +2387,7 @@
     
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 DSOG Delivery Platform v1.0.0');
+        console.log('🚀 DSOG Delivery Platform v2.0.0 - WhatsApp Tracking');
         
         // Initialize components
         initMobileMenu();
@@ -2228,14 +2406,11 @@
     
     // Google Sign-in Functions
     function initializeGoogleSignIn() {
-        // Check if Google SDK is loaded
         if (typeof google === 'undefined') {
-            console.error('Google Sign-in SDK not loaded');
             setTimeout(initializeGoogleSignIn, 1000);
             return;
         }
         
-        // Initialize Google Sign-in
         google.accounts.id.initialize({
             client_id: GOOGLE_CLIENT_ID,
             callback: handleGoogleSignIn,
@@ -2247,7 +2422,6 @@
             prompt_parent_id: 'googleSignInButton'
         });
         
-        // Also initialize for overlay button
         google.accounts.id.initialize({
             client_id: GOOGLE_CLIENT_ID,
             callback: handleGoogleSignIn,
@@ -2257,7 +2431,6 @@
             ux_mode: 'popup'
         });
         
-        // Render the hidden Google button
         google.accounts.id.renderButton(
             document.getElementById('googleSignInButton'),
             {
@@ -2271,7 +2444,6 @@
             }
         );
         
-        // Also render button for overlay
         google.accounts.id.renderButton(
             document.getElementById('overlayGoogleSignIn'),
             {
@@ -2285,7 +2457,6 @@
             }
         );
         
-        // Show sign-in modal if user is not signed in
         if (!userProfile || !userProfile.googleId) {
             setTimeout(() => {
                 showGoogleSignInModal();
@@ -2294,53 +2465,37 @@
     }
     
     function triggerGoogleSignIn() {
-        // Trigger the hidden Google Sign-in button
         const googleButton = document.querySelector('#googleSignInButton div[role="button"]');
         if (googleButton) {
             googleButton.click();
         } else {
-            // Fallback: show error and reload
             console.error('Google Sign-in button not found');
             showNotification('Unable to initiate Google Sign-in. Please refresh the page.', 'error');
         }
     }
     
     function checkGoogleSignIn() {
-        // Check if user is already signed in via localStorage
         if (userProfile && userProfile.googleId) {
-            // User is signed in, show content
             showMainContent();
-            
-            // Update UI
             updateUserProfileUI();
-            
-            // Auto-fill form
             autoFillRequestForm();
-            
-            // Set up navigation
             setupNavigation();
-            
-            // Load delivery assistants
-            loadDeliveryAssistants();
-            
+            detectUserLocation();
+            loadUserDeliveryHistory();
             return true;
         }
-        
         return false;
     }
     
     function handleGoogleSignIn(response) {
         console.log('Google Sign-in response received');
         
-        // Decode the JWT token
         const responsePayload = decodeJWTResponse(response.credential);
         
         if (responsePayload) {
-            // Save user data
             googleUser = responsePayload;
             googleToken = response.credential;
             
-            // Create or update user profile
             userProfile = {
                 googleId: googleUser.sub,
                 email: googleUser.email,
@@ -2349,38 +2504,23 @@
                 familyName: googleUser.family_name,
                 picture: googleUser.picture,
                 emailVerified: googleUser.email_verified,
-                phone: '', // Google doesn't provide phone by default
-                defaultLocation: '', // Will be asked separately
+                phone: '',
+                defaultLocation: '',
                 locationUpdated: false,
                 createdAt: new Date().toISOString(),
                 lastLogin: new Date().toISOString()
             };
             
-            // Save to localStorage
             localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
-            
-            // Hide sign-in modal
             hideGoogleSignInModal();
-            
-            // Show success notification
             showNotification(`Welcome ${googleUser.name}!`, 'success');
-            
-            // Update UI
             updateUserProfileUI();
-            
-            // Show main content
             showMainContent();
-            
-            // Auto-fill form
             autoFillRequestForm();
-            
-            // Set up navigation
             setupNavigation();
+            detectUserLocation();
+            loadUserDeliveryHistory();
             
-            // Load delivery assistants
-            loadDeliveryAssistants();
-            
-            // Ask for default location if not already set
             if (!userProfile.defaultLocation || !userProfile.locationUpdated) {
                 setTimeout(() => {
                     askForDefaultLocation();
@@ -2399,7 +2539,6 @@
             const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
-            
             return JSON.parse(jsonPayload);
         } catch (error) {
             console.error('Error decoding JWT:', error);
@@ -2411,7 +2550,6 @@
         const signinModal = document.getElementById('googleSigninModal');
         const overlay = document.getElementById('contentOverlay');
         const header = document.querySelector('header');
-        
         signinModal.classList.add('active');
         overlay.style.display = 'flex';
         header.style.display = 'none';
@@ -2423,7 +2561,6 @@
         const overlay = document.getElementById('contentOverlay');
         const mainContent = document.getElementById('mainContent');
         const header = document.querySelector('header');
-        
         signinModal.classList.remove('active');
         overlay.style.display = 'none';
         header.style.display = 'block';
@@ -2437,7 +2574,6 @@
         const bottomNav = document.querySelector('.bottom-nav');
         const userProfileHeader = document.getElementById('userProfileHeader');
         const header = document.querySelector('header');
-        
         overlay.style.display = 'none';
         mainContent.style.display = 'block';
         bottomNav.style.display = 'block';
@@ -2445,11 +2581,876 @@
         header.style.display = 'block';
     }
     
+    // Location Detection
+    function detectUserLocation() {
+        const locationText = document.getElementById('currentLocationText');
+        locationText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting your location...';
+        
+        if (!navigator.geolocation) {
+            locationText.textContent = 'Geolocation not supported by your browser';
+            return;
+        }
+        
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                userLocation = { lat, lng };
+                
+                // Reverse geocode to get address
+                reverseGeocode(lat, lng);
+                
+                // Load assistants for this location
+                loadDeliveryAssistantsForLocation(lat, lng);
+            },
+            function(error) {
+                console.error('Geolocation error:', error);
+                locationText.textContent = 'Unable to detect location. Please enter manually.';
+                userLocation = null;
+                loadAllDeliveryAssistants();
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    }
+    
+    function reverseGeocode(lat, lng) {
+        if (typeof google === 'undefined') {
+            document.getElementById('currentLocationText').textContent = `Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+            return;
+        }
+        
+        const geocoder = new google.maps.Geocoder();
+        const latlng = { lat: lat, lng: lng };
+        
+        geocoder.geocode({ location: latlng }, function(results, status) {
+            const locationText = document.getElementById('currentLocationText');
+            if (status === 'OK' && results[0]) {
+                const address = results[0].formatted_address;
+                locationText.textContent = address;
+                
+                // Auto-fill pickup location
+                document.getElementById('pickupLocation').value = address;
+            } else {
+                locationText.textContent = `Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+            }
+        });
+    }
+    
+    // Load delivery assistants for specific location
+    async function loadDeliveryAssistantsForLocation(lat, lng) {
+        const loadingElement = document.getElementById('assistantsLoading');
+        const optionsElement = document.getElementById('assistantOptions');
+        const noAssistantsElement = document.getElementById('noAssistants');
+        
+        loadingElement.classList.add('visible');
+        optionsElement.innerHTML = '';
+        noAssistantsElement.style.display = 'none';
+        
+        try {
+            // Try to load assistants from backend with location filter
+            const response = await fetch(`${scriptUrl}?action=getDeliveryAssistants&lat=${lat}&lng=${lng}&timestamp=${Date.now()}`);
+            
+            if (response.ok) {
+                const result = await response.json();
+                
+                if (result.success && Array.isArray(result.data)) {
+                    deliveryAssistants = result.data.filter(assistant => 
+                        assistant.isActive !== false && 
+                        assistant.status !== 'offline'
+                    );
+                    
+                    if (deliveryAssistants.length > 0) {
+                        displayLocationBasedAssistants(deliveryAssistants, lat, lng);
+                    } else {
+                        showNoAssistantsAvailable();
+                    }
+                } else {
+                    loadSampleAssistantsWithLocation(lat, lng);
+                }
+            } else {
+                loadSampleAssistantsWithLocation(lat, lng);
+            }
+        } catch (error) {
+            console.error('Error loading delivery assistants:', error);
+            loadSampleAssistantsWithLocation(lat, lng);
+        } finally {
+            loadingElement.classList.remove('visible');
+        }
+    }
+    
+    function loadSampleAssistantsWithLocation(lat, lng) {
+        // Sample assistants with simulated location-based filtering
+        const allAssistants = [
+            {
+                id: 'DA001',
+                name: 'John Kamau',
+                phone: '+254712345678',
+                vehicle: 'Toyota Probox - KDA 123A',
+                status: 'available',
+                currentCapacity: 3,
+                maxCapacity: 10,
+                rating: 4.8,
+                completedDeliveries: 120,
+                location: 'Nairobi CBD',
+                zones: ['Nairobi CBD', 'Upper Hill', 'Westlands'],
+                latitude: -1.286389,
+                longitude: 36.817223,
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Reliable and punctual'
+            },
+            {
+                id: 'DA002',
+                name: 'Susan Wanjiku',
+                phone: '+254723456789',
+                vehicle: 'Suzuki Every - KCB 456B',
+                status: 'available',
+                currentCapacity: 5,
+                maxCapacity: 8,
+                rating: 4.9,
+                completedDeliveries: 95,
+                location: 'Westlands',
+                zones: ['Westlands', 'Parklands', 'Lavington'],
+                latitude: -1.2684,
+                longitude: 36.8065,
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Excellent customer service'
+            },
+            {
+                id: 'DA003',
+                name: 'Peter Odhiambo',
+                phone: '+254734567890',
+                vehicle: 'Nissan NV350 - KDC 789C',
+                status: 'busy',
+                currentCapacity: 8,
+                maxCapacity: 12,
+                rating: 4.7,
+                completedDeliveries: 150,
+                location: 'Industrial Area',
+                zones: ['Industrial Area', 'South B', 'South C'],
+                latitude: -1.3200,
+                longitude: 36.8900,
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Handles large orders efficiently'
+            },
+            {
+                id: 'DA004',
+                name: 'Mary Achieng',
+                phone: '+254745678901',
+                vehicle: 'Toyota Sienta - KDD 012D',
+                status: 'available',
+                currentCapacity: 2,
+                maxCapacity: 6,
+                rating: 4.6,
+                completedDeliveries: 80,
+                location: 'Karen',
+                zones: ['Karen', 'Langata', 'Rongai'],
+                latitude: -1.3195,
+                longitude: 36.7089,
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Specializes in fragile items'
+            },
+            {
+                id: 'DA005',
+                name: 'David Mwangi',
+                phone: '+254756789012',
+                vehicle: 'Toyota Hiace - KDE 345E',
+                status: 'available',
+                currentCapacity: 4,
+                maxCapacity: 15,
+                rating: 4.5,
+                completedDeliveries: 200,
+                location: 'Thika',
+                zones: ['Thika', 'Ruiru', 'Juja'],
+                latitude: -1.0392,
+                longitude: 37.0696,
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Long distance specialist'
+            }
+        ];
+        
+        // Filter assistants based on proximity to user location
+        const MAX_DISTANCE_KM = 20; // Show assistants within 20km radius
+        
+        deliveryAssistants = allAssistants.filter(assistant => {
+            if (!assistant.latitude || !assistant.longitude) return true; // Show if no location data
+            
+            const distance = calculateDistance(
+                lat, lng,
+                assistant.latitude, assistant.longitude
+            );
+            
+            return distance <= MAX_DISTANCE_KM;
+        });
+        
+        if (deliveryAssistants.length > 0) {
+            displayLocationBasedAssistants(deliveryAssistants, lat, lng);
+        } else {
+            showNoAssistantsAvailable();
+        }
+    }
+    
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; // Earth's radius in km
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = 
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+    }
+    
+    function displayLocationBasedAssistants(assistants, userLat, userLng) {
+        const optionsElement = document.getElementById('assistantOptions');
+        optionsElement.innerHTML = '';
+        
+        // Sort by distance
+        assistants.sort((a, b) => {
+            const distA = a.latitude ? calculateDistance(userLat, userLng, a.latitude, a.longitude) : 999;
+            const distB = b.latitude ? calculateDistance(userLat, userLng, b.latitude, b.longitude) : 999;
+            return distA - distB;
+        });
+        
+        assistants.forEach(assistant => {
+            const distance = assistant.latitude ? 
+                calculateDistance(userLat, userLng, assistant.latitude, assistant.longitude).toFixed(1) : 
+                'Unknown';
+            
+            const capacityPercentage = (assistant.currentCapacity / assistant.maxCapacity) * 100;
+            const capacityColor = capacityPercentage > 80 ? 'var(--error)' : 
+                                 capacityPercentage > 60 ? 'var(--warning)' : 
+                                 'var(--success)';
+            
+            const card = document.createElement('div');
+            card.className = 'assistant-option';
+            card.dataset.assistantId = assistant.id;
+            
+            card.innerHTML = `
+                <div class="assistant-badge ${assistant.status === 'available' ? 'badge-available' : 'badge-busy'}">
+                    ${assistant.status === 'available' ? 'Available' : 'Busy'}
+                </div>
+                
+                <h4 class="assistant-name">${assistant.name}</h4>
+                <div class="assistant-details">
+                    <div class="assistant-detail">
+                        <i class="fas fa-phone"></i>
+                        <span>${assistant.phone}</span>
+                    </div>
+                    <div class="assistant-detail">
+                        <i class="fas fa-car"></i>
+                        <span>${assistant.vehicle}</span>
+                    </div>
+                    <div class="assistant-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${assistant.location}</span>
+                    </div>
+                    <div class="assistant-detail">
+                        <div class="assistant-rating">
+                            <i class="fas fa-star"></i>
+                            <span>${assistant.rating} (${assistant.completedDeliveries} deliveries)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="distance-indicator">
+                    <i class="fas fa-road"></i> ${distance} km away
+                </div>
+                
+                <div style="margin-top: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Current Load:</span>
+                        <span style="font-size: 0.85rem;">${assistant.currentCapacity}/${assistant.maxCapacity}</span>
+                    </div>
+                    <div style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
+                        <div style="height: 100%; width: ${capacityPercentage}%; background: ${capacityColor}; border-radius: 3px;"></div>
+                    </div>
+                </div>
+            `;
+            
+            card.addEventListener('click', function() {
+                selectAssistant(assistant);
+            });
+            
+            optionsElement.appendChild(card);
+        });
+    }
+    
+    function showNoAssistantsAvailable() {
+        const optionsElement = document.getElementById('assistantOptions');
+        const noAssistantsElement = document.getElementById('noAssistants');
+        
+        optionsElement.innerHTML = '';
+        noAssistantsElement.style.display = 'block';
+    }
+    
+    function selectAssistant(assistant) {
+        selectedAssistant = assistant;
+        
+        // Remove selected class from all assistants
+        document.querySelectorAll('.assistant-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked assistant
+        const selectedCard = document.querySelector(`[data-assistant-id="${assistant.id}"]`);
+        if (selectedCard) {
+            selectedCard.classList.add('selected');
+        }
+        
+        // Show package details if package type is selected
+        const packageType = document.getElementById('packageType').value;
+        if (packageType) {
+            document.getElementById('packageDetails').style.display = 'block';
+            updatePackageDetails();
+        }
+    }
+    
+    // WhatsApp Tracking System
+    function openWhatsAppForHelp() {
+        const whatsappUrl = `https://wa.me/${SUPPORT_WHATSAPP}?text=Hello%20DSOG%20Delivery,%20I%20need%20help%20with%20tracking%20my%20package.`;
+        window.open(whatsappUrl, '_blank');
+    }
+    
+    function trackViaWhatsApp(trackingNumber, assistantPhone) {
+        const message = `Hello! I would like to track my package ${trackingNumber}. Can you please provide an update on the delivery status?`;
+        const whatsappUrl = `https://wa.me/${assistantPhone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+    }
+    
+    // User Delivery History
+    async function loadUserDeliveryHistory() {
+        const loadingElement = document.getElementById('historyLoading');
+        const historyList = document.getElementById('historyList');
+        const noHistoryElement = document.getElementById('noHistory');
+        
+        loadingElement.classList.add('visible');
+        historyList.innerHTML = '';
+        
+        try {
+            // Try to load from backend
+            if (userProfile && userProfile.googleId) {
+                const response = await fetch(`${scriptUrl}?action=getUserDeliveryHistory&userId=${userProfile.googleId}`);
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    
+                    if (result.success && Array.isArray(result.data)) {
+                        userDeliveryHistory = result.data;
+                        displayDeliveryHistory(userDeliveryHistory);
+                    } else {
+                        loadLocalDeliveryHistory();
+                    }
+                } else {
+                    loadLocalDeliveryHistory();
+                }
+            } else {
+                loadLocalDeliveryHistory();
+            }
+        } catch (error) {
+            console.error('Error loading delivery history:', error);
+            loadLocalDeliveryHistory();
+        } finally {
+            loadingElement.classList.remove('visible');
+        }
+    }
+    
+    function loadLocalDeliveryHistory() {
+        // Load from localStorage
+        userDeliveryHistory = JSON.parse(localStorage.getItem('dsog_delivery_history')) || [];
+        displayDeliveryHistory(userDeliveryHistory);
+    }
+    
+    function displayDeliveryHistory(history) {
+        const historyList = document.getElementById('historyList');
+        const noHistoryElement = document.getElementById('noHistory');
+        
+        if (history.length === 0) {
+            noHistoryElement.style.display = 'block';
+            return;
+        }
+        
+        noHistoryElement.style.display = 'none';
+        
+        // Sort by date (newest first)
+        history.sort((a, b) => new Date(b.requestDate) - new Date(a.requestDate));
+        
+        history.forEach(delivery => {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            
+            // Determine status badge
+            let statusClass = 'status-pending';
+            let statusText = 'Pending';
+            
+            if (delivery.status === 'assigned') {
+                statusClass = 'status-assigned';
+                statusText = 'Assigned';
+            } else if (delivery.status === 'picked_up') {
+                statusClass = 'status-picked';
+                statusText = 'Picked Up';
+            } else if (delivery.status === 'delivered') {
+                statusClass = 'status-delivered';
+                statusText = 'Delivered';
+            }
+            
+            historyItem.innerHTML = `
+                <div class="history-header">
+                    <div>
+                        <span class="tracking-number">${delivery.trackingNumber}</span>
+                        <div style="margin-top: 0.3rem;">
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                    </div>
+                    <div class="tracking-date">${new Date(delivery.requestDate).toLocaleDateString()}</div>
+                </div>
+                
+                <div class="history-details">
+                    <div>
+                        <div class="detail-label">From</div>
+                        <div class="detail-value">${delivery.pickupLocation}</div>
+                    </div>
+                    <div>
+                        <div class="detail-label">To</div>
+                        <div class="detail-value">${delivery.deliveryLocation}</div>
+                    </div>
+                    <div>
+                        <div class="detail-label">Assistant</div>
+                        <div class="detail-value">${delivery.assistantName || 'Not assigned'}</div>
+                    </div>
+                    <div>
+                        <div class="detail-label">Package</div>
+                        <div class="detail-value">${delivery.packageType}</div>
+                    </div>
+                </div>
+                
+                <div class="history-actions">
+                    ${delivery.assistantPhone ? `
+                    <button class="track-btn" onclick="trackViaWhatsApp('${delivery.trackingNumber}', '${delivery.assistantPhone}')">
+                        <i class="fab fa-whatsapp"></i> Track on WhatsApp
+                    </button>
+                    ` : ''}
+                    <button class="track-btn" onclick="viewDeliveryDetails('${delivery.trackingNumber}')">
+                        <i class="fas fa-eye"></i> View Details
+                    </button>
+                </div>
+            `;
+            
+            historyList.appendChild(historyItem);
+        });
+    }
+    
+    function viewDeliveryDetails(trackingNumber) {
+        const delivery = userDeliveryHistory.find(d => d.trackingNumber === trackingNumber);
+        
+        if (delivery) {
+            alert(`Delivery Details:\n\nTracking: ${delivery.trackingNumber}\nStatus: ${delivery.status}\nFrom: ${delivery.pickupLocation}\nTo: ${delivery.deliveryLocation}\nAssistant: ${delivery.assistantName || 'Not assigned'}\nPackage: ${delivery.packageType}\nDate: ${new Date(delivery.requestDate).toLocaleString()}`);
+        }
+    }
+    
+    function viewTrackingHistory() {
+        scrollToSection('history');
+        loadUserDeliveryHistory();
+    }
+    
+    // Initialize Package Type Selection
+    function initPackageTypeSelection() {
+        const packageCards = document.querySelectorAll('.package-type-card');
+        const packageTypeInput = document.getElementById('packageType');
+        const packageSizeInput = document.getElementById('packageSize');
+        const packageDetails = document.getElementById('packageDetails');
+        
+        packageCards.forEach(card => {
+            card.addEventListener('click', function() {
+                packageCards.forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedPackageType = this.dataset.type;
+                selectedPackageSize = this.dataset.size;
+                packageTypeInput.value = selectedPackageType;
+                packageSizeInput.value = selectedPackageSize;
+                
+                if (selectedAssistant) {
+                    packageDetails.style.display = 'block';
+                    updatePackageDetails();
+                }
+            });
+        });
+    }
+    
+    function updatePackageDetails() {
+        const detailsGrid = document.getElementById('detailsGrid');
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value;
+        
+        if (!packageType || !packageSize || !selectedAssistant) return;
+        
+        const typeDescriptions = {
+            'small': 'Small packages suitable for documents, small electronics, or clothing',
+            'medium': 'Medium packages for books, shoes, or small household items',
+            'large': 'Large packages for bulk items, furniture, or appliances',
+            'fragile': 'Fragile items requiring special handling and care'
+        };
+        
+        detailsGrid.innerHTML = `
+            <div class="detail-item">
+                <div class="detail-label">Package Type</div>
+                <div class="detail-value">${packageType.charAt(0).toUpperCase() + packageType.slice(1)}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Package Size</div>
+                <div class="detail-value">${packageSize}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Selected Assistant</div>
+                <div class="detail-value">${selectedAssistant.name}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Assistant Phone</div>
+                <div class="detail-value">${selectedAssistant.phone}</div>
+            </div>
+            ${itemDescription ? `
+            <div class="detail-item">
+                <div class="detail-label">Item Details</div>
+                <div class="detail-value">${itemDescription.substring(0, 50)}${itemDescription.length > 50 ? '...' : ''}</div>
+            </div>
+            ` : ''}
+        `;
+    }
+    
+    // Initialize Character Counter
+    function initCharCounter() {
+        const textarea = document.getElementById('itemDescription');
+        const charCount = document.getElementById('charCount');
+        
+        textarea.addEventListener('input', function() {
+            const length = this.value.length;
+            charCount.textContent = `${length}/200`;
+            
+            if (length > 200) {
+                charCount.style.color = 'var(--error)';
+            } else if (length > 150) {
+                charCount.style.color = 'var(--warning)';
+            } else {
+                charCount.style.color = 'var(--gray)';
+            }
+            
+            if (selectedAssistant && document.getElementById('packageType').value) {
+                document.getElementById('packageDetails').style.display = 'block';
+                updatePackageDetails();
+            }
+        });
+    }
+    
+    // Confirm Pickup Request
+    function confirmPickupRequest() {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const pickupLocation = document.getElementById('pickupLocation').value.trim();
+        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value.trim();
+        const specialInstructions = document.getElementById('specialInstructions').value.trim();
+        
+        // Validation
+        if (!customerName || !customerPhone || !pickupLocation || !deliveryLocation || !packageType || !packageSize || !itemDescription) {
+            showNotification('Please fill in all required fields', 'error');
+            return;
+        }
+        
+        if (!selectedAssistant) {
+            showNotification('Please select a delivery assistant', 'error');
+            return;
+        }
+        
+        if (itemDescription.length > 200) {
+            showNotification('Item description must be 200 characters or less', 'error');
+            return;
+        }
+        
+        // Generate tracking number
+        const trackingNumber = 'DSOG-' + Date.now().toString().slice(-6);
+        
+        // Build confirmation message
+        const confirmationBody = document.getElementById('confirmationBody');
+        confirmationBody.innerHTML = `
+            <div class="confirmation-details">
+                <h3>Pickup Request Details</h3>
+                <div style="display: grid; gap: 1rem;">
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Customer:</span>
+                        <div style="margin-top: 0.3rem;">${customerName} | ${customerPhone}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Selected Assistant:</span>
+                        <div style="margin-top: 0.3rem;">
+                            ${selectedAssistant.name} (${selectedAssistant.phone})
+                            <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                                <i class="fas fa-info-circle"></i> You will communicate directly with this assistant via WhatsApp
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Pickup:</span>
+                        <div style="margin-top: 0.3rem;">${pickupLocation}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Delivery:</span>
+                        <div style="margin-top: 0.3rem;">${deliveryLocation}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Package:</span>
+                        <div style="margin-top: 0.3rem;">${packageType.charAt(0).toUpperCase() + packageType.slice(1)} - ${packageSize}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Items:</span>
+                        <div style="margin-top: 0.3rem;">${itemDescription}</div>
+                    </div>
+                    ${specialInstructions ? `
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Special Instructions:</span>
+                        <div style="margin-top: 0.3rem;">${specialInstructions}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+            
+            <div style="background: rgba(37, 211, 102, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid var(--primary-green);">
+                <div style="font-weight: 600; color: var(--primary-green); margin-bottom: 0.5rem;">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Tracking Enabled
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                    After confirmation, you will be redirected to WhatsApp to message the assistant directly. Save their number for tracking updates.
+                </div>
+            </div>
+            
+            <div class="confirmation-actions">
+                <button class="cancel-btn" onclick="closeConfirmationModal()">Cancel</button>
+                <button class="confirm-btn" onclick="submitPickupRequestViaWhatsApp('${trackingNumber}')">
+                    <i class="fab fa-whatsapp"></i> Open WhatsApp
+                </button>
+            </div>
+        `;
+        
+        openConfirmationModal();
+    }
+    
+    // Submit Pickup Request via WhatsApp (Direct to Assistant)
+    function submitPickupRequestViaWhatsApp(trackingNumber) {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        // Get form values
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const pickupLocation = document.getElementById('pickupLocation').value.trim();
+        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value.trim();
+        const specialInstructions = document.getElementById('specialInstructions').value.trim();
+        
+        // Build WhatsApp message for the assistant
+        let whatsappMessage = `*📦 NEW PICKUP REQUEST - DSOG DELIVERY*%0A%0A`;
+        whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
+        whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A`;
+        whatsappMessage += `*Time:* ${new Date().toLocaleTimeString()}%0A%0A`;
+        
+        whatsappMessage += `*👤 CUSTOMER DETAILS*%0A`;
+        whatsappMessage += `Name: ${customerName}%0A`;
+        whatsappMessage += `Phone: ${customerPhone}%0A`;
+        whatsappMessage += `Email: ${userProfile.email}%0A%0A`;
+        
+        whatsappMessage += `*📍 PICKUP LOCATION*%0A`;
+        whatsappMessage += `${pickupLocation}%0A%0A`;
+        
+        whatsappMessage += `*🎯 DELIVERY DESTINATION*%0A`;
+        whatsappMessage += `${deliveryLocation}%0A%0A`;
+        
+        whatsappMessage += `*📦 PACKAGE DETAILS*%0A`;
+        whatsappMessage += `Type: ${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A`;
+        whatsappMessage += `Size: ${packageSize}%0A`;
+        whatsappMessage += `Items: ${itemDescription}%0A%0A`;
+        
+        if (specialInstructions) {
+            whatsappMessage += `*📝 SPECIAL INSTRUCTIONS*%0A`;
+            whatsappMessage += `${specialInstructions}%0A%0A`;
+        }
+        
+        whatsappMessage += `_Please confirm pickup time and provide ETA_%0A`;
+        whatsappMessage += `_Customer will track delivery via this WhatsApp conversation_`;
+        
+        // Open WhatsApp with the selected assistant
+        const assistantPhone = selectedAssistant.phone.replace(/\D/g, '');
+        const whatsappUrl = `https://wa.me/${assistantPhone}?text=${whatsappMessage}`;
+        window.open(whatsappUrl, '_blank');
+        
+        // Also send a copy to support for backup
+        let supportMessage = `*BACKUP: PICKUP REQUEST - ${selectedAssistant.name}*%0A%0A${whatsappMessage}`;
+        const supportWhatsappUrl = `https://wa.me/${SUPPORT_WHATSAPP}?text=${supportMessage}`;
+        window.open(supportWhatsappUrl, '_blank');
+        
+        // Save to local history
+        saveToDeliveryHistory(
+            trackingNumber,
+            customerName,
+            customerPhone,
+            pickupLocation,
+            deliveryLocation,
+            packageType,
+            packageSize,
+            itemDescription,
+            specialInstructions,
+            selectedAssistant.name,
+            selectedAssistant.phone
+        );
+        
+        // Close confirmation modal
+        closeConfirmationModal();
+        
+        // Reset form
+        resetRequestForm();
+        
+        // Show success notification
+        showNotification(`Pickup request sent to ${selectedAssistant.name}! Save their number for tracking.`);
+        
+        // Reload history
+        setTimeout(() => {
+            loadUserDeliveryHistory();
+            scrollToSection('history');
+        }, 1000);
+    }
+    
+    function saveToDeliveryHistory(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions, assistantName, assistantPhone) {
+        const deliveryRecord = {
+            trackingNumber,
+            customerName,
+            customerPhone,
+            pickupLocation,
+            deliveryLocation,
+            packageType,
+            packageSize,
+            itemDescription,
+            specialInstructions,
+            assistantName,
+            assistantPhone,
+            status: 'pending',
+            requestDate: new Date().toISOString(),
+            googleUserId: userProfile.googleId
+        };
+        
+        // Add to local history
+        userDeliveryHistory.unshift(deliveryRecord);
+        localStorage.setItem('dsog_delivery_history', JSON.stringify(userDeliveryHistory));
+        
+        // Also try to save to backend
+        saveToBackend(deliveryRecord);
+    }
+    
+    async function saveToBackend(deliveryRecord) {
+        try {
+            const response = await fetch(scriptUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'saveDeliveryRequest',
+                    ...deliveryRecord
+                })
+            });
+            
+            if (response.ok) {
+                console.log('✅ Delivery request saved to backend');
+            }
+        } catch (error) {
+            console.error('Error saving to backend:', error);
+        }
+    }
+    
+    function resetRequestForm() {
+        document.getElementById('pickupLocation').value = '';
+        document.getElementById('deliveryLocation').value = '';
+        document.getElementById('packageType').value = '';
+        document.getElementById('packageSize').value = '';
+        document.getElementById('itemDescription').value = '';
+        document.getElementById('specialInstructions').value = '';
+        document.getElementById('charCount').textContent = '0/200';
+        document.getElementById('charCount').style.color = 'var(--gray)';
+        
+        const packageCards = document.querySelectorAll('.package-type-card');
+        packageCards.forEach(card => card.classList.remove('selected'));
+        
+        const assistantCards = document.querySelectorAll('.assistant-option');
+        assistantCards.forEach(card => card.classList.remove('selected'));
+        
+        selectedAssistant = null;
+        document.getElementById('packageDetails').style.display = 'none';
+        
+        if (userProfile && userProfile.defaultLocation) {
+            document.getElementById('pickupLocation').value = userProfile.defaultLocation;
+        }
+    }
+    
+    // Initialize Confirmation Modal
+    function initConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        const confirmationClose = document.getElementById('confirmationClose');
+        
+        confirmationClose.addEventListener('click', closeConfirmationModal);
+        
+        confirmationModal.addEventListener('click', function(e) {
+            if (e.target === confirmationModal) {
+                closeConfirmationModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && confirmationModal.classList.contains('active')) {
+                closeConfirmationModal();
+            }
+        });
+    }
+    
+    function openConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    // User Profile Functions
     function askForDefaultLocation() {
         if (!userProfile || !userProfile.googleId) return;
         
         const location = prompt(
-            'Please enter your default pickup location/address:\n\nThis will be used to auto-fill your pickup requests.',
+            'Please enter your default pickup location/address:',
             userProfile.defaultLocation || ''
         );
         
@@ -2457,10 +3458,7 @@
             userProfile.defaultLocation = location.trim();
             userProfile.locationUpdated = true;
             localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
-            
-            // Update form
             autoFillRequestForm();
-            
             showNotification('Default location saved successfully!');
         }
     }
@@ -2477,53 +3475,53 @@
             userProfile.defaultLocation = location.trim();
             userProfile.locationUpdated = true;
             localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
-            
-            // Update form and UI
             autoFillRequestForm();
             updateUserProfileUI();
-            
             showNotification('Location updated successfully!');
         }
-        
         closeProfileModal();
     }
     
-    function signOut() {
-        if (confirm('Are you sure you want to sign out?')) {
-            // Clear user data
-            userProfile = null;
-            googleUser = null;
-            googleToken = null;
-            localStorage.removeItem('dsog_delivery_profile');
+    function autoFillRequestForm() {
+        if (userProfile) {
+            const nameField = document.getElementById('customerName');
+            const phoneField = document.getElementById('customerPhone');
+            const pickupField = document.getElementById('pickupLocation');
             
-            // Hide content
-            const mainContent = document.getElementById('mainContent');
-            const bottomNav = document.querySelector('.bottom-nav');
-            const userProfileHeader = document.getElementById('userProfileHeader');
-            const header = document.querySelector('header');
+            if (nameField && userProfile.name) {
+                nameField.value = userProfile.name;
+                showAutoFillBadge('nameBadge');
+            }
             
-            mainContent.style.display = 'none';
-            bottomNav.style.display = 'none';
-            userProfileHeader.style.display = 'none';
-            header.style.display = 'none';
+            if (phoneField && userProfile.phone) {
+                phoneField.value = userProfile.phone;
+                showAutoFillBadge('phoneBadge');
+            }
             
-            // Show sign-in modal
-            showGoogleSignInModal();
-            
-            showNotification('Signed out successfully');
+            if (pickupField && userProfile.defaultLocation) {
+                pickupField.value = userProfile.defaultLocation;
+            }
+        }
+    }
+    
+    function showAutoFillBadge(badgeId) {
+        const badge = document.getElementById(badgeId);
+        if (badge) {
+            badge.style.display = 'block';
+            setTimeout(() => {
+                badge.style.display = 'none';
+            }, 3000);
         }
     }
     
     function updateUserProfileUI() {
         if (userProfile) {
-            // Update header
             const userAvatar = document.getElementById('userAvatar');
             const userNameDisplay = document.getElementById('userNameDisplay');
             const profileAvatar = document.getElementById('profileAvatar');
             const profileName = document.getElementById('profileName');
             const profileInfo = document.getElementById('profileInfo');
             
-            // Set avatar image or initials
             if (userProfile.picture) {
                 if (userAvatar) {
                     userAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
@@ -2532,7 +3530,6 @@
                     profileAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
                 }
             } else {
-                // Get initials for avatar
                 const initials = userProfile.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
                 
                 if (userAvatar) {
@@ -2587,35 +3584,62 @@
         }
     }
     
-    function autoFillRequestForm() {
-        if (userProfile) {
-            const nameField = document.getElementById('customerName');
-            const phoneField = document.getElementById('customerPhone');
-            const pickupField = document.getElementById('pickupLocation');
-            
-            if (nameField && userProfile.name) {
-                nameField.value = userProfile.name;
-                showAutoFillBadge('nameBadge');
+    function initProfileModal() {
+        const profileModal = document.getElementById('userProfileModal');
+        const profileClose = document.getElementById('profileClose');
+        
+        profileClose.addEventListener('click', closeProfileModal);
+        
+        profileModal.addEventListener('click', function(e) {
+            if (e.target === profileModal) {
+                closeProfileModal();
             }
-            
-            if (phoneField && userProfile.phone) {
-                phoneField.value = userProfile.phone;
-                showAutoFillBadge('phoneBadge');
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && profileModal.classList.contains('active')) {
+                closeProfileModal();
             }
-            
-            if (pickupField && userProfile.defaultLocation) {
-                pickupField.value = userProfile.defaultLocation;
-            }
-        }
+        });
     }
     
-    function showAutoFillBadge(badgeId) {
-        const badge = document.getElementById(badgeId);
-        if (badge) {
-            badge.style.display = 'block';
-            setTimeout(() => {
-                badge.style.display = 'none';
-            }, 3000);
+    function openProfileModal() {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        const profileModal = document.getElementById('userProfileModal');
+        updateUserProfileUI();
+        profileModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeProfileModal() {
+        const profileModal = document.getElementById('userProfileModal');
+        profileModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    function signOut() {
+        if (confirm('Are you sure you want to sign out?')) {
+            userProfile = null;
+            googleUser = null;
+            googleToken = null;
+            localStorage.removeItem('dsog_delivery_profile');
+            
+            const mainContent = document.getElementById('mainContent');
+            const bottomNav = document.querySelector('.bottom-nav');
+            const userProfileHeader = document.getElementById('userProfileHeader');
+            const header = document.querySelector('header');
+            
+            mainContent.style.display = 'none';
+            bottomNav.style.display = 'none';
+            userProfileHeader.style.display = 'none';
+            header.style.display = 'none';
+            
+            showGoogleSignInModal();
+            showNotification('Signed out successfully');
         }
     }
     
@@ -2628,7 +3652,6 @@
         
         function toggleMobileMenu() {
             const isOpen = mobileMenu.classList.contains('active');
-            
             if (!isOpen) {
                 mobileMenu.classList.add('active');
                 menuBackdrop.classList.add('active');
@@ -2669,14 +3692,11 @@
         
         navItems.forEach(item => {
             item.addEventListener('click', function() {
-                // Remove active class from all items
                 navItems.forEach(i => i.classList.remove('active'));
-                // Add active class to clicked item
                 this.classList.add('active');
             });
         });
         
-        // Handle scroll to section
         window.scrollToSection = function(sectionId) {
             const element = document.getElementById(sectionId);
             if (element) {
@@ -2686,855 +3706,6 @@
                 });
             }
         };
-    }
-    
-    // Initialize Package Type Selection
-    function initPackageTypeSelection() {
-        const packageCards = document.querySelectorAll('.package-type-card');
-        const packageTypeInput = document.getElementById('packageType');
-        const packageSizeInput = document.getElementById('packageSize');
-        const packageDetails = document.getElementById('packageDetails');
-        const detailsGrid = document.getElementById('detailsGrid');
-        
-        packageCards.forEach(card => {
-            card.addEventListener('click', function() {
-                // Remove selected class from all cards
-                packageCards.forEach(c => c.classList.remove('selected'));
-                
-                // Add selected class to clicked card
-                this.classList.add('selected');
-                
-                // Set the selected values
-                selectedPackageType = this.dataset.type;
-                selectedPackageSize = this.dataset.size;
-                
-                packageTypeInput.value = selectedPackageType;
-                packageSizeInput.value = selectedPackageSize;
-                
-                // Show package details
-                packageDetails.style.display = 'block';
-                
-                // Update details grid
-                updatePackageDetails();
-            });
-        });
-    }
-    
-    function updatePackageDetails() {
-        const detailsGrid = document.getElementById('detailsGrid');
-        const packageType = document.getElementById('packageType').value;
-        const packageSize = document.getElementById('packageSize').value;
-        const itemDescription = document.getElementById('itemDescription').value;
-        
-        if (!packageType || !packageSize) return;
-        
-        // Map package types to descriptions
-        const typeDescriptions = {
-            'small': 'Small packages suitable for documents, small electronics, or clothing',
-            'medium': 'Medium packages for books, shoes, or small household items',
-            'large': 'Large packages for bulk items, furniture, or appliances',
-            'fragile': 'Fragile items requiring special handling and care'
-        };
-        
-        detailsGrid.innerHTML = `
-            <div class="detail-item">
-                <div class="detail-label">Package Type</div>
-                <div class="detail-value">${packageType.charAt(0).toUpperCase() + packageType.slice(1)}</div>
-            </div>
-            <div class="detail-item">
-                <div class="detail-label">Package Size</div>
-                <div class="detail-value">${packageSize}</div>
-            </div>
-            <div class="detail-item">
-                <div class="detail-label">Description</div>
-                <div class="detail-value">${typeDescriptions[packageType] || 'General package'}</div>
-            </div>
-            ${itemDescription ? `
-            <div class="detail-item">
-                <div class="detail-label">Item Details</div>
-                <div class="detail-value">${itemDescription.substring(0, 50)}${itemDescription.length > 50 ? '...' : ''}</div>
-            </div>
-            ` : ''}
-        `;
-    }
-    
-    // Initialize Character Counter
-    function initCharCounter() {
-        const textarea = document.getElementById('itemDescription');
-        const charCount = document.getElementById('charCount');
-        
-        textarea.addEventListener('input', function() {
-            const length = this.value.length;
-            charCount.textContent = `${length}/200`;
-            
-            if (length > 200) {
-                charCount.style.color = 'var(--error)';
-            } else if (length > 150) {
-                charCount.style.color = 'var(--warning)';
-            } else {
-                charCount.style.color = 'var(--gray)';
-            }
-            
-            // Update package details if they're visible
-            const packageDetails = document.getElementById('packageDetails');
-            if (packageDetails.style.display === 'block') {
-                updatePackageDetails();
-            }
-        });
-    }
-    
-    // Initialize Confirmation Modal
-    function initConfirmationModal() {
-        const confirmationModal = document.getElementById('confirmationModal');
-        const confirmationClose = document.getElementById('confirmationClose');
-        
-        confirmationClose.addEventListener('click', closeConfirmationModal);
-        
-        confirmationModal.addEventListener('click', function(e) {
-            if (e.target === confirmationModal) {
-                closeConfirmationModal();
-            }
-        });
-        
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && confirmationModal.classList.contains('active')) {
-                closeConfirmationModal();
-            }
-        });
-    }
-    
-    function openConfirmationModal() {
-        const confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeConfirmationModal() {
-        const confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-    
-    // Initialize Profile Modal
-    function initProfileModal() {
-        const profileModal = document.getElementById('userProfileModal');
-        const profileClose = document.getElementById('profileClose');
-        
-        profileClose.addEventListener('click', closeProfileModal);
-        
-        profileModal.addEventListener('click', function(e) {
-            if (e.target === profileModal) {
-                closeProfileModal();
-            }
-        });
-        
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && profileModal.classList.contains('active')) {
-                closeProfileModal();
-            }
-        });
-    }
-    
-    function openProfileModal() {
-        if (!userProfile || !userProfile.googleId) {
-            showNotification('Please sign in first', 'error');
-            return;
-        }
-        
-        const profileModal = document.getElementById('userProfileModal');
-        
-        // Update profile info before showing
-        updateUserProfileUI();
-        
-        profileModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeProfileModal() {
-        const profileModal = document.getElementById('userProfileModal');
-        profileModal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-    
-    // Confirm Pickup Request
-    function confirmPickupRequest() {
-        if (!userProfile || !userProfile.googleId) {
-            showNotification('Please sign in first', 'error');
-            return;
-        }
-        
-        // Get form values
-        const customerName = document.getElementById('customerName').value.trim();
-        const customerPhone = document.getElementById('customerPhone').value.trim();
-        const pickupLocation = document.getElementById('pickupLocation').value.trim();
-        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
-        const packageType = document.getElementById('packageType').value;
-        const packageSize = document.getElementById('packageSize').value;
-        const itemDescription = document.getElementById('itemDescription').value.trim();
-        const specialInstructions = document.getElementById('specialInstructions').value.trim();
-        
-        // Validation
-        if (!customerName || !customerPhone || !pickupLocation || !deliveryLocation || !packageType || !packageSize || !itemDescription) {
-            showNotification('Please fill in all required fields', 'error');
-            return;
-        }
-        
-        if (itemDescription.length > 200) {
-            showNotification('Item description must be 200 characters or less', 'error');
-            return;
-        }
-        
-        // Generate tracking number
-        const trackingNumber = 'DSOG-' + Date.now().toString().slice(-6);
-        
-        // Build confirmation message
-        const confirmationBody = document.getElementById('confirmationBody');
-        confirmationBody.innerHTML = `
-            <div class="confirmation-details">
-                <h3>Pickup Request Details</h3>
-                <div style="display: grid; gap: 1rem;">
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Customer:</span>
-                        <div style="margin-top: 0.3rem;">${customerName} | ${customerPhone}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Pickup:</span>
-                        <div style="margin-top: 0.3rem;">${pickupLocation}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Delivery:</span>
-                        <div style="margin-top: 0.3rem;">${deliveryLocation}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Package:</span>
-                        <div style="margin-top: 0.3rem;">${packageType.charAt(0).toUpperCase() + packageType.slice(1)} - ${packageSize}</div>
-                    </div>
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Items:</span>
-                        <div style="margin-top: 0.3rem;">${itemDescription}</div>
-                    </div>
-                    ${specialInstructions ? `
-                    <div>
-                        <span style="font-weight: 600; color: var(--text-secondary);">Special Instructions:</span>
-                        <div style="margin-top: 0.3rem;">${specialInstructions}</div>
-                    </div>
-                    ` : ''}
-                </div>
-            </div>
-            
-            <div class="confirmation-actions">
-                <button class="cancel-btn" onclick="closeConfirmationModal()">Cancel</button>
-                <button class="confirm-btn" onclick="submitPickupRequest('${trackingNumber}')">
-                    <i class="fab fa-whatsapp"></i> Send to WhatsApp
-                </button>
-            </div>
-        `;
-        
-        openConfirmationModal();
-    }
-    
-    // Submit Pickup Request via WhatsApp
-    async function submitPickupRequest(trackingNumber) {
-        if (!userProfile || !userProfile.googleId) {
-            showNotification('Please sign in first', 'error');
-            return;
-        }
-        
-        // Get form values
-        const customerName = document.getElementById('customerName').value.trim();
-        const customerPhone = document.getElementById('customerPhone').value.trim();
-        const pickupLocation = document.getElementById('pickupLocation').value.trim();
-        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
-        const packageType = document.getElementById('packageType').value;
-        const packageSize = document.getElementById('packageSize').value;
-        const itemDescription = document.getElementById('itemDescription').value.trim();
-        const specialInstructions = document.getElementById('specialInstructions').value.trim();
-        
-        // Build order data for backend
-        const orderData = {
-            action: 'submitDeliveryRequest',
-            trackingNumber: trackingNumber,
-            customerName: customerName,
-            customerPhone: customerPhone,
-            pickupLocation: pickupLocation,
-            deliveryLocation: deliveryLocation,
-            packageType: packageType,
-            packageSize: packageSize,
-            itemDescription: itemDescription,
-            specialInstructions: specialInstructions,
-            requestDate: new Date().toISOString(),
-            status: 'pending',
-            googleUser: {
-                id: userProfile.googleId,
-                email: userProfile.email,
-                name: userProfile.name
-            }
-        };
-        
-        try {
-            // Submit to backend
-            const response = await fetch(scriptUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderData)
-            });
-            
-            if (response.ok) {
-                // Build WhatsApp message for business owner
-                let whatsappMessage = `*📦 NEW PICKUP REQUEST - DSOG DELIVERY*%0A%0A`;
-                whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
-                whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A`;
-                whatsappMessage += `*Time:* ${new Date().toLocaleTimeString()}%0A%0A`;
-                
-                whatsappMessage += `*👤 CUSTOMER DETAILS*%0A`;
-                whatsappMessage += `Name: ${customerName}%0A`;
-                whatsappMessage += `Phone: ${customerPhone}%0A`;
-                whatsappMessage += `Google: ${userProfile.email}%0A%0A`;
-                
-                whatsappMessage += `*📍 PICKUP LOCATION*%0A`;
-                whatsappMessage += `${pickupLocation}%0A%0A`;
-                
-                whatsappMessage += `*🎯 DELIVERY DESTINATION*%0A`;
-                whatsappMessage += `${deliveryLocation}%0A%0A`;
-                
-                whatsappMessage += `*📦 PACKAGE DETAILS*%0A`;
-                whatsappMessage += `Type: ${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A`;
-                whatsappMessage += `Size: ${packageSize}%0A`;
-                whatsappMessage += `Items: ${itemDescription}%0A%0A`;
-                
-                if (specialInstructions) {
-                    whatsappMessage += `*📝 SPECIAL INSTRUCTIONS*%0A`;
-                    whatsappMessage += `${specialInstructions}%0A%0A`;
-                }
-                
-                whatsappMessage += `_Request submitted via DSOG Delivery Platform_%0A`;
-                whatsappMessage += `_Please assign to a delivery assistant_`;
-                
-                // Open WhatsApp with the business owner
-                const whatsappUrl = `https://wa.me/${DELIVERY_OWNER_WHATSAPP}?text=${whatsappMessage}`;
-                window.open(whatsappUrl, '_blank');
-                
-                // Also send a copy to the customer
-                let customerMessage = `*✅ PICKUP REQUEST CONFIRMED*%0A%0A`;
-                customerMessage += `*Tracking Number:* ${trackingNumber}%0A`;
-                customerMessage += `*Status:* Awaiting pickup assignment%0A%0A`;
-                customerMessage += `Your pickup request has been received. DSOG Delivery will contact you shortly to confirm pickup time.%0A%0A`;
-                customerMessage += `_Keep this tracking number for status updates_`;
-                
-                const customerWhatsappUrl = `https://wa.me/${customerPhone.replace(/\D/g, '')}?text=${customerMessage}`;
-                window.open(customerWhatsappUrl, '_blank');
-                
-                // Close confirmation modal
-                closeConfirmationModal();
-                
-                // Reset form
-                resetRequestForm();
-                
-                showNotification('Pickup request submitted successfully!');
-                
-                // Store tracking number for reference
-                storeTrackingNumber(trackingNumber);
-                
-            } else {
-                throw new Error('Failed to submit request to backend');
-            }
-            
-        } catch (error) {
-            console.error('Request submission error:', error);
-            
-            // Fallback: Direct WhatsApp submission
-            submitDirectWhatsAppRequest(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions);
-        }
-    }
-    
-    function submitDirectWhatsAppRequest(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions) {
-        // Build WhatsApp message for business owner
-        let whatsappMessage = `*📦 NEW PICKUP REQUEST - DSOG DELIVERY*%0A%0A`;
-        whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
-        whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A`;
-        whatsappMessage += `*Time:* ${new Date().toLocaleTimeString()}%0A%0A`;
-        
-        whatsappMessage += `*👤 CUSTOMER DETAILS*%0A`;
-        whatsappMessage += `Name: ${customerName}%0A`;
-        whatsappMessage += `Phone: ${customerPhone}%0A`;
-        whatsappMessage += `Google: ${userProfile.email}%0A%0A`;
-        
-        whatsappMessage += `*📍 PICKUP LOCATION*%0A`;
-        whatsappMessage += `${pickupLocation}%0A%0A`;
-        
-        whatsappMessage += `*🎯 DELIVERY DESTINATION*%0A`;
-        whatsappMessage += `${deliveryLocation}%0A%0A`;
-        
-        whatsappMessage += `*📦 PACKAGE DETAILS*%0A`;
-        whatsappMessage += `Type: ${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A`;
-        whatsappMessage += `Size: ${packageSize}%0A`;
-        whatsappMessage += `Items: ${itemDescription}%0A%0A`;
-        
-        if (specialInstructions) {
-            whatsappMessage += `*📝 SPECIAL INSTRUCTIONS*%0A`;
-            whatsappMessage += `${specialInstructions}%0A%0A`;
-        }
-        
-        whatsappMessage += `_Request submitted via DSOG Delivery Platform_%0A`;
-        whatsappMessage += `_Please assign to a delivery assistant_`;
-        
-        // Open WhatsApp with the business owner
-        const whatsappUrl = `https://wa.me/${DELIVERY_OWNER_WHATSAPP}?text=${whatsappMessage}`;
-        window.open(whatsappUrl, '_blank');
-        
-        // Also send a copy to the customer
-        let customerMessage = `*✅ PICKUP REQUEST CONFIRMED*%0A%0A`;
-        customerMessage += `*Tracking Number:* ${trackingNumber}%0A`;
-        customerMessage += `*Status:* Awaiting pickup assignment%0A%0A`;
-        customerMessage += `Your pickup request has been received. DSOG Delivery will contact you shortly to confirm pickup time.%0A%0A`;
-        customerMessage += `_Keep this tracking number for status updates_`;
-        
-        const customerWhatsappUrl = `https://wa.me/${customerPhone.replace(/\D/g, '')}?text=${customerMessage}`;
-        window.open(customerWhatsappUrl, '_blank');
-        
-        // Close confirmation modal
-        closeConfirmationModal();
-        
-        // Reset form
-        resetRequestForm();
-        
-        showNotification('Pickup request sent via WhatsApp!');
-        
-        // Store tracking number for reference
-        storeTrackingNumber(trackingNumber);
-    }
-    
-    function resetRequestForm() {
-        // Reset all form fields except name and phone
-        document.getElementById('pickupLocation').value = '';
-        document.getElementById('deliveryLocation').value = '';
-        document.getElementById('packageType').value = '';
-        document.getElementById('packageSize').value = '';
-        document.getElementById('itemDescription').value = '';
-        document.getElementById('specialInstructions').value = '';
-        document.getElementById('charCount').textContent = '0/200';
-        document.getElementById('charCount').style.color = 'var(--gray)';
-        
-        // Reset package type selection
-        const packageCards = document.querySelectorAll('.package-type-card');
-        packageCards.forEach(card => card.classList.remove('selected'));
-        
-        // Hide package details
-        document.getElementById('packageDetails').style.display = 'none';
-        
-        // Auto-fill pickup location from profile
-        if (userProfile && userProfile.defaultLocation) {
-            document.getElementById('pickupLocation').value = userProfile.defaultLocation;
-        }
-    }
-    
-    function storeTrackingNumber(trackingNumber) {
-        // Store tracking numbers in localStorage
-        let trackingNumbers = JSON.parse(localStorage.getItem('dsog_delivery_tracking')) || [];
-        trackingNumbers.push({
-            number: trackingNumber,
-            date: new Date().toISOString(),
-            status: 'pending'
-        });
-        localStorage.setItem('dsog_delivery_tracking', JSON.stringify(trackingNumbers));
-    }
-    
-    // Track Delivery Function
-    async function trackDelivery() {
-        const trackingNumber = document.getElementById('trackingNumber').value.trim();
-        const trackingResult = document.getElementById('trackingResult');
-        
-        if (!trackingNumber) {
-            showNotification('Please enter a tracking number', 'error');
-            return;
-        }
-        
-        // Show loading state
-        trackingResult.innerHTML = `
-            <div style="text-align: center; padding: 2rem;">
-                <div class="loading-spinner"></div>
-                <p style="margin-top: 1rem;">Tracking delivery...</p>
-            </div>
-        `;
-        trackingResult.classList.add('active');
-        
-        try {
-            // Query backend for tracking info
-            const response = await fetch(`${scriptUrl}?action=getDeliveryStatus&trackingNumber=${trackingNumber}`);
-            
-            if (response.ok) {
-                const result = await response.json();
-                
-                if (result.success) {
-                    const delivery = result.data;
-                    
-                    // Map status to display text and color
-                    const statusMap = {
-                        'pending': { text: 'Awaiting Pickup', color: 'var(--warning)' },
-                        'assigned': { text: 'Assigned to Assistant', color: 'var(--info)' },
-                        'picked_up': { text: 'Picked Up', color: 'var(--primary-green)' },
-                        'in_transit': { text: 'In Transit', color: 'var(--primary-green)' },
-                        'delivered': { text: 'Delivered', color: 'var(--success)' },
-                        'cancelled': { text: 'Cancelled', color: 'var(--error)' }
-                    };
-                    
-                    const statusInfo = statusMap[delivery.status] || { text: 'Unknown', color: 'var(--gray)' };
-                    
-                    trackingResult.innerHTML = `
-                        <div style="margin-bottom: 1.5rem;">
-                            <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
-                            <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border-left: 4px solid ${statusInfo.color};">
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Status</div>
-                                <div style="font-weight: 700; color: ${statusInfo.color};">${statusInfo.text}</div>
-                            </div>
-                            
-                            ${delivery.assignedAssistant ? `
-                            <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--info);">
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Assigned Assistant</div>
-                                <div style="font-weight: 700;">${delivery.assignedAssistant}</div>
-                            </div>
-                            ` : ''}
-                            
-                            <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary-gold);">
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Request Date</div>
-                                <div style="font-weight: 700;">${new Date(delivery.requestDate).toLocaleDateString()}</div>
-                            </div>
-                        </div>
-                        
-                        ${delivery.pickupLocation ? `
-                        <div style="margin-bottom: 1rem;">
-                            <span style="font-weight: 600; color: var(--text-secondary);">Pickup Location:</span>
-                            <div style="margin-top: 0.3rem;">${delivery.pickupLocation}</div>
-                        </div>
-                        ` : ''}
-                        
-                        ${delivery.deliveryLocation ? `
-                        <div style="margin-bottom: 1rem;">
-                            <span style="font-weight: 600; color: var(--text-secondary);">Delivery Destination:</span>
-                            <div style="margin-top: 0.3rem;">${delivery.deliveryLocation}</div>
-                        </div>
-                        ` : ''}
-                        
-                        ${delivery.estimatedDelivery ? `
-                        <div style="margin-bottom: 1rem;">
-                            <span style="font-weight: 600; color: var(--text-secondary);">Estimated Delivery:</span>
-                            <div style="margin-top: 0.3rem;">${new Date(delivery.estimatedDelivery).toLocaleDateString()}</div>
-                        </div>
-                        ` : ''}
-                        
-                        ${delivery.notes ? `
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(37, 211, 102, 0.1); border-radius: 8px; border-left: 4px solid var(--primary-green);">
-                            <div style="font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Delivery Notes:</div>
-                            <div>${delivery.notes}</div>
-                        </div>
-                        ` : ''}
-                    `;
-                    
-                } else {
-                    throw new Error('Delivery not found');
-                }
-                
-            } else {
-                throw new Error('Failed to fetch tracking information');
-            }
-            
-        } catch (error) {
-            console.error('Tracking error:', error);
-            
-            // Check localStorage for tracking number
-            const trackingNumbers = JSON.parse(localStorage.getItem('dsog_delivery_tracking')) || [];
-            const storedDelivery = trackingNumbers.find(t => t.number === trackingNumber);
-            
-            if (storedDelivery) {
-                // Show stored tracking info
-                trackingResult.innerHTML = `
-                    <div style="margin-bottom: 1.5rem;">
-                        <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
-                        <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
-                    </div>
-                    
-                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--warning); margin-bottom: 1.5rem;">
-                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Status</div>
-                        <div style="font-weight: 700; color: var(--warning);">Awaiting Pickup Assignment</div>
-                    </div>
-                    
-                    <div style="margin-bottom: 1rem;">
-                        <span style="font-weight: 600; color: var(--text-secondary);">Request Date:</span>
-                        <div style="margin-top: 0.3rem;">${new Date(storedDelivery.date).toLocaleDateString()}</div>
-                    </div>
-                    
-                    <div style="padding: 1rem; background: rgba(255, 165, 0, 0.1); border-radius: 8px; border-left: 4px solid var(--warning);">
-                        <div style="font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Note:</div>
-                        <div>Your pickup request has been received. DSOG Delivery will contact you shortly to confirm pickup time and assign a delivery assistant.</div>
-                    </div>
-                `;
-                
-            } else {
-                // Show error message
-                trackingResult.innerHTML = `
-                    <div style="text-align: center; padding: 2rem;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: var(--error); margin-bottom: 1rem;"></i>
-                        <h3 style="color: var(--error); margin-bottom: 0.5rem;">Tracking Number Not Found</h3>
-                        <p style="color: var(--text-secondary);">Please check the tracking number and try again.</p>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">If you just submitted a request, please wait a few minutes and try again.</p>
-                    </div>
-                `;
-            }
-        }
-    }
-    
-    // Load Delivery Assistants
-    async function loadDeliveryAssistants() {
-        const loadingElement = document.getElementById('assistantsLoading');
-        const gridElement = document.getElementById('assistantsGrid');
-        
-        loadingElement.classList.add('visible');
-        gridElement.innerHTML = '';
-        
-        try {
-            // Try to load from backend
-            const response = await fetch(`${scriptUrl}?action=getDeliveryAssistants&timestamp=${Date.now()}`);
-            
-            if (response.ok) {
-                const result = await response.json();
-                
-                if (result.success && Array.isArray(result.data)) {
-                    deliveryAssistants = result.data.map(assistant => ({
-                        id: assistant.id || `DA-${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-                        name: assistant.name || 'Unknown Assistant',
-                        phone: assistant.phone || '+254700000000',
-                        vehicle: assistant.vehicle || 'Vehicle not specified',
-                        status: assistant.status || 'available',
-                        currentCapacity: parseInt(assistant.currentCapacity) || 0,
-                        maxCapacity: parseInt(assistant.maxCapacity) || 10,
-                        rating: parseFloat(assistant.rating) || 4.5,
-                        completedDeliveries: parseInt(assistant.completedDeliveries) || 0,
-                        location: assistant.location || 'Location not specified',
-                        zones: Array.isArray(assistant.zones) ? assistant.zones : 
-                               (assistant.zones ? assistant.zones.split(',') : []),
-                        lastUpdated: assistant.lastUpdated || new Date().toISOString(),
-                        isActive: assistant.isActive !== false,
-                        notes: assistant.notes || ''
-                    }));
-                    
-                    console.log(`✅ Loaded ${deliveryAssistants.length} delivery assistants`);
-                    
-                } else {
-                    // Fallback to sample data
-                    loadSampleDeliveryAssistants();
-                }
-            } else {
-                // Fallback to sample data
-                loadSampleDeliveryAssistants();
-            }
-            
-        } catch (error) {
-            console.error('❌ Error loading delivery assistants:', error);
-            // Fallback to sample data
-            loadSampleDeliveryAssistants();
-        } finally {
-            // Display assistants
-            displayDeliveryAssistants();
-            
-            // Hide loading indicator
-            loadingElement.classList.remove('visible');
-        }
-    }
-    
-    function loadSampleDeliveryAssistants() {
-        console.log('🚚 Loading sample delivery assistants...');
-        
-        deliveryAssistants = [
-            {
-                id: 'DA001',
-                name: 'John Kamau',
-                phone: '+254712345678',
-                vehicle: 'Toyota Probox - KDA 123A',
-                status: 'available',
-                currentCapacity: 3,
-                maxCapacity: 10,
-                rating: 4.8,
-                completedDeliveries: 120,
-                location: 'Nairobi CBD',
-                zones: ['Nairobi', 'Thika', 'Kiambu'],
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Reliable and punctual'
-            },
-            {
-                id: 'DA002',
-                name: 'Susan Wanjiku',
-                phone: '+254723456789',
-                vehicle: 'Suzuki Every - KCB 456B',
-                status: 'available',
-                currentCapacity: 5,
-                maxCapacity: 8,
-                rating: 4.9,
-                completedDeliveries: 95,
-                location: 'Westlands',
-                zones: ['Westlands', 'Parklands', 'Lavington'],
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Excellent customer service'
-            },
-            {
-                id: 'DA003',
-                name: 'Peter Odhiambo',
-                phone: '+254734567890',
-                vehicle: 'Nissan NV350 - KDC 789C',
-                status: 'busy',
-                currentCapacity: 8,
-                maxCapacity: 12,
-                rating: 4.7,
-                completedDeliveries: 150,
-                location: 'Industrial Area',
-                zones: ['Industrial Area', 'South B', 'South C'],
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Handles large orders efficiently'
-            },
-            {
-                id: 'DA004',
-                name: 'Mary Achieng',
-                phone: '+254745678901',
-                vehicle: 'Toyota Sienta - KDD 012D',
-                status: 'available',
-                currentCapacity: 2,
-                maxCapacity: 6,
-                rating: 4.6,
-                completedDeliveries: 80,
-                location: 'Karen',
-                zones: ['Karen', 'Langata', 'Rongai'],
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Specializes in fragile items'
-            }
-        ];
-        
-        console.log(`✅ Loaded ${deliveryAssistants.length} sample delivery assistants`);
-    }
-    
-    function displayDeliveryAssistants() {
-        const gridElement = document.getElementById('assistantsGrid');
-        
-        deliveryAssistants.forEach(assistant => {
-            const capacityPercentage = (assistant.currentCapacity / assistant.maxCapacity) * 100;
-            const capacityColor = capacityPercentage > 80 ? 'var(--error)' : 
-                                 capacityPercentage > 60 ? 'var(--warning)' : 
-                                 'var(--success)';
-            
-            const card = document.createElement('div');
-            card.className = 'assistant-card';
-            
-            card.innerHTML = `
-                <div class="assistant-header">
-                    <span class="assistant-status status-${assistant.status}">${assistant.status}</span>
-                    <h3 class="assistant-name">${assistant.name}</h3>
-                    <p class="assistant-id">ID: ${assistant.id}</p>
-                    <div class="assistant-vehicle">
-                        <i class="fas fa-car"></i>
-                        <span>${assistant.vehicle}</span>
-                    </div>
-                </div>
-                <div class="assistant-body">
-                    <div class="assistant-info">
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="font-weight: 600; color: var(--text-secondary);">Phone:</span>
-                            <span>${assistant.phone}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="font-weight: 600; color: var(--text-secondary);">Location:</span>
-                            <span>${assistant.location}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="font-weight: 600; color: var(--text-secondary);">Rating:</span>
-                            <span><i class="fas fa-star" style="color: var(--primary-gold);"></i> ${assistant.rating} (${assistant.completedDeliveries})</span>
-                        </div>
-                        <div style="margin-top: 0.5rem;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
-                                <span style="font-size: 0.85rem; color: var(--text-secondary);">Current Capacity:</span>
-                                <span style="font-size: 0.85rem;">${assistant.currentCapacity}/${assistant.maxCapacity}</span>
-                            </div>
-                            <div style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
-                                <div style="height: 100%; width: ${capacityPercentage}%; background: ${capacityColor}; border-radius: 3px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assistant-actions">
-                        <button class="assign-btn" onclick="assignPackage('${assistant.id}')" ${assistant.status === 'busy' ? 'disabled' : ''}>
-                            <i class="fas fa-truck-loading"></i>
-                            ${assistant.status === 'busy' ? 'Currently Busy' : 'Assign Package'}
-                        </button>
-                        <button class="whatsapp-btn" onclick="window.open('https://wa.me/${assistant.phone.replace(/\D/g, '')}', '_blank')">
-                            <i class="fab fa-whatsapp"></i>
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            gridElement.appendChild(card);
-        });
-    }
-    
-    function assignPackage(assistantId) {
-        const assistant = deliveryAssistants.find(a => a.id === assistantId);
-        
-        if (!assistant) {
-            showNotification('Assistant not found', 'error');
-            return;
-        }
-        
-        // Get current package details from form
-        const customerName = document.getElementById('customerName').value.trim();
-        const pickupLocation = document.getElementById('pickupLocation').value.trim();
-        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
-        const packageType = document.getElementById('packageType').value;
-        
-        if (!customerName || !pickupLocation || !deliveryLocation || !packageType) {
-            showNotification('Please fill in the pickup request form first', 'error');
-            scrollToSection('request');
-            return;
-        }
-        
-        // Generate tracking number
-        const trackingNumber = 'DSOG-' + Date.now().toString().slice(-6);
-        
-        // Build WhatsApp message for business owner
-        let whatsappMessage = `*📦 PACKAGE ASSIGNMENT REQUEST*%0A%0A`;
-        whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
-        whatsappMessage += `*Assistant:* ${assistant.name} (${assistant.id})%0A`;
-        whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A%0A`;
-        
-        whatsappMessage += `*👤 CUSTOMER*%0A`;
-        whatsappMessage += `${customerName}%0A%0A`;
-        
-        whatsappMessage += `*📍 PICKUP*%0A`;
-        whatsappMessage += `${pickupLocation}%0A%0A`;
-        
-        whatsappMessage += `*🎯 DELIVERY*%0A`;
-        whatsappMessage += `${deliveryLocation}%0A%0A`;
-        
-        whatsappMessage += `*📦 PACKAGE*%0A`;
-        whatsappMessage += `${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A%0A`;
-        
-        whatsappMessage += `_Please confirm assignment to ${assistant.name}_%0A`;
-        whatsappMessage += `_Assistant Phone: ${assistant.phone}_`;
-        
-        // Open WhatsApp with the business owner
-        const whatsappUrl = `https://wa.me/${DELIVERY_OWNER_WHATSAPP}?text=${whatsappMessage}`;
-        window.open(whatsappUrl, '_blank');
-        
-        showNotification(`Assignment request sent for ${assistant.name}`);
     }
     
     // PWA Installation
@@ -3684,7 +3855,6 @@
         }
         
         notification.textContent = message;
-        
         document.body.appendChild(notification);
         
         setTimeout(() => {
