@@ -1120,20 +1120,79 @@
             opacity: 1;
         }
         
-        /* LOCATION DETECTION IMPROVED */
-        .location-detection {
+        /* LOCATION INPUT SECTION - UPDATED */
+        .location-input-section {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--primary-green);
+        }
+        
+        .location-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1rem;
+        }
+        
+        .location-header i {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+        }
+        
+        .location-input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .location-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .location-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+        }
+        
+        .set-location-btn {
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .set-location-btn:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
+        .current-location-display {
+            margin-top: 1rem;
             padding: 1rem;
             background: rgba(37, 211, 102, 0.05);
             border-radius: 8px;
             border: 1px solid rgba(37, 211, 102, 0.2);
+            display: none;
         }
         
-        .location-info {
-            flex: 1;
+        .current-location-display.active {
+            display: block;
         }
         
         .location-status {
@@ -1147,49 +1206,53 @@
             color: var(--primary-green);
         }
         
-        .detect-location-btn {
+        /* ASSISTANT DISPLAY SECTION - UPDATED */
+        .assistant-display-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .assistant-sorting {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .sort-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--white);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .sort-btn:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .sort-btn.active {
             background: var(--primary-green);
             color: var(--white);
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
+            border-color: var(--primary-green);
+        }
+        
+        /* NEARBY BADGE FOR ASSISTANTS */
+        .nearby-badge {
+            background: var(--success);
+            color: var(--white);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .detect-location-btn:hover {
-            background: var(--secondary-green);
-            transform: translateY(-2px);
-        }
-        
-        .detect-location-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .location-manual-input {
-            display: none;
-            margin-top: 1rem;
-        }
-        
-        .location-manual-input.active {
-            display: block;
-        }
-        
-        .location-error {
-            color: var(--error);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-        
-        .location-error.active {
-            display: block;
+            display: inline-block;
+            margin-left: 0.5rem;
         }
         
         /* MAIN CONTENT SECTIONS */
@@ -2048,6 +2111,21 @@
             .history-actions {
                 flex-direction: column;
             }
+            
+            .location-input-group {
+                flex-direction: column;
+            }
+            
+            .assistant-display-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .assistant-sorting {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
         
         @media (max-width: 480px) {
@@ -2099,16 +2177,16 @@
                 
                 <ul class="signin-features">
                     <li>Direct WhatsApp communication with assistants</li>
-                    <li>Location-based assistant matching</li>
+                    <li>Manual location entry for pickup</li>
+                    <li>Prioritized nearby assistants with all shown</li>
                     <li>Real-time WhatsApp tracking</li>
-                    <li>Package size & type confirmation</li>
                     <li>Secure customer data protection</li>
                 </ul>
                 
                 <div style="margin-top: auto; text-align: center; width: 100%;">
                     <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-top: 2rem;">
-                        <i class="fas fa-lock" style="margin-right: 0.5rem;"></i>
-                        WhatsApp-powered tracking
+                        <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i>
+                        Manual location input with assistant prioritization
                     </p>
                 </div>
             </div>
@@ -2119,7 +2197,7 @@
                     <h2 class="signin-title">Welcome to DSOG Delivery Platform</h2>
                     <p class="signin-subtitle">
                         Sign in with your Google account to request pickups and track deliveries via WhatsApp.
-                        Your information is securely authenticated for delivery operations.
+                        Enter your location manually to find prioritized nearby delivery assistants.
                     </p>
                 </div>
                 
@@ -2129,7 +2207,7 @@
                         <ul class="requirements-list">
                             <li>Valid Google account for authentication</li>
                             <li>WhatsApp installed on your device</li>
-                            <li>Location services enabled</li>
+                            <li>Manual location entry for pickup</li>
                             <li>Package details must be accurate</li>
                             <li>Delivery-specific use only</li>
                         </ul>
@@ -2171,7 +2249,7 @@
                 <div class="signin-footer">
                     <p>
                         <i class="fas fa-copyright"></i> 2024 DSOG Delivery System. 
-                        <span style="color: var(--primary-green); font-weight: 600;">WhatsApp Tracking Enabled</span>
+                        <span style="color: var(--primary-green); font-weight: 600;">Manual Location Entry</span>
                     </p>
                     <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">
                         Version 2.1.0 • WhatsApp Edition
@@ -2209,9 +2287,6 @@
                     </div>
                     
                     <div class="registration-actions">
-                        <button type="button" class="registration-btn registration-btn-secondary" onclick="useCurrentLocation()">
-                            <i class="fas fa-map-marker-alt"></i> Use Current Location
-                        </button>
                         <button type="submit" class="registration-btn registration-btn-primary" onclick="completeRegistration()">
                             <i class="fas fa-check"></i> Complete Registration
                         </button>
@@ -2365,30 +2440,37 @@
         <section class="section" id="request">
             <div class="section-title">
                 <h2>Request Package Pickup</h2>
-                <p>Fill in package details and select a delivery assistant in your area</p>
+                <p>Enter your location manually and select a delivery assistant. Nearby assistants are prioritized.</p>
             </div>
             
-            <!-- Improved Location Detection -->
-            <div class="location-detection" id="locationDetection">
-                <div class="location-info">
-                    <div class="location-status">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h4 style="margin: 0; color: var(--primary-green);">Your Location</h4>
-                    </div>
-                    <p id="currentLocationText">Click "Detect Location" to find your position</p>
-                    <div class="location-error" id="locationError">
-                        <!-- Error messages will appear here -->
-                    </div>
-                    <div class="location-manual-input" id="locationManualInput">
-                        <input type="text" id="manualLocationInput" class="form-control" placeholder="Enter your location manually">
-                        <button class="detect-location-btn" onclick="useManualLocation()" style="margin-top: 0.5rem;">
-                            <i class="fas fa-check"></i> Use This Location
-                        </button>
-                    </div>
+            <!-- Updated Location Input Section -->
+            <div class="location-input-section">
+                <div class="location-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3 style="margin: 0; color: var(--primary-green);">Enter Your Location</h3>
                 </div>
-                <button class="detect-location-btn" onclick="detectUserLocation()" id="detectLocationBtn">
-                    <i class="fas fa-sync-alt"></i> Detect Location
-                </button>
+                <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                    Enter your pickup location to prioritize nearby delivery assistants. All available assistants will still be shown.
+                </p>
+                
+                <div class="location-input-group">
+                    <input type="text" id="manualLocationInput" class="location-input" 
+                           placeholder="Enter your pickup location (e.g., Nairobi CBD, Westlands, etc.)">
+                    <button class="set-location-btn" onclick="useManualLocation()">
+                        <i class="fas fa-check"></i> Set Location
+                    </button>
+                </div>
+                
+                <div class="current-location-display" id="currentLocationDisplay">
+                    <div class="location-status">
+                        <i class="fas fa-check-circle"></i>
+                        <strong>Current Location:</strong>
+                    </div>
+                    <p id="currentLocationText" style="margin: 0.5rem 0;">No location set</p>
+                    <small style="color: var(--text-secondary);">
+                        <i class="fas fa-info-circle"></i> Nearby assistants will be prioritized in the list below.
+                    </small>
+                </div>
             </div>
             
             <div class="request-form">
@@ -2407,7 +2489,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="pickupLocation">Pickup Location *</label>
-                        <input type="text" id="pickupLocation" class="form-control" placeholder="Enter pickup address" required>
+                        <input type="text" id="pickupLocation" class="form-control" 
+                               placeholder="Enter pickup address (will be auto-filled from location above)" required>
                     </div>
                     
                     <div class="form-group">
@@ -2468,14 +2551,32 @@
                 
                 <!-- Assistant Selection -->
                 <div class="assistant-selection" id="assistantSelection">
-                    <h3>Select Delivery Assistant *</h3>
+                    <div class="assistant-display-info">
+                        <h3 style="margin: 0;">Available Delivery Assistants</h3>
+                        <div class="assistant-sorting">
+                            <button class="sort-btn" onclick="sortAssistants('distance')" id="sortDistance">
+                                <i class="fas fa-map-marker-alt"></i> Nearby First
+                            </button>
+                            <button class="sort-btn" onclick="sortAssistants('rating')" id="sortRating">
+                                <i class="fas fa-star"></i> Top Rated
+                            </button>
+                            <button class="sort-btn active" onclick="sortAssistants('all')" id="sortAll">
+                                <i class="fas fa-list"></i> Show All
+                            </button>
+                        </div>
+                    </div>
+                    
                     <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">
-                        <i class="fas fa-info-circle"></i> Only showing assistants available in your area
+                        <i class="fas fa-info-circle"></i> 
+                        <span id="assistantCount">Loading assistants...</span>
+                        <span id="nearbyCount" style="display: none; color: var(--primary-green);">
+                            • <span id="nearbyNumber">0</span> nearby assistants
+                        </span>
                     </p>
                     
                     <div class="loading" id="assistantsLoading">
                         <div class="loading-spinner"></div>
-                        <p>Loading assistants in your area...</p>
+                        <p>Loading available delivery assistants...</p>
                     </div>
                     
                     <div class="assistant-options" id="assistantOptions">
@@ -2485,9 +2586,9 @@
                     <div class="no-assistants" id="noAssistants" style="display: none;">
                         <i class="fas fa-users-slash"></i>
                         <h4>No Assistants Available</h4>
-                        <p>There are currently no delivery assistants available in your area.</p>
-                        <button class="track-btn" onclick="detectUserLocation()" style="margin-top: 1rem;">
-                            <i class="fas fa-sync-alt"></i> Refresh Location
+                        <p>There are currently no delivery assistants available.</p>
+                        <button class="track-btn" onclick="loadAllDeliveryAssistants()" style="margin-top: 1rem;">
+                            <i class="fas fa-sync-alt"></i> Refresh Assistants
                         </button>
                     </div>
                 </div>
@@ -2592,7 +2693,7 @@
     <!-- JavaScript -->
     <script>
     // Configuration
-    const scriptUrl = 'https://script.google.com/macros/s/AKfycbzmBoCu_jXpp8oKpNAnX7Ly-bqvfdfhgiHge74ZW0oYae0wUlZERDERJYB-ZC76J9kQYQ/exec';
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbzmBoCu_jXpp8oKpNAnX7Ly-bqvfdfhgiHge74ZW0Yae0wUlZERDERJYB-ZC76J9kQYQ/exec';
     const SUPPORT_WHATSAPP = '254733737983';
     const GOOGLE_CLIENT_ID = '369304497158-8ub6b68v2bjvsfciome6q56flh2rd1m4.apps.googleusercontent.com';
     
@@ -2606,8 +2707,7 @@
     let userLocation = null;
     let deliveryAssistants = [];
     let userDeliveryHistory = [];
-    let locationDetectionAttempts = 0;
-    const MAX_LOCATION_ATTEMPTS = 3;
+    let currentSortMode = 'all';
     
     // PWA variables
     let deferredPrompt = null;
@@ -2616,7 +2716,7 @@
     
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 DSOG Delivery Platform v2.1.0 - WhatsApp Tracking');
+        console.log('🚀 DSOG Delivery Platform v2.1.0 - Manual Location Entry');
         
         // Initialize components
         initMobileMenu();
@@ -2626,6 +2726,7 @@
         initPWA();
         initProfileModal();
         initRegistrationModal();
+        initLocationInput();
         
         // Check for existing Google Sign-in
         if (checkGoogleSignIn()) {
@@ -2637,6 +2738,34 @@
         // Initialize Google Sign-in
         setTimeout(initializeGoogleSignIn, 1000);
     });
+    
+    // Initialize location input with autocomplete
+    function initLocationInput() {
+        const locationInput = document.getElementById('manualLocationInput');
+        const pickupLocationInput = document.getElementById('pickupLocation');
+        
+        // Set up autocomplete if Google Maps API is available
+        if (typeof google !== 'undefined') {
+            const autocomplete = new google.maps.places.Autocomplete(locationInput, {
+                types: ['geocode', 'establishment'],
+                componentRestrictions: {country: 'ke'}
+            });
+            
+            autocomplete.addListener('place_changed', function() {
+                const place = autocomplete.getPlace();
+                if (place.formatted_address) {
+                    pickupLocationInput.value = place.formatted_address;
+                }
+            });
+        }
+        
+        // Auto-fill pickup location when manual location is entered
+        locationInput.addEventListener('input', function() {
+            if (this.value.trim() && !pickupLocationInput.value) {
+                pickupLocationInput.value = this.value;
+            }
+        });
+    }
     
     // Google Sign-in Functions
     function initializeGoogleSignIn() {
@@ -2741,7 +2870,7 @@
                 updateUserProfileUI();
                 autoFillRequestForm();
                 setupNavigation();
-                detectUserLocation();
+                loadAllDeliveryAssistants();
                 loadUserDeliveryHistory();
             }
         } else {
@@ -2843,21 +2972,6 @@
         document.body.style.overflow = 'auto';
     }
     
-    function useCurrentLocation() {
-        const locationField = document.getElementById('userLocation');
-        locationField.value = 'Detecting your location...';
-        
-        detectUserLocation(true).then(location => {
-            if (location && location.address) {
-                locationField.value = location.address;
-                showNotification('Location detected successfully!');
-            }
-        }).catch(() => {
-            locationField.value = '';
-            showNotification('Unable to detect location. Please enter manually.', 'error');
-        });
-    }
-    
     function completeRegistration() {
         const phoneField = document.getElementById('userPhone');
         const locationField = document.getElementById('userLocation');
@@ -2890,135 +3004,18 @@
         updateUserProfileUI();
         autoFillRequestForm();
         setupNavigation();
-        detectUserLocation();
+        loadAllDeliveryAssistants();
         loadUserDeliveryHistory();
         
         showNotification('Registration completed successfully!');
     }
     
-    // Improved Location Detection
-    function detectUserLocation(fromRegistration = false) {
-        return new Promise((resolve, reject) => {
-            locationDetectionAttempts++;
-            
-            const locationText = document.getElementById('currentLocationText');
-            const detectBtn = document.getElementById('detectLocationBtn');
-            const locationError = document.getElementById('locationError');
-            const manualInput = document.getElementById('locationManualInput');
-            
-            locationText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting your location...';
-            locationError.classList.remove('active');
-            manualInput.classList.remove('active');
-            detectBtn.disabled = true;
-            
-            if (!navigator.geolocation) {
-                locationText.textContent = 'Geolocation not supported by your browser';
-                locationError.textContent = 'Your browser does not support location services. Please enter your location manually.';
-                locationError.classList.add('active');
-                manualInput.classList.add('active');
-                detectBtn.disabled = false;
-                reject(new Error('Geolocation not supported'));
-                return;
-            }
-            
-            const options = {
-                enableHighAccuracy: true,
-                timeout: 10000,
-                maximumAge: 0
-            };
-            
-            navigator.geolocation.getCurrentPosition(
-                async function(position) {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    userLocation = { lat, lng };
-                    
-                    locationDetectionAttempts = 0; // Reset attempts on success
-                    
-                    try {
-                        const address = await reverseGeocode(lat, lng);
-                        locationText.textContent = address;
-                        
-                        if (!fromRegistration) {
-                            // Auto-fill pickup location
-                            document.getElementById('pickupLocation').value = address;
-                            
-                            // Load assistants for this location
-                            loadDeliveryAssistantsForLocation(lat, lng);
-                        }
-                        
-                        resolve({ lat, lng, address });
-                    } catch (error) {
-                        locationText.textContent = `Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-                        resolve({ lat, lng });
-                    }
-                    
-                    detectBtn.disabled = false;
-                },
-                function(error) {
-                    console.error('Geolocation error:', error);
-                    detectBtn.disabled = false;
-                    
-                    let errorMessage = '';
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMessage = 'Location permission denied. Please allow location access in your browser settings.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMessage = 'Location information unavailable.';
-                            break;
-                        case error.TIMEOUT:
-                            errorMessage = 'Location request timed out.';
-                            break;
-                        default:
-                            errorMessage = 'An unknown error occurred while detecting location.';
-                    }
-                    
-                    locationText.textContent = 'Unable to detect location';
-                    locationError.textContent = errorMessage;
-                    locationError.classList.add('active');
-                    
-                    // Show manual input option after multiple failed attempts
-                    if (locationDetectionAttempts >= MAX_LOCATION_ATTEMPTS) {
-                        manualInput.classList.add('active');
-                    }
-                    
-                    if (!fromRegistration) {
-                        loadAllDeliveryAssistants();
-                    }
-                    
-                    reject(error);
-                },
-                options
-            );
-        });
-    }
-    
-    async function reverseGeocode(lat, lng) {
-        return new Promise((resolve, reject) => {
-            if (typeof google === 'undefined') {
-                resolve(`Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
-                return;
-            }
-            
-            const geocoder = new google.maps.Geocoder();
-            const latlng = { lat: lat, lng: lng };
-            
-            geocoder.geocode({ location: latlng }, function(results, status) {
-                if (status === 'OK' && results[0]) {
-                    resolve(results[0].formatted_address);
-                } else {
-                    reject(new Error('Geocoding failed'));
-                }
-            });
-        });
-    }
-    
+    // Manual Location Functions
     function useManualLocation() {
         const manualInput = document.getElementById('manualLocationInput');
         const locationText = document.getElementById('currentLocationText');
         const pickupField = document.getElementById('pickupLocation');
-        const locationError = document.getElementById('locationError');
+        const locationDisplay = document.getElementById('currentLocationDisplay');
         
         const manualLocation = manualInput.value.trim();
         
@@ -3031,202 +3028,294 @@
         pickupField.value = manualLocation;
         userLocation = { manual: true, address: manualLocation };
         
-        // Load assistants based on manual location
+        // Show location display
+        locationDisplay.classList.add('active');
+        
+        // Load assistants
         loadAllDeliveryAssistants();
         
-        // Hide manual input
-        document.getElementById('locationManualInput').classList.remove('active');
-        locationError.classList.remove('active');
-        
-        showNotification('Location set successfully!');
+        showNotification('Location set successfully! Nearby assistants will be prioritized.');
     }
     
-    // Load delivery assistants for specific location
-    async function loadDeliveryAssistantsForLocation(lat, lng) {
+    // Load all delivery assistants
+    function loadAllDeliveryAssistants() {
         const loadingElement = document.getElementById('assistantsLoading');
         const optionsElement = document.getElementById('assistantOptions');
         const noAssistantsElement = document.getElementById('noAssistants');
+        const assistantCount = document.getElementById('assistantCount');
+        const nearbyCount = document.getElementById('nearbyCount');
+        const nearbyNumber = document.getElementById('nearbyNumber');
         
         loadingElement.classList.add('visible');
         optionsElement.innerHTML = '';
         noAssistantsElement.style.display = 'none';
         
-        try {
-            // Try to load assistants from backend with location filter
-            const response = await fetch(`${scriptUrl}?action=getDeliveryAssistants&lat=${lat}&lng=${lng}&timestamp=${Date.now()}`);
-            
-            if (response.ok) {
-                const result = await response.json();
-                
-                if (result.success && Array.isArray(result.data)) {
-                    deliveryAssistants = result.data.filter(assistant => 
-                        assistant.isActive !== false && 
-                        assistant.status !== 'offline'
-                    );
-                    
-                    if (deliveryAssistants.length > 0) {
-                        displayLocationBasedAssistants(deliveryAssistants, lat, lng);
-                    } else {
-                        showNoAssistantsAvailable();
-                    }
-                } else {
-                    loadSampleAssistantsWithLocation(lat, lng);
+        setTimeout(() => {
+            // Sample assistants
+            const allAssistants = [
+                {
+                    id: 'DA001',
+                    name: 'John Kamau',
+                    phone: '+254712345678',
+                    vehicle: 'Toyota Probox - KDA 123A',
+                    status: 'available',
+                    currentCapacity: 3,
+                    maxCapacity: 10,
+                    rating: 4.8,
+                    completedDeliveries: 120,
+                    location: 'Nairobi CBD',
+                    zones: ['Nairobi CBD', 'Upper Hill', 'Westlands'],
+                    latitude: -1.286389,
+                    longitude: 36.817223,
+                    lastUpdated: new Date().toISOString(),
+                    isActive: true,
+                    notes: 'Reliable and punctual',
+                    area: 'Central'
+                },
+                {
+                    id: 'DA002',
+                    name: 'Susan Wanjiku',
+                    phone: '+254723456789',
+                    vehicle: 'Suzuki Every - KCB 456B',
+                    status: 'available',
+                    currentCapacity: 5,
+                    maxCapacity: 8,
+                    rating: 4.9,
+                    completedDeliveries: 95,
+                    location: 'Westlands',
+                    zones: ['Westlands', 'Parklands', 'Lavington'],
+                    latitude: -1.2684,
+                    longitude: 36.8065,
+                    lastUpdated: new Date().toISOString(),
+                    isActive: true,
+                    notes: 'Excellent customer service',
+                    area: 'West'
+                },
+                {
+                    id: 'DA003',
+                    name: 'Peter Odhiambo',
+                    phone: '+254734567890',
+                    vehicle: 'Nissan NV350 - KDC 789C',
+                    status: 'busy',
+                    currentCapacity: 8,
+                    maxCapacity: 12,
+                    rating: 4.7,
+                    completedDeliveries: 150,
+                    location: 'Industrial Area',
+                    zones: ['Industrial Area', 'South B', 'South C'],
+                    latitude: -1.3200,
+                    longitude: 36.8900,
+                    lastUpdated: new Date().toISOString(),
+                    isActive: true,
+                    notes: 'Handles large orders efficiently',
+                    area: 'South'
+                },
+                {
+                    id: 'DA004',
+                    name: 'Mary Achieng',
+                    phone: '+254745678901',
+                    vehicle: 'Toyota Sienta - KDD 012D',
+                    status: 'available',
+                    currentCapacity: 2,
+                    maxCapacity: 6,
+                    rating: 4.6,
+                    completedDeliveries: 80,
+                    location: 'Karen',
+                    zones: ['Karen', 'Langata', 'Rongai'],
+                    latitude: -1.3195,
+                    longitude: 36.7089,
+                    lastUpdated: new Date().toISOString(),
+                    isActive: true,
+                    notes: 'Specializes in fragile items',
+                    area: 'South West'
+                },
+                {
+                    id: 'DA005',
+                    name: 'David Mwangi',
+                    phone: '+254756789012',
+                    vehicle: 'Toyota Hiace - KDE 345E',
+                    status: 'available',
+                    currentCapacity: 4,
+                    maxCapacity: 15,
+                    rating: 4.5,
+                    completedDeliveries: 200,
+                    location: 'Thika',
+                    zones: ['Thika', 'Ruiru', 'Juja'],
+                    latitude: -1.0392,
+                    longitude: 37.0696,
+                    lastUpdated: new Date().toISOString(),
+                    isActive: true,
+                    notes: 'Long distance specialist',
+                    area: 'East'
+                },
+                {
+                    id: 'DA006',
+                    name: 'James Omondi',
+                    phone: '+254767890123',
+                    vehicle: 'Mazda Bongo - KDF 678F',
+                    status: 'available',
+                    currentCapacity: 6,
+                    maxCapacity: 10,
+                    rating: 4.4,
+                    completedDeliveries: 110,
+                    location: 'Eastleigh',
+                    zones: ['Eastleigh', 'Pangani', 'Huruma'],
+                    latitude: -1.2747,
+                    longitude: 36.8540,
+                    lastUpdated: new Date().toISOString(),
+                    isActive: true,
+                    notes: 'Quick pickup and delivery',
+                    area: 'North East'
+                },
+                {
+                    id: 'DA007',
+                    name: 'Grace Wambui',
+                    phone: '+254778901234',
+                    vehicle: 'Toyota Raum - KDG 901G',
+                    status: 'available',
+                    currentCapacity: 1,
+                    maxCapacity: 5,
+                    rating: 4.9,
+                    completedDeliveries: 65,
+                    location: 'Kileleshwa',
+                    zones: ['Kileleshwa', 'Kilimani', 'Adams Arcade'],
+                    latitude: -1.2700,
+                    longitude: 36.7800,
+                    lastUpdated: new Date().toISOString(),
+                    isActive: true,
+                    notes: 'Careful with fragile items',
+                    area: 'West'
                 }
-            } else {
-                loadSampleAssistantsWithLocation(lat, lng);
-            }
-        } catch (error) {
-            console.error('Error loading delivery assistants:', error);
-            loadSampleAssistantsWithLocation(lat, lng);
-        } finally {
-            loadingElement.classList.remove('visible');
-        }
-    }
-    
-    function loadSampleAssistantsWithLocation(lat, lng) {
-        // Sample assistants with simulated location-based filtering
-        const allAssistants = [
-            {
-                id: 'DA001',
-                name: 'John Kamau',
-                phone: '+254712345678',
-                vehicle: 'Toyota Probox - KDA 123A',
-                status: 'available',
-                currentCapacity: 3,
-                maxCapacity: 10,
-                rating: 4.8,
-                completedDeliveries: 120,
-                location: 'Nairobi CBD',
-                zones: ['Nairobi CBD', 'Upper Hill', 'Westlands'],
-                latitude: -1.286389,
-                longitude: 36.817223,
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Reliable and punctual'
-            },
-            {
-                id: 'DA002',
-                name: 'Susan Wanjiku',
-                phone: '+254723456789',
-                vehicle: 'Suzuki Every - KCB 456B',
-                status: 'available',
-                currentCapacity: 5,
-                maxCapacity: 8,
-                rating: 4.9,
-                completedDeliveries: 95,
-                location: 'Westlands',
-                zones: ['Westlands', 'Parklands', 'Lavington'],
-                latitude: -1.2684,
-                longitude: 36.8065,
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Excellent customer service'
-            },
-            {
-                id: 'DA003',
-                name: 'Peter Odhiambo',
-                phone: '+254734567890',
-                vehicle: 'Nissan NV350 - KDC 789C',
-                status: 'busy',
-                currentCapacity: 8,
-                maxCapacity: 12,
-                rating: 4.7,
-                completedDeliveries: 150,
-                location: 'Industrial Area',
-                zones: ['Industrial Area', 'South B', 'South C'],
-                latitude: -1.3200,
-                longitude: 36.8900,
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Handles large orders efficiently'
-            },
-            {
-                id: 'DA004',
-                name: 'Mary Achieng',
-                phone: '+254745678901',
-                vehicle: 'Toyota Sienta - KDD 012D',
-                status: 'available',
-                currentCapacity: 2,
-                maxCapacity: 6,
-                rating: 4.6,
-                completedDeliveries: 80,
-                location: 'Karen',
-                zones: ['Karen', 'Langata', 'Rongai'],
-                latitude: -1.3195,
-                longitude: 36.7089,
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Specializes in fragile items'
-            },
-            {
-                id: 'DA005',
-                name: 'David Mwangi',
-                phone: '+254756789012',
-                vehicle: 'Toyota Hiace - KDE 345E',
-                status: 'available',
-                currentCapacity: 4,
-                maxCapacity: 15,
-                rating: 4.5,
-                completedDeliveries: 200,
-                location: 'Thika',
-                zones: ['Thika', 'Ruiru', 'Juja'],
-                latitude: -1.0392,
-                longitude: 37.0696,
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Long distance specialist'
-            }
-        ];
-        
-        // Filter assistants based on proximity to user location
-        const MAX_DISTANCE_KM = 20; // Show assistants within 20km radius
-        
-        deliveryAssistants = allAssistants.filter(assistant => {
-            if (!assistant.latitude || !assistant.longitude) return true; // Show if no location data
+            ];
             
-            const distance = calculateDistance(
-                lat, lng,
-                assistant.latitude, assistant.longitude
+            deliveryAssistants = allAssistants.filter(assistant => 
+                assistant.isActive !== false && 
+                assistant.status !== 'offline'
             );
             
-            return distance <= MAX_DISTANCE_KM;
-        });
+            // Calculate distances if user location is set
+            if (userLocation && userLocation.address) {
+                deliveryAssistants.forEach(assistant => {
+                    assistant.distance = calculateAreaDistance(userLocation.address, assistant.area);
+                    assistant.isNearby = assistant.distance <= 2; // Within 2 "area units"
+                });
+            } else {
+                deliveryAssistants.forEach(assistant => {
+                    assistant.distance = null;
+                    assistant.isNearby = false;
+                });
+            }
+            
+            // Count nearby assistants
+            const nearbyAssistants = deliveryAssistants.filter(a => a.isNearby).length;
+            nearbyNumber.textContent = nearbyAssistants;
+            
+            // Update display info
+            assistantCount.textContent = `${deliveryAssistants.length} assistants available`;
+            if (nearbyAssistants > 0) {
+                nearbyCount.style.display = 'inline';
+            } else {
+                nearbyCount.style.display = 'none';
+            }
+            
+            // Sort and display assistants
+            sortAssistants(currentSortMode);
+            
+            loadingElement.classList.remove('visible');
+        }, 1000);
+    }
+    
+    // Calculate area-based distance (simplified)
+    function calculateAreaDistance(userLocation, assistantArea) {
+        if (!userLocation || !assistantArea) return 999;
         
-        if (deliveryAssistants.length > 0) {
-            displayLocationBasedAssistants(deliveryAssistants, lat, lng);
-        } else {
-            showNoAssistantsAvailable();
+        // Simplified area mapping for demonstration
+        const areaDistances = {
+            'Central': { 'Central': 0, 'West': 1, 'South': 2, 'East': 3, 'North East': 2, 'South West': 3 },
+            'West': { 'Central': 1, 'West': 0, 'South': 3, 'East': 4, 'North East': 3, 'South West': 2 },
+            'South': { 'Central': 2, 'West': 3, 'South': 0, 'East': 5, 'North East': 4, 'South West': 1 },
+            'East': { 'Central': 3, 'West': 4, 'South': 5, 'East': 0, 'North East': 1, 'South West': 6 },
+            'North East': { 'Central': 2, 'West': 3, 'South': 4, 'East': 1, 'North East': 0, 'South West': 5 },
+            'South West': { 'Central': 3, 'West': 2, 'South': 1, 'East': 6, 'North East': 5, 'South West': 0 }
+        };
+        
+        // Try to determine user area from location text
+        const userLocationLower = userLocation.toLowerCase();
+        let userArea = 'Central'; // Default
+        
+        if (userLocationLower.includes('westlands') || userLocationLower.includes('parklands') || userLocationLower.includes('lavington')) {
+            userArea = 'West';
+        } else if (userLocationLower.includes('industrial') || userLocationLower.includes('south b') || userLocationLower.includes('south c')) {
+            userArea = 'South';
+        } else if (userLocationLower.includes('thika') || userLocationLower.includes('ruiru') || userLocationLower.includes('juja')) {
+            userArea = 'East';
+        } else if (userLocationLower.includes('eastleigh') || userLocationLower.includes('pangani') || userLocationLower.includes('huruma')) {
+            userArea = 'North East';
+        } else if (userLocationLower.includes('karen') || userLocationLower.includes('langata') || userLocationLower.includes('rongai')) {
+            userArea = 'South West';
         }
-    }
-    
-    function calculateDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371; // Earth's radius in km
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = 
-            Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-            Math.sin(dLon/2) * Math.sin(dLon/2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        return R * c;
-    }
-    
-    function displayLocationBasedAssistants(assistants, userLat, userLng) {
-        const optionsElement = document.getElementById('assistantOptions');
-        optionsElement.innerHTML = '';
         
-        // Sort by distance
-        assistants.sort((a, b) => {
-            const distA = a.latitude ? calculateDistance(userLat, userLng, a.latitude, a.longitude) : 999;
-            const distB = b.latitude ? calculateDistance(userLat, userLng, b.latitude, b.longitude) : 999;
-            return distA - distB;
+        return areaDistances[userArea]?.[assistantArea] || 999;
+    }
+    
+    // Sort assistants based on mode
+    function sortAssistants(mode) {
+        currentSortMode = mode;
+        
+        // Update active sort button
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.classList.remove('active');
         });
+        document.getElementById(`sort${mode.charAt(0).toUpperCase() + mode.slice(1)}`).classList.add('active');
+        
+        let sortedAssistants = [...deliveryAssistants];
+        
+        switch(mode) {
+            case 'distance':
+                // Sort by distance (nearby first)
+                sortedAssistants.sort((a, b) => {
+                    if (a.isNearby && !b.isNearby) return -1;
+                    if (!a.isNearby && b.isNearby) return 1;
+                    if (a.distance !== null && b.distance !== null) {
+                        return a.distance - b.distance;
+                    }
+                    return 0;
+                });
+                break;
+                
+            case 'rating':
+                // Sort by rating (highest first)
+                sortedAssistants.sort((a, b) => b.rating - a.rating);
+                break;
+                
+            case 'all':
+            default:
+                // Default order (available first)
+                sortedAssistants.sort((a, b) => {
+                    if (a.status === 'available' && b.status !== 'available') return -1;
+                    if (a.status !== 'available' && b.status === 'available') return 1;
+                    return 0;
+                });
+                break;
+        }
+        
+        displayAssistants(sortedAssistants);
+    }
+    
+    function displayAssistants(assistants) {
+        const optionsElement = document.getElementById('assistantOptions');
+        const noAssistantsElement = document.getElementById('noAssistants');
+        
+        if (assistants.length === 0) {
+            optionsElement.innerHTML = '';
+            noAssistantsElement.style.display = 'block';
+            return;
+        }
+        
+        optionsElement.innerHTML = '';
+        noAssistantsElement.style.display = 'none';
         
         assistants.forEach(assistant => {
-            const distance = assistant.latitude ? 
-                calculateDistance(userLat, userLng, assistant.latitude, assistant.longitude).toFixed(1) : 
-                'Unknown';
-            
             const capacityPercentage = (assistant.currentCapacity / assistant.maxCapacity) * 100;
             const capacityColor = capacityPercentage > 80 ? 'var(--error)' : 
                                  capacityPercentage > 60 ? 'var(--warning)' : 
@@ -3236,12 +3325,18 @@
             card.className = 'assistant-option';
             card.dataset.assistantId = assistant.id;
             
+            // Determine if assistant is nearby
+            const nearbyBadge = assistant.isNearby ? '<span class="nearby-badge">Nearby</span>' : '';
+            
             card.innerHTML = `
                 <div class="assistant-badge ${assistant.status === 'available' ? 'badge-available' : 'badge-busy'}">
                     ${assistant.status === 'available' ? 'Available' : 'Busy'}
                 </div>
                 
-                <h4 class="assistant-name">${assistant.name}</h4>
+                <h4 class="assistant-name">
+                    ${assistant.name}
+                    ${nearbyBadge}
+                </h4>
                 <div class="assistant-details">
                     <div class="assistant-detail">
                         <i class="fas fa-phone"></i>
@@ -3253,7 +3348,7 @@
                     </div>
                     <div class="assistant-detail">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>${assistant.location}</span>
+                        <span>${assistant.location} (${assistant.area})</span>
                     </div>
                     <div class="assistant-detail">
                         <div class="assistant-rating">
@@ -3263,9 +3358,11 @@
                     </div>
                 </div>
                 
+                ${assistant.isNearby ? `
                 <div class="distance-indicator">
-                    <i class="fas fa-road"></i> ${distance} km away
+                    <i class="fas fa-map-marker-alt"></i> In your area
                 </div>
+                ` : ''}
                 
                 <div style="margin-top: 0.5rem;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
@@ -3284,14 +3381,6 @@
             
             optionsElement.appendChild(card);
         });
-    }
-    
-    function showNoAssistantsAvailable() {
-        const optionsElement = document.getElementById('assistantOptions');
-        const noAssistantsElement = document.getElementById('noAssistants');
-        
-        optionsElement.innerHTML = '';
-        noAssistantsElement.style.display = 'block';
     }
     
     function selectAssistant(assistant) {
@@ -3333,7 +3422,7 @@
         updateUserProfileUI();
         autoFillRequestForm();
         setupNavigation();
-        detectUserLocation();
+        loadAllDeliveryAssistants();
         loadUserDeliveryHistory();
     }
     
@@ -3382,6 +3471,7 @@
             const nameField = document.getElementById('customerName');
             const phoneField = document.getElementById('customerPhone');
             const pickupField = document.getElementById('pickupLocation');
+            const manualLocationInput = document.getElementById('manualLocationInput');
             
             if (nameField && userProfile.name) {
                 nameField.value = userProfile.name;
@@ -3395,6 +3485,10 @@
             
             if (pickupField && userProfile.defaultLocation) {
                 pickupField.value = userProfile.defaultLocation;
+            }
+            
+            if (manualLocationInput && userProfile.defaultLocation) {
+                manualLocationInput.value = userProfile.defaultLocation;
             }
         }
     }
@@ -3542,22 +3636,6 @@
             showNotification('Signed out successfully');
         }
     }
-    
-    // Rest of the functions remain the same (initPackageTypeSelection, initCharCounter, etc.)
-    // These include:
-    // - initPackageTypeSelection()
-    // - initCharCounter()
-    // - initConfirmationModal()
-    // - confirmPickupRequest()
-    // - submitPickupRequestViaWhatsApp()
-    // - saveToDeliveryHistory()
-    // - resetRequestForm()
-    // - initMobileMenu()
-    // - setupNavigation()
-    // - initPWA()
-    // - showNotification()
-    // - WhatsApp tracking functions
-    // - Delivery history functions
     
     // Initialize Package Type Selection
     function initPackageTypeSelection() {
@@ -3733,6 +3811,7 @@
                         <span style="font-weight: 600; color: var(--text-secondary);">Selected Assistant:</span>
                         <div style="margin-top: 0.3rem;">
                             ${selectedAssistant.name} (${selectedAssistant.phone})
+                            ${selectedAssistant.isNearby ? '<span class="nearby-badge">Nearby</span>' : ''}
                             <div style="font-size: 0.9rem; color: var(--text-secondary);">
                                 <i class="fas fa-info-circle"></i> You will communicate directly with this assistant via WhatsApp
                             </div>
@@ -3919,7 +3998,6 @@
     }
     
     function resetRequestForm() {
-        document.getElementById('pickupLocation').value = userProfile.defaultLocation || '';
         document.getElementById('deliveryLocation').value = '';
         document.getElementById('packageType').value = '';
         document.getElementById('packageSize').value = '';
@@ -4306,178 +4384,52 @@
         }, 3000);
     }
     
-    // Fallback for loading all assistants when location fails
-    function loadAllDeliveryAssistants() {
-        const allAssistants = [
-            {
-                id: 'DA001',
-                name: 'John Kamau',
-                phone: '+254712345678',
-                vehicle: 'Toyota Probox - KDA 123A',
-                status: 'available',
-                currentCapacity: 3,
-                maxCapacity: 10,
-                rating: 4.8,
-                completedDeliveries: 120,
-                location: 'Nairobi CBD',
-                zones: ['Nairobi CBD', 'Upper Hill', 'Westlands'],
-                latitude: -1.286389,
-                longitude: 36.817223,
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Reliable and punctual'
-            },
-            {
-                id: 'DA002',
-                name: 'Susan Wanjiku',
-                phone: '+254723456789',
-                vehicle: 'Suzuki Every - KCB 456B',
-                status: 'available',
-                currentCapacity: 5,
-                maxCapacity: 8,
-                rating: 4.9,
-                completedDeliveries: 95,
-                location: 'Westlands',
-                zones: ['Westlands', 'Parklands', 'Lavington'],
-                latitude: -1.2684,
-                longitude: 36.8065,
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Excellent customer service'
-            },
-            {
-                id: 'DA003',
-                name: 'Peter Odhiambo',
-                phone: '+254734567890',
-                vehicle: 'Nissan NV350 - KDC 789C',
-                status: 'busy',
-                currentCapacity: 8,
-                maxCapacity: 12,
-                rating: 4.7,
-                completedDeliveries: 150,
-                location: 'Industrial Area',
-                zones: ['Industrial Area', 'South B', 'South C'],
-                latitude: -1.3200,
-                longitude: 36.8900,
-                lastUpdated: new Date().toISOString(),
-                isActive: true,
-                notes: 'Handles large orders efficiently'
-            }
-        ];
-        
-        deliveryAssistants = allAssistants.filter(assistant => 
-            assistant.isActive !== false && 
-            assistant.status !== 'offline'
-        );
-        
-        displayAllAssistants(deliveryAssistants);
+    // Add this at the end of your main script in index.html
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/delivery-service-worker.js')
+          .then((registration) => {
+            console.log('✅ Service Worker registered with scope:', registration.scope);
+            
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              console.log('🔄 New Service Worker found:', newWorker);
+              
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('🔄 New Service Worker installed. Refresh to update.');
+                  showNotification('New version available! Refresh to update.', 'info');
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error('❌ Service Worker registration failed:', error);
+          });
+      });
+      
+      // Handle controller change
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('🔄 Service Worker controller changed');
+        window.location.reload();
+      });
     }
     
-    function displayAllAssistants(assistants) {
-        const optionsElement = document.getElementById('assistantOptions');
-        optionsElement.innerHTML = '';
-        
-        assistants.forEach(assistant => {
-            const capacityPercentage = (assistant.currentCapacity / assistant.maxCapacity) * 100;
-            const capacityColor = capacityPercentage > 80 ? 'var(--error)' : 
-                                 capacityPercentage > 60 ? 'var(--warning)' : 
-                                 'var(--success)';
-            
-            const card = document.createElement('div');
-            card.className = 'assistant-option';
-            card.dataset.assistantId = assistant.id;
-            
-            card.innerHTML = `
-                <div class="assistant-badge ${assistant.status === 'available' ? 'badge-available' : 'badge-busy'}">
-                    ${assistant.status === 'available' ? 'Available' : 'Busy'}
-                </div>
-                
-                <h4 class="assistant-name">${assistant.name}</h4>
-                <div class="assistant-details">
-                    <div class="assistant-detail">
-                        <i class="fas fa-phone"></i>
-                        <span>${assistant.phone}</span>
-                    </div>
-                    <div class="assistant-detail">
-                        <i class="fas fa-car"></i>
-                        <span>${assistant.vehicle}</span>
-                    </div>
-                    <div class="assistant-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>${assistant.location}</span>
-                    </div>
-                    <div class="assistant-detail">
-                        <div class="assistant-rating">
-                            <i class="fas fa-star"></i>
-                            <span>${assistant.rating} (${assistant.completedDeliveries} deliveries)</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 0.5rem;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
-                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Current Load:</span>
-                        <span style="font-size: 0.85rem;">${assistant.currentCapacity}/${assistant.maxCapacity}</span>
-                    </div>
-                    <div style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
-                        <div style="height: 100%; width: ${capacityPercentage}%; background: ${capacityColor}; border-radius: 3px;"></div>
-                    </div>
-                </div>
-            `;
-            
-            card.addEventListener('click', function() {
-                selectAssistant(assistant);
-            });
-            
-            optionsElement.appendChild(card);
+    // Add this function to check for updates periodically
+    function checkForUpdates() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then((registration) => {
+          registration.update().then(() => {
+            console.log('🔄 Checking for Service Worker updates...');
+          });
         });
+      }
     }
-        // Add this at the end of your main script in index.html
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/delivery-service-worker.js')
-              .then((registration) => {
-                console.log('✅ Service Worker registered with scope:', registration.scope);
-                
-                // Check for updates
-                registration.addEventListener('updatefound', () => {
-                  const newWorker = registration.installing;
-                  console.log('🔄 New Service Worker found:', newWorker);
-                  
-                  newWorker.addEventListener('statechange', () => {
-                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                      console.log('🔄 New Service Worker installed. Refresh to update.');
-                      showNotification('New version available! Refresh to update.', 'info');
-                    }
-                  });
-                });
-              })
-              .catch((error) => {
-                console.error('❌ Service Worker registration failed:', error);
-              });
-          });
-          
-          // Handle controller change
-          navigator.serviceWorker.addEventListener('controllerchange', () => {
-            console.log('🔄 Service Worker controller changed');
-            window.location.reload();
-          });
-        }
-        
-        // Add this function to check for updates periodically
-        function checkForUpdates() {
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.ready.then((registration) => {
-              registration.update().then(() => {
-                console.log('🔄 Checking for Service Worker updates...');
-              });
-            });
-          }
-        }
-        
-        // Check for updates every hour
-        setInterval(checkForUpdates, 60 * 60 * 1000);
+    
+    // Check for updates every hour
+    setInterval(checkForUpdates, 60 * 60 * 1000);
     </script>
 </body>
 </html>
