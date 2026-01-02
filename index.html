@@ -3211,6 +3211,7 @@
         }
         
         // Load all delivery assistants - FIXED VERSION
+        // Load all delivery assistants - COMPLETELY FIXED VERSION
         async function loadAllDeliveryAssistants() {
             const loadingElement = document.getElementById('assistantsLoading');
             const gridElement = document.getElementById('assistantsGrid');
@@ -3226,50 +3227,91 @@
             noAssistantsElement.style.display = 'none';
             
             try {
-                console.log('📡 Loading delivery assistants...');
+                console.log('📡 Loading delivery assistants from Google Apps Script...');
                 
-                // Try to fetch from the Google Apps Script
-                const response = await fetch(`${scriptUrl}?action=getDeliveryAssistants&timestamp=${Date.now()}`);
+                // IMPORTANT: Use the EXACT SAME script URL as the old version
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbzmBoCu_jXpp8oKpNAnX7Ly-bqvfdfhgiHge74ZW0oYae0wUlZERDERJYB-ZC76J9kQYQ/exec';
+                
+                // Use the same fetch method as the old version
+                const response = await fetch(`${scriptUrl}?action=getDeliveryAssistants&timestamp=${Date.now()}`, {
+                    method: 'GET',
+                    mode: 'cors' // Use cors mode
+                });
+                
+                console.log('Response status:', response.status);
                 
                 if (response.ok) {
                     const result = await response.json();
+                    console.log('API Response:', result);
                     
-                    if (result.success && Array.isArray(result.data)) {
+                    if (result && result.success && Array.isArray(result.data)) {
                         // Process the data from the backend
                         deliveryAssistants = result.data.map(assistant => ({
-                            id: assistant.id || `DA-${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-                            name: assistant.name || 'Unknown Assistant',
-                            phone: assistant.phone || '+254700000000',
-                            vehicle: assistant.vehicle || 'Vehicle not specified',
+                            id: assistant.id || assistant.assistant_id || `DA-${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+                            name: assistant.name || assistant.assistant_name || 'Unknown Assistant',
+                            phone: assistant.phone || assistant.phone_number || '+254700000000',
+                            vehicle: assistant.vehicle || assistant.vehicle_type || 'Vehicle not specified',
                             status: assistant.status || 'available',
-                            currentCapacity: parseInt(assistant.currentCapacity) || 0,
-                            maxCapacity: parseInt(assistant.maxCapacity) || 10,
-                            rating: parseFloat(assistant.rating) || 4.5,
-                            completedDeliveries: parseInt(assistant.completedDeliveries) || 0,
-                            location: assistant.location || 'Location not specified',
-                            area: assistant.area || assistant.zones?.[0] || 'Central',
+                            currentCapacity: parseInt(assistant.currentCapacity || assistant.current_capacity || 0),
+                            maxCapacity: parseInt(assistant.maxCapacity || assistant.max_capacity || 10),
+                            rating: parseFloat(assistant.rating || 4.5),
+                            completedDeliveries: parseInt(assistant.completedDeliveries || assistant.completed_deliveries || 0),
+                            location: assistant.location || assistant.area || 'Location not specified',
+                            area: assistant.area || assistant.zone || assistant.location || 'Central',
                             zones: Array.isArray(assistant.zones) ? assistant.zones : 
-                                   (assistant.zones ? assistant.zones.split(',') : []),
-                            lastUpdated: assistant.lastUpdated || new Date().toISOString(),
-                            isActive: assistant.isActive !== false,
+                                   (assistant.zones ? assistant.zones.split(',') : 
+                                   (assistant.areas ? assistant.areas.split(',') : [])),
+                            lastUpdated: assistant.lastUpdated || assistant.last_updated || new Date().toISOString(),
+                            isActive: assistant.isActive !== false && assistant.active !== false,
                             notes: assistant.notes || ''
                         }));
                         
-                        console.log(`✅ Loaded ${deliveryAssistants.length} assistants from backend`);
+                        console.log(`✅ Successfully loaded ${deliveryAssistants.length} assistants from backend`);
+                        
                     } else {
-                        // Fallback to sample data
-                        loadSampleDeliveryAssistants();
+                        console.log('API returned invalid data format, using fallback');
+                        // Try to extract assistants from any response format
+                        if (result && Array.isArray(result)) {
+                            deliveryAssistants = result.map(item => ({
+                                id: item.id || `DA-${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+                                name: item.name || 'Unknown Assistant',
+                                phone: item.phone || '+254700000000',
+                                vehicle: item.vehicle || 'Vehicle not specified',
+                                status: item.status || 'available',
+                                currentCapacity: parseInt(item.currentCapacity || 0),
+                                maxCapacity: parseInt(item.maxCapacity || 10),
+                                rating: parseFloat(item.rating || 4.5),
+                                completedDeliveries: parseInt(item.completedDeliveries || 0),
+                                location: item.location || 'Location not specified',
+                                area: item.area || 'Central',
+                                zones: item.zones || [],
+                                lastUpdated: item.lastUpdated || new Date().toISOString(),
+                                isActive: true,
+                                notes: item.notes || ''
+                            }));
+                            console.log(`✅ Extracted ${deliveryAssistants.length} assistants from array response`);
+                        } else {
+                            loadSampleDeliveryAssistants();
+                        }
                     }
                 } else {
-                    // Fallback to sample data
+                    console.log('Network response not ok, using sample data');
                     loadSampleDeliveryAssistants();
                 }
                 
             } catch (error) {
-                console.error('❌ Error loading assistants from backend:', error);
-                // Fallback to sample data
+                console.error('❌ Error loading assistants:', error);
+                console.log('Using sample assistant data as fallback');
                 loadSampleDeliveryAssistants();
             }
+            
+            // Filter to only active assistants
+            deliveryAssistants = deliveryAssistants.filter(assistant => 
+                assistant.isActive !== false && 
+                assistant.status !== 'offline'
+            );
+            
+            console.log(`🔄 Processing ${deliveryAssistants.length} active assistants`);
             
             // Calculate distances if user location is set
             if (userLocation && userLocation.address) {
@@ -3289,7 +3331,10 @@
             if (nearbyNumber) nearbyNumber.textContent = nearbyAssistants;
             
             // Update display info
-            assistantCount.textContent = `${deliveryAssistants.length} assistants available`;
+            if (assistantCount) {
+                assistantCount.textContent = `${deliveryAssistants.length} assistant${deliveryAssistants.length !== 1 ? 's' : ''} available`;
+            }
+            
             if (nearbyCount) {
                 if (nearbyAssistants > 0) {
                     nearbyCount.style.display = 'inline';
@@ -3303,9 +3348,14 @@
             
             // Hide loading indicator
             loadingElement.classList.remove('visible');
+            
+            // If no assistants after loading, show message
+            if (deliveryAssistants.length === 0) {
+                noAssistantsElement.style.display = 'block';
+            }
         }
         
-        // Sample assistant data as fallback
+        // Load sample assistants as fallback
         function loadSampleDeliveryAssistants() {
             console.log('🚚 Loading sample delivery assistants...');
             
@@ -3394,6 +3444,23 @@
                     lastUpdated: new Date().toISOString(),
                     isActive: true,
                     notes: 'Long distance specialist'
+                },
+                {
+                    id: 'DA006',
+                    name: 'James Omondi',
+                    phone: '+254767890123',
+                    vehicle: 'Mazda Bongo - KDF 678F',
+                    status: 'available',
+                    currentCapacity: 6,
+                    maxCapacity: 10,
+                    rating: 4.4,
+                    completedDeliveries: 110,
+                    location: 'Eastleigh',
+                    area: 'North East',
+                    zones: ['Eastleigh', 'Pangani', 'Huruma'],
+                    lastUpdated: new Date().toISOString(),
+                    isActive: true,
+                    notes: 'Quick pickup and delivery'
                 }
             ];
             
