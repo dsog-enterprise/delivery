@@ -1,0 +1,3698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- App Version -->
+    <meta name="app-version" content="1.0.0">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#25D366">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DSOG Delivery">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="DSOG Delivery">
+    <meta name="msapplication-TileColor" content="#25D366">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="DSOG Delivery | Pickup Request Platform">
+    <meta property="og:description" content="Professional delivery service for DSOG customers">
+    <meta property="og:image" content="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png">
+    <meta property="og:url" content="https://dsogstores.com/delivery">
+    <meta property="og:type" content="website">
+    
+    <title>DSOG DELIVERY | Pickup Request Platform</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/delivery-manifest.json" crossorigin="use-credentials">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Sign-in SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- DELIVERY PLATFORM STYLES -->
+    <style>
+        :root {
+            --primary-green: #25D366;
+            --primary-black: #000000;
+            --primary-gold: #D4AF37;
+            --secondary-green: #128C7E;
+            --secondary-black: #1a1a1a;
+            --light-green: #5CD85A;
+            --dark-green: #0A5C36;
+            --light: #F5F5F5;
+            --gray: #777777;
+            --white: #FFFFFF;
+            --text-primary: #222222;
+            --text-secondary: #5a5a5a;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f8f8;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(37, 211, 102, 0.08);
+            --card-bg: #ffffff;
+            --success: #25D366;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #128C7E;
+            --warning: #FFA500;
+            --error: #FF4444;
+            --info: #4285F4;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(37, 211, 102, 0.1);
+            --shadow-lg: 0 10px 25px rgba(37, 211, 102, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 70px;
+        }
+        
+        /* FIXED HEADER */
+        header {
+            background: var(--primary-black);
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+            border-bottom: 3px solid var(--primary-green);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo {
+            height: 35px;
+            filter: drop-shadow(0 2px 4px rgba(37, 211, 102, 0.3));
+        }
+        
+        /* User Profile in Header */
+        .user-profile-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-left: auto;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+        
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 2px solid var(--primary-green);
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .user-name {
+                display: block;
+            }
+        }
+        
+        /* Google Sign-in Container */
+        .gsi-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px;
+            position: relative;
+            z-index: 1001;
+            transition: var(--transition);
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            margin: 4px 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-6px, 6px);
+            background: var(--primary-green);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-6px, -6px);
+            background: var(--primary-green);
+        }
+        
+        /* Desktop Navigation */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 0.4rem 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--primary-black);
+            padding: 5rem 2rem 2rem;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .mobile-nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .mobile-nav-links a:hover {
+            color: var(--primary-green);
+            padding-left: 10px;
+        }
+        
+        .menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-menu:hover {
+            background: var(--primary-green);
+            transform: rotate(90deg);
+        }
+        
+        /* INSTALL APP BUTTON */
+        .install-app-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .install-app-btn:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
+        /* ENHANCED PROFESSIONAL GOOGLE SIGN-IN MODAL */
+        .google-signin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2005;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .google-signin-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .google-signin-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.4s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 992px) {
+            .google-signin-content {
+                flex-direction: row;
+                min-height: 600px;
+            }
+        }
+        
+        /* Left Panel - Branding */
+        .signin-left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
+            color: var(--white);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signin-left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png') center/contain no-repeat;
+            opacity: 0.05;
+        }
+        
+        .signin-logo-container {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 2rem;
+        }
+        
+        .signin-logo {
+            height: 80px;
+            filter: drop-shadow(0 4px 8px rgba(37, 211, 102, 0.3));
+            margin-bottom: 1rem;
+        }
+        
+        .signin-brand-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .signin-brand-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            max-width: 300px;
+        }
+        
+        .signin-features {
+            list-style: none;
+            margin-top: 2rem;
+            text-align: left;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .signin-features li {
+            margin-bottom: 1rem;
+            padding-left: 1.8rem;
+            position: relative;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+        
+        .signin-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .signin-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-gold));
+            margin: 2rem auto;
+            border-radius: 3px;
+        }
+        
+        /* Right Panel - Sign-in Form */
+        .signin-right-panel {
+            flex: 1;
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--white);
+        }
+        
+        .signin-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        
+        .signin-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+        
+        .signin-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .signin-form-container {
+            margin: 2rem 0;
+        }
+        
+        .signin-requirements {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.05), rgba(212, 175, 55, 0.05));
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(37, 211, 102, 0.1);
+        }
+        
+        .signin-requirements h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .requirements-list {
+            list-style-type: none;
+        }
+        
+        .requirements-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .requirements-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .signin-button-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .google-signin-button-wrapper {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .signin-or-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .signin-or-divider::before,
+        .signin-or-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+        
+        .signin-or-divider span {
+            padding: 0 1rem;
+        }
+        
+        .signin-security-note {
+            background: rgba(66, 133, 244, 0.05);
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--info);
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .signin-security-note strong {
+            color: var(--info);
+            font-weight: 600;
+        }
+        
+        .signin-footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Custom Google Button Styling */
+        .custom-google-button {
+            background: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            min-width: 280px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .custom-google-button:hover {
+            background: #f8f9fa;
+            border-color: var(--info);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        .custom-google-button:active {
+            transform: translateY(0);
+        }
+        
+        .google-button-icon {
+            width: 20px;
+            height: 20px;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                #EA4335 0deg 90deg,
+                #FBBC05 90deg 180deg,
+                #34A853 180deg 270deg,
+                #4285F4 270deg 360deg
+            );
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .google-button-icon::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: var(--white);
+            border-radius: 1px;
+        }
+        
+        .google-button-icon::after {
+            content: 'G';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--info);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .signin-help {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        .signin-help a {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signin-help a:hover {
+            text-decoration: underline;
+        }
+        
+        /* User Profile Modal */
+        .user-profile-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2004;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 1rem;
+        }
+        
+        .user-profile-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .profile-content {
+            background: var(--white);
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+            border: 3px solid var(--primary-green);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .profile-header {
+            background: var(--primary-black);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-green);
+            position: relative;
+        }
+        
+        .profile-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .profile-close:hover {
+            background: var(--secondary-green);
+            transform: rotate(90deg);
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary-green);
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-body {
+            padding: 2rem;
+        }
+        
+        .profile-info {
+            margin-bottom: 2rem;
+        }
+        
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .profile-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .profile-btn-primary {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+        
+        .profile-btn-primary:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
+        .profile-btn-google {
+            background: var(--info);
+            color: var(--white);
+        }
+        
+        .profile-btn-google:hover {
+            background: #3367d6;
+            transform: translateY(-2px);
+        }
+        
+        .profile-btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .profile-btn-secondary:hover {
+            background: var(--border-color);
+        }
+        
+        .sign-out-btn {
+            background: var(--error);
+            color: var(--white);
+        }
+        
+        .sign-out-btn:hover {
+            background: #d3342d;
+            transform: translateY(-2px);
+        }
+        
+        /* PWA INSTALL PROMPT */
+        .pwa-install-prompt {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
+            background: var(--primary-black);
+            color: var(--white);
+            padding: 1.2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            border: 2px solid var(--primary-green);
+            animation: slideUp 0.3s ease;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .pwa-install-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .pwa-install-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: var(--primary-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid var(--primary-gold);
+        }
+        
+        .pwa-install-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+        
+        .pwa-install-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+        
+        .pwa-install-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: flex-end;
+        }
+        
+        .pwa-install-btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .pwa-install-primary {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+        
+        .pwa-install-primary:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
+        .pwa-install-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .pwa-install-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .pwa-install-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--white);
+            opacity: 0.7;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .pwa-install-close:hover {
+            background: var(--primary-green);
+            opacity: 1;
+        }
+        
+        /* MAIN CONTENT SECTIONS */
+        .section {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .section-title h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-green);
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* REQUEST PICKUP FORM */
+        .request-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 3rem;
+            border: 2px solid var(--primary-green);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .auto-fill-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--success);
+            color: var(--white);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 0 8px 0 4px;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .textarea-wrapper {
+            position: relative;
+            margin-top: 1rem;
+        }
+        
+        .char-count {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: var(--gray);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        
+        /* PACKAGE TYPE SELECTION */
+        .package-type-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .package-type-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .package-type-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .package-type-card.selected {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.05));
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+        
+        .package-icon {
+            font-size: 2rem;
+            color: var(--primary-green);
+        }
+        
+        .package-type-card.selected .package-icon {
+            color: var(--secondary-green);
+        }
+        
+        .package-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .package-size {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* PACKAGE DETAILS SECTION */
+        .package-details {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 3rem;
+            border: 2px solid var(--primary-gold);
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .detail-item {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-green);
+        }
+        
+        .detail-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+        
+        /* SUBMIT BUTTON */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            border: none;
+            padding: 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* TRACKING SECTION */
+        .tracking-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 3rem;
+            border: 2px solid var(--info);
+        }
+        
+        .tracking-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tracking-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .track-btn {
+            background: var(--info);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .track-btn:hover {
+            background: #3367d6;
+            transform: translateY(-2px);
+        }
+        
+        .tracking-result {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .tracking-result.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* DELIVERY ASSISTANTS SECTION */
+        .assistants-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 3rem;
+            border: 2px solid var(--primary-gold);
+        }
+        
+        .assistants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .assistant-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        
+        .assistant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-green);
+        }
+        
+        .assistant-header {
+            background: linear-gradient(135deg, var(--primary-black), var(--secondary-black));
+            color: var(--white);
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .assistant-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-gold));
+        }
+        
+        .assistant-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-available {
+            background: var(--success);
+            color: var(--white);
+        }
+        
+        .status-busy {
+            background: var(--warning);
+            color: var(--white);
+        }
+        
+        .assistant-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+        
+        .assistant-id {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .assistant-vehicle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .assistant-body {
+            padding: 1.5rem;
+        }
+        
+        .assistant-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .assistant-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .assign-btn {
+            flex: 1;
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .assign-btn:hover:not(:disabled) {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
+        .assign-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .whatsapp-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--whatsapp-green);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .whatsapp-btn:hover {
+            background: var(--whatsapp-dark);
+            transform: scale(1.1);
+        }
+        
+        /* MODAL STYLES */
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2002;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 1rem;
+        }
+        
+        .confirmation-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .confirmation-content {
+            background: var(--white);
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+            border: 2px solid var(--primary-green);
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .confirmation-header {
+            background: var(--primary-black);
+            color: var(--white);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-green);
+        }
+        
+        .confirmation-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .confirmation-close {
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .confirmation-close:hover {
+            background: var(--secondary-green);
+            transform: rotate(90deg);
+        }
+        
+        .confirmation-body {
+            padding: 2rem;
+        }
+        
+        .confirmation-details {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .confirmation-details h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .confirmation-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .confirm-btn {
+            flex: 1;
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .confirm-btn:hover {
+            background: var(--secondary-green);
+            transform: translateY(-2px);
+        }
+        
+        .cancel-btn {
+            flex: 1;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cancel-btn:hover {
+            background: var(--border-color);
+        }
+        
+        /* Loading States */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            display: none;
+        }
+        
+        .loading.visible {
+            display: block;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(37, 211, 102, 0.1);
+            border-top: 3px solid var(--primary-green);
+            border-right: 3px solid var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            max-width: 300px;
+            font-weight: 600;
+            border: 2px solid var(--primary-gold);
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-black);
+            backdrop-filter: blur(20px);
+            border-top: 2px solid var(--primary-green);
+            z-index: 1000;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+            padding: 0.5rem;
+        }
+        
+        .bottom-nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            padding: 0.5rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            position: relative;
+            min-width: 70px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+        }
+        
+        .nav-item.active {
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+        }
+        
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .nav-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Main Content Overlay when not signed in */
+        .content-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.98);
+            z-index: 1999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .content-overlay h2 {
+            font-size: 2rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .content-overlay p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .package-type-selection {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .assistants-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .confirmation-actions {
+                flex-direction: column;
+            }
+            
+            .google-signin-content {
+                flex-direction: column;
+            }
+            
+            .signin-left-panel,
+            .signin-right-panel {
+                padding: 2rem 1.5rem;
+            }
+            
+            .signin-brand-title {
+                font-size: 1.8rem;
+            }
+            
+            .signin-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .package-type-selection {
+                grid-template-columns: 1fr;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tracking-input-group {
+                flex-direction: column;
+            }
+            
+            .track-btn {
+                width: 100%;
+            }
+            
+            .nav-item {
+                min-width: 60px;
+                padding: 0.4rem 0.3rem;
+            }
+            
+            .nav-icon {
+                font-size: 1rem;
+            }
+            
+            .nav-label {
+                font-size: 0.6rem;
+            }
+            
+            .custom-google-button {
+                min-width: 100%;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ENHANCED PROFESSIONAL GOOGLE SIGN-IN MODAL -->
+    <div class="google-signin-modal active" id="googleSigninModal">
+        <div class="google-signin-content">
+            <!-- Left Panel - Branding -->
+            <div class="signin-left-panel">
+                <div class="signin-logo-container">
+                    <img src="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png" alt="DSOG Delivery" class="signin-logo">
+                    <h1 class="signin-brand-title">DSOG DELIVERY</h1>
+                    <p class="signin-brand-subtitle">Professional Pickup Request Platform</p>
+                </div>
+                
+                <div class="signin-divider"></div>
+                
+                <ul class="signin-features">
+                    <li>Single WhatsApp number pickup requests</li>
+                    <li>Package size & type confirmation</li>
+                    <li>Real-time delivery tracking</li>
+                    <li>Automated assistant assignment</li>
+                    <li>Secure customer data protection</li>
+                </ul>
+                
+                <div style="margin-top: auto; text-align: center; width: 100%;">
+                    <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-top: 2rem;">
+                        <i class="fas fa-lock" style="margin-right: 0.5rem;"></i>
+                        Enterprise-grade security
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Right Panel - Sign-in Form -->
+            <div class="signin-right-panel">
+                <div class="signin-header">
+                    <h2 class="signin-title">Welcome to DSOG Delivery Platform</h2>
+                    <p class="signin-subtitle">
+                        Sign in with your Google account to request pickups and track deliveries.
+                        Your information is securely authenticated and used solely for delivery operations.
+                    </p>
+                </div>
+                
+                <div class="signin-form-container">
+                    <div class="signin-requirements">
+                        <h3><i class="fas fa-shield-alt"></i> Platform Requirements</h3>
+                        <ul class="requirements-list">
+                            <li>Valid Google account for authentication</li>
+                            <li>Customer contact information required</li>
+                            <li>Package details must be accurate</li>
+                            <li>Secure HTTPS connection enforced</li>
+                            <li>Delivery-specific use only</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="signin-button-container">
+                        <div class="google-signin-button-wrapper">
+                            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">
+                                <i class="fas fa-info-circle"></i> Click below to sign in securely with Google
+                            </p>
+                            
+                            <!-- Custom Google Sign-in Button -->
+                            <button class="custom-google-button" onclick="triggerGoogleSignIn()">
+                                <span class="google-button-icon"></span>
+                                Sign in with Google
+                            </button>
+                            
+                            <!-- Hidden Google Sign-in Button (will be triggered by custom button) -->
+                            <div id="googleSignInButton" style="display: none;"></div>
+                            
+                            <div class="signin-or-divider">
+                                <span>or</span>
+                            </div>
+                            
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center;">
+                                For assistance, contact 
+                                <a href="mailto:care.dsogstores@gmail.com" style="color: var(--primary-green); font-weight: 600;">support</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="signin-security-note">
+                        <i class="fas fa-lock"></i>
+                        <strong>Security Notice:</strong> Your Google authentication ensures secure access to the delivery platform. 
+                        All communications are encrypted and your data is protected according to enterprise security standards.
+                    </div>
+                </div>
+                
+                <div class="signin-footer">
+                    <p>
+                        <i class="fas fa-copyright"></i> 2024 DSOG Delivery System. 
+                        <span style="color: var(--primary-green); font-weight: 600;">Authorized Use Only</span>
+                    </p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">
+                        Version 1.0.0 • Delivery Edition
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div class="user-profile-modal" id="userProfileModal">
+        <div class="profile-content">
+            <div class="profile-header">
+                <button class="profile-close" id="profileClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="profile-avatar" id="profileAvatar">
+                    <!-- Avatar will be populated -->
+                </div>
+                <h3 id="profileName">User Profile</h3>
+            </div>
+            <div class="profile-body">
+                <div class="profile-info" id="profileInfo">
+                    <!-- Profile info will be populated -->
+                </div>
+                <div class="profile-actions">
+                    <button class="profile-btn profile-btn-primary" onclick="editUserLocation()">
+                        <i class="fas fa-map-marker-alt"></i> Update Default Location
+                    </button>
+                    <button class="profile-btn sign-out-btn" onclick="signOut()">
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
+                    </button>
+                    <button class="profile-btn profile-btn-secondary" onclick="closeProfileModal()">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="confirmation-content">
+            <div class="confirmation-header">
+                <h2><i class="fas fa-check-circle"></i> Confirm Pickup Request</h2>
+                <button class="confirmation-close" id="confirmationClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="confirmation-body" id="confirmationBody">
+                <!-- Confirmation details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA Install Prompt -->
+    <div class="pwa-install-prompt" id="pwaInstallPrompt">
+        <button class="pwa-install-close" id="pwaInstallClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="pwa-install-header">
+            <div class="pwa-install-icon">
+                <i class="fas fa-truck"></i>
+            </div>
+            <div>
+                <div class="pwa-install-title">Install DSOG Delivery App</div>
+                <div class="pwa-install-subtitle">Professional delivery management on your device</div>
+            </div>
+        </div>
+        <div class="pwa-install-buttons">
+            <button class="pwa-install-btn pwa-install-secondary" id="pwaInstallLater">
+                Maybe Later
+            </button>
+            <button class="pwa-install-btn pwa-install-primary" id="pwaInstallNow">
+                Install Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Content Overlay (shown when not signed in) -->
+    <div class="content-overlay" id="contentOverlay" style="display: none;">
+        <div>
+            <h2>Sign In Required</h2>
+            <p>Please sign in with Google to access the delivery platform</p>
+            <div id="overlayGoogleSignIn" class="gsi-container"></div>
+        </div>
+    </div>
+
+    <!-- Enhanced Header -->
+    <header style="display: none;">
+        <div class="header-content">
+            <img src="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png" alt="DSOG Delivery" class="logo">
+            
+            <!-- User Profile -->
+            <div class="user-profile-header" onclick="openProfileModal()" id="userProfileHeader" style="display: none;">
+                <div class="user-avatar" id="userAvatar">
+                    <!-- Avatar will be populated -->
+                </div>
+                <span class="user-name" id="userNameDisplay">Guest</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav-links">
+                <a href="#request" class="active">Request Pickup</a>
+                <a href="#tracking">Track Delivery</a>
+                <a href="#assistants">Delivery Assistants</a>
+                <a href="#" class="install-app-btn" id="installAppBtn">
+                    <i class="fas fa-download"></i>
+                    <span>Install App</span>
+                </a>
+            </nav>
+            
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile-nav-links">
+            <a href="#request" onclick="closeMobileMenu()">Request Pickup</a>
+            <a href="#tracking" onclick="closeMobileMenu()">Track Delivery</a>
+            <a href="#assistants" onclick="closeMobileMenu()">Delivery Assistants</a>
+            <a href="#" onclick="openProfileModal(); closeMobileMenu();">
+                <i class="fas fa-user"></i> My Profile
+            </a>
+            <a href="mailto:care.dsogstores@gmail.com" onclick="closeMobileMenu()">Email Support</a>
+            <a href="https://wa.me/254733737983" onclick="closeMobileMenu()">WhatsApp Support</a>
+            <a href="#" onclick="showInstallPrompt(); closeMobileMenu();" style="color: var(--primary-gold);">
+                <i class="fas fa-download"></i> Install App
+            </a>
+        </nav>
+    </div>
+    
+    <!-- Menu Backdrop -->
+    <div class="menu-backdrop" id="menuBackdrop"></div>
+
+    <!-- Main Content -->
+    <main id="mainContent" style="display: none;">
+        <!-- Request Pickup Section -->
+        <section class="section" id="request">
+            <div class="section-title">
+                <h2>Request Package Pickup</h2>
+                <p>Fill in package details for pickup by DSOG Delivery</p>
+            </div>
+            
+            <div class="request-form">
+                <div class="form-group">
+                    <label for="customerName">Your Name *</label>
+                    <input type="text" id="customerName" class="form-control" placeholder="Enter your full name" required>
+                    <div class="auto-fill-badge" id="nameBadge">Auto-filled</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerPhone">Phone Number *</label>
+                    <input type="tel" id="customerPhone" class="form-control" placeholder="Enter your phone number" required>
+                    <div class="auto-fill-badge" id="phoneBadge">Auto-filled</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pickupLocation">Pickup Location *</label>
+                        <input type="text" id="pickupLocation" class="form-control" placeholder="Enter pickup address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deliveryLocation">Delivery Destination *</label>
+                        <input type="text" id="deliveryLocation" class="form-control" placeholder="Enter delivery address" required>
+                    </div>
+                </div>
+                
+                <!-- Package Type Selection -->
+                <div class="form-group">
+                    <label>Package Type *</label>
+                    <div class="package-type-selection" id="packageTypeSelection">
+                        <div class="package-type-card" data-type="small" data-size="Small (0-5kg)">
+                            <div class="package-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="package-name">Small Package</div>
+                            <div class="package-size">0-5 kg</div>
+                        </div>
+                        <div class="package-type-card" data-type="medium" data-size="Medium (5-15kg)">
+                            <div class="package-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <div class="package-name">Medium Package</div>
+                            <div class="package-size">5-15 kg</div>
+                        </div>
+                        <div class="package-type-card" data-type="large" data-size="Large (15-30kg)">
+                            <div class="package-icon">
+                                <i class="fas fa-pallet"></i>
+                            </div>
+                            <div class="package-name">Large Package</div>
+                            <div class="package-size">15-30 kg</div>
+                        </div>
+                        <div class="package-type-card" data-type="fragile" data-size="Fragile (Special)">
+                            <div class="package-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="package-name">Fragile Items</div>
+                            <div class="package-size">Special handling</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="packageType" required>
+                    <input type="hidden" id="packageSize" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="itemDescription">Item Description *</label>
+                    <div class="textarea-wrapper">
+                        <textarea id="itemDescription" class="form-control" rows="3" placeholder="Describe the items in the package (e.g., Clothing, Electronics, Documents, etc.)" required></textarea>
+                        <div class="char-count" id="charCount">0/200</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialInstructions">Special Instructions (Optional)</label>
+                    <textarea id="specialInstructions" class="form-control" rows="2" placeholder="Any special handling requirements or delivery instructions"></textarea>
+                </div>
+                
+                <!-- Package Details Summary -->
+                <div class="package-details" id="packageDetails" style="display: none;">
+                    <h3>Package Details Summary</h3>
+                    <div class="details-grid" id="detailsGrid">
+                        <!-- Details will be populated here -->
+                    </div>
+                </div>
+                
+                <button class="submit-btn" id="submitBtn" onclick="confirmPickupRequest()">
+                    <i class="fab fa-whatsapp"></i> Request Pickup via WhatsApp
+                </button>
+            </div>
+        </section>
+        
+        <!-- Track Delivery Section -->
+        <section class="section" id="tracking">
+            <div class="section-title">
+                <h2>Track Your Delivery</h2>
+                <p>Enter your tracking number to check delivery status</p>
+            </div>
+            
+            <div class="tracking-section">
+                <div class="tracking-input-group">
+                    <input type="text" id="trackingNumber" class="tracking-input" placeholder="Enter your tracking number (e.g., DSOG-XXXXXX)">
+                    <button class="track-btn" onclick="trackDelivery()">
+                        <i class="fas fa-search"></i> Track
+                    </button>
+                </div>
+                
+                <div class="tracking-result" id="trackingResult">
+                    <!-- Tracking result will be displayed here -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Delivery Assistants Section -->
+        <section class="section" id="assistants">
+            <div class="section-title">
+                <h2>Available Delivery Assistants</h2>
+                <p>View and assign packages to delivery assistants</p>
+            </div>
+            
+            <div class="assistants-section">
+                <div class="loading" id="assistantsLoading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading delivery assistants...</p>
+                </div>
+                
+                <div class="assistants-grid" id="assistantsGrid">
+                    <!-- Delivery assistants will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" style="display: none;">
+        <div class="bottom-nav-container">
+            <button class="nav-item active" onclick="scrollToSection('request')">
+                <i class="fas fa-truck-loading nav-icon"></i>
+                <span class="nav-label">Request</span>
+            </button>
+            <button class="nav-item" onclick="scrollToSection('tracking')">
+                <i class="fas fa-map-marker-alt nav-icon"></i>
+                <span class="nav-label">Track</span>
+            </button>
+            <button class="nav-item" onclick="scrollToSection('assistants')">
+                <i class="fas fa-users nav-icon"></i>
+                <span class="nav-label">Assistants</span>
+            </button>
+            <button class="nav-item" onclick="openProfileModal()">
+                <i class="fas fa-user nav-icon"></i>
+                <span class="nav-label">Profile</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- JavaScript -->
+    <script>
+    // Configuration
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbzmBoCu_jXpp8oKpNAnX7Ly-bqvfdfhgiHge74ZW0oYae0wUlZERDERJYB-ZC76J9kQYQ/exec';
+    const DELIVERY_OWNER_WHATSAPP = '254733737983'; // Single WhatsApp number for business owner
+    const GOOGLE_CLIENT_ID = '369304497158-8ub6b68v2bjvsfciome6q56flh2rd1m4.apps.googleusercontent.com';
+    
+    // State management
+    let userProfile = JSON.parse(localStorage.getItem('dsog_delivery_profile')) || null;
+    let googleUser = null;
+    let googleToken = null;
+    let selectedPackageType = null;
+    let selectedPackageSize = null;
+    let deliveryAssistants = [];
+    
+    // PWA variables
+    let deferredPrompt = null;
+    let isAppInstalled = false;
+    let isInstallPromptShown = false;
+    
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 DSOG Delivery Platform v1.0.0');
+        
+        // Initialize components
+        initMobileMenu();
+        initPackageTypeSelection();
+        initCharCounter();
+        initConfirmationModal();
+        initPWA();
+        initProfileModal();
+        
+        // Check for existing Google Sign-in
+        checkGoogleSignIn();
+        
+        // Initialize Google Sign-in
+        initializeGoogleSignIn();
+    });
+    
+    // Google Sign-in Functions
+    function initializeGoogleSignIn() {
+        // Check if Google SDK is loaded
+        if (typeof google === 'undefined') {
+            console.error('Google Sign-in SDK not loaded');
+            setTimeout(initializeGoogleSignIn, 1000);
+            return;
+        }
+        
+        // Initialize Google Sign-in
+        google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleGoogleSignIn,
+            auto_select: false,
+            cancel_on_tap_outside: true,
+            context: 'signin',
+            ux_mode: 'popup',
+            login_uri: window.location.origin,
+            prompt_parent_id: 'googleSignInButton'
+        });
+        
+        // Also initialize for overlay button
+        google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleGoogleSignIn,
+            auto_select: false,
+            cancel_on_tap_outside: true,
+            context: 'signin',
+            ux_mode: 'popup'
+        });
+        
+        // Render the hidden Google button
+        google.accounts.id.renderButton(
+            document.getElementById('googleSignInButton'),
+            {
+                type: 'standard',
+                theme: 'filled_blue',
+                size: 'large',
+                text: 'signin_with',
+                shape: 'rectangular',
+                logo_alignment: 'left',
+                width: 250
+            }
+        );
+        
+        // Also render button for overlay
+        google.accounts.id.renderButton(
+            document.getElementById('overlayGoogleSignIn'),
+            {
+                type: 'standard',
+                theme: 'filled_blue',
+                size: 'large',
+                text: 'signin_with',
+                shape: 'rectangular',
+                logo_alignment: 'left',
+                width: 250
+            }
+        );
+        
+        // Show sign-in modal if user is not signed in
+        if (!userProfile || !userProfile.googleId) {
+            setTimeout(() => {
+                showGoogleSignInModal();
+            }, 1000);
+        }
+    }
+    
+    function triggerGoogleSignIn() {
+        // Trigger the hidden Google Sign-in button
+        const googleButton = document.querySelector('#googleSignInButton div[role="button"]');
+        if (googleButton) {
+            googleButton.click();
+        } else {
+            // Fallback: show error and reload
+            console.error('Google Sign-in button not found');
+            showNotification('Unable to initiate Google Sign-in. Please refresh the page.', 'error');
+        }
+    }
+    
+    function checkGoogleSignIn() {
+        // Check if user is already signed in via localStorage
+        if (userProfile && userProfile.googleId) {
+            // User is signed in, show content
+            showMainContent();
+            
+            // Update UI
+            updateUserProfileUI();
+            
+            // Auto-fill form
+            autoFillRequestForm();
+            
+            // Set up navigation
+            setupNavigation();
+            
+            // Load delivery assistants
+            loadDeliveryAssistants();
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    function handleGoogleSignIn(response) {
+        console.log('Google Sign-in response received');
+        
+        // Decode the JWT token
+        const responsePayload = decodeJWTResponse(response.credential);
+        
+        if (responsePayload) {
+            // Save user data
+            googleUser = responsePayload;
+            googleToken = response.credential;
+            
+            // Create or update user profile
+            userProfile = {
+                googleId: googleUser.sub,
+                email: googleUser.email,
+                name: googleUser.name,
+                givenName: googleUser.given_name,
+                familyName: googleUser.family_name,
+                picture: googleUser.picture,
+                emailVerified: googleUser.email_verified,
+                phone: '', // Google doesn't provide phone by default
+                defaultLocation: '', // Will be asked separately
+                locationUpdated: false,
+                createdAt: new Date().toISOString(),
+                lastLogin: new Date().toISOString()
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
+            
+            // Hide sign-in modal
+            hideGoogleSignInModal();
+            
+            // Show success notification
+            showNotification(`Welcome ${googleUser.name}!`, 'success');
+            
+            // Update UI
+            updateUserProfileUI();
+            
+            // Show main content
+            showMainContent();
+            
+            // Auto-fill form
+            autoFillRequestForm();
+            
+            // Set up navigation
+            setupNavigation();
+            
+            // Load delivery assistants
+            loadDeliveryAssistants();
+            
+            // Ask for default location if not already set
+            if (!userProfile.defaultLocation || !userProfile.locationUpdated) {
+                setTimeout(() => {
+                    askForDefaultLocation();
+                }, 2000);
+            }
+        } else {
+            console.error('Failed to decode Google Sign-in response');
+            showNotification('Failed to sign in with Google. Please try again.', 'error');
+        }
+    }
+    
+    function decodeJWTResponse(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            
+            return JSON.parse(jsonPayload);
+        } catch (error) {
+            console.error('Error decoding JWT:', error);
+            return null;
+        }
+    }
+    
+    function showGoogleSignInModal() {
+        const signinModal = document.getElementById('googleSigninModal');
+        const overlay = document.getElementById('contentOverlay');
+        const header = document.querySelector('header');
+        
+        signinModal.classList.add('active');
+        overlay.style.display = 'flex';
+        header.style.display = 'none';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function hideGoogleSignInModal() {
+        const signinModal = document.getElementById('googleSigninModal');
+        const overlay = document.getElementById('contentOverlay');
+        const mainContent = document.getElementById('mainContent');
+        const header = document.querySelector('header');
+        
+        signinModal.classList.remove('active');
+        overlay.style.display = 'none';
+        header.style.display = 'block';
+        mainContent.style.display = 'block';
+        document.body.style.overflow = 'auto';
+    }
+    
+    function showMainContent() {
+        const overlay = document.getElementById('contentOverlay');
+        const mainContent = document.getElementById('mainContent');
+        const bottomNav = document.querySelector('.bottom-nav');
+        const userProfileHeader = document.getElementById('userProfileHeader');
+        const header = document.querySelector('header');
+        
+        overlay.style.display = 'none';
+        mainContent.style.display = 'block';
+        bottomNav.style.display = 'block';
+        userProfileHeader.style.display = 'flex';
+        header.style.display = 'block';
+    }
+    
+    function askForDefaultLocation() {
+        if (!userProfile || !userProfile.googleId) return;
+        
+        const location = prompt(
+            'Please enter your default pickup location/address:\n\nThis will be used to auto-fill your pickup requests.',
+            userProfile.defaultLocation || ''
+        );
+        
+        if (location !== null) {
+            userProfile.defaultLocation = location.trim();
+            userProfile.locationUpdated = true;
+            localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
+            
+            // Update form
+            autoFillRequestForm();
+            
+            showNotification('Default location saved successfully!');
+        }
+    }
+    
+    function editUserLocation() {
+        if (!userProfile || !userProfile.googleId) return;
+        
+        const location = prompt(
+            'Update your default pickup location/address:',
+            userProfile.defaultLocation || ''
+        );
+        
+        if (location !== null) {
+            userProfile.defaultLocation = location.trim();
+            userProfile.locationUpdated = true;
+            localStorage.setItem('dsog_delivery_profile', JSON.stringify(userProfile));
+            
+            // Update form and UI
+            autoFillRequestForm();
+            updateUserProfileUI();
+            
+            showNotification('Location updated successfully!');
+        }
+        
+        closeProfileModal();
+    }
+    
+    function signOut() {
+        if (confirm('Are you sure you want to sign out?')) {
+            // Clear user data
+            userProfile = null;
+            googleUser = null;
+            googleToken = null;
+            localStorage.removeItem('dsog_delivery_profile');
+            
+            // Hide content
+            const mainContent = document.getElementById('mainContent');
+            const bottomNav = document.querySelector('.bottom-nav');
+            const userProfileHeader = document.getElementById('userProfileHeader');
+            const header = document.querySelector('header');
+            
+            mainContent.style.display = 'none';
+            bottomNav.style.display = 'none';
+            userProfileHeader.style.display = 'none';
+            header.style.display = 'none';
+            
+            // Show sign-in modal
+            showGoogleSignInModal();
+            
+            showNotification('Signed out successfully');
+        }
+    }
+    
+    function updateUserProfileUI() {
+        if (userProfile) {
+            // Update header
+            const userAvatar = document.getElementById('userAvatar');
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const profileAvatar = document.getElementById('profileAvatar');
+            const profileName = document.getElementById('profileName');
+            const profileInfo = document.getElementById('profileInfo');
+            
+            // Set avatar image or initials
+            if (userProfile.picture) {
+                if (userAvatar) {
+                    userAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
+                }
+                if (profileAvatar) {
+                    profileAvatar.innerHTML = `<img src="${userProfile.picture}" alt="${userProfile.name}">`;
+                }
+            } else {
+                // Get initials for avatar
+                const initials = userProfile.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                
+                if (userAvatar) {
+                    userAvatar.textContent = initials;
+                    userAvatar.style.background = 'linear-gradient(135deg, var(--primary-green), var(--primary-gold))';
+                }
+                
+                if (profileAvatar) {
+                    profileAvatar.textContent = initials;
+                    profileAvatar.style.background = 'linear-gradient(135deg, var(--primary-green), var(--primary-gold))';
+                }
+            }
+            
+            if (userNameDisplay) {
+                userNameDisplay.textContent = userProfile.givenName || userProfile.name.split(' ')[0];
+            }
+            
+            if (profileName) {
+                profileName.textContent = userProfile.name;
+            }
+            
+            if (profileInfo) {
+                profileInfo.innerHTML = `
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Full Name:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.name}</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Email:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.email}</div>
+                    </div>
+                    ${userProfile.phone ? `
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Phone:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.phone}</div>
+                    </div>
+                    ` : ''}
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Default Location:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${userProfile.defaultLocation || 'Not set'}</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Account Created:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${new Date(userProfile.createdAt).toLocaleDateString()}</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Last Login:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 500;">${new Date(userProfile.lastLogin).toLocaleDateString()}</div>
+                    </div>
+                `;
+            }
+        }
+    }
+    
+    function autoFillRequestForm() {
+        if (userProfile) {
+            const nameField = document.getElementById('customerName');
+            const phoneField = document.getElementById('customerPhone');
+            const pickupField = document.getElementById('pickupLocation');
+            
+            if (nameField && userProfile.name) {
+                nameField.value = userProfile.name;
+                showAutoFillBadge('nameBadge');
+            }
+            
+            if (phoneField && userProfile.phone) {
+                phoneField.value = userProfile.phone;
+                showAutoFillBadge('phoneBadge');
+            }
+            
+            if (pickupField && userProfile.defaultLocation) {
+                pickupField.value = userProfile.defaultLocation;
+            }
+        }
+    }
+    
+    function showAutoFillBadge(badgeId) {
+        const badge = document.getElementById(badgeId);
+        if (badge) {
+            badge.style.display = 'block';
+            setTimeout(() => {
+                badge.style.display = 'none';
+            }, 3000);
+        }
+    }
+    
+    // Initialize Mobile Menu
+    function initMobileMenu() {
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        const closeMenu = document.getElementById('closeMenu');
+        
+        function toggleMobileMenu() {
+            const isOpen = mobileMenu.classList.contains('active');
+            
+            if (!isOpen) {
+                mobileMenu.classList.add('active');
+                menuBackdrop.classList.add('active');
+                hamburgerBtn.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.remove('active');
+                menuBackdrop.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        hamburgerBtn.addEventListener('click', toggleMobileMenu);
+        closeMenu.addEventListener('click', toggleMobileMenu);
+        menuBackdrop.addEventListener('click', toggleMobileMenu);
+        
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+    }
+    
+    window.closeMobileMenu = function() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        
+        mobileMenu.classList.remove('active');
+        menuBackdrop.classList.remove('active');
+        hamburgerBtn.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    };
+    
+    // Setup Navigation
+    function setupNavigation() {
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                navItems.forEach(i => i.classList.remove('active'));
+                // Add active class to clicked item
+                this.classList.add('active');
+            });
+        });
+        
+        // Handle scroll to section
+        window.scrollToSection = function(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        };
+    }
+    
+    // Initialize Package Type Selection
+    function initPackageTypeSelection() {
+        const packageCards = document.querySelectorAll('.package-type-card');
+        const packageTypeInput = document.getElementById('packageType');
+        const packageSizeInput = document.getElementById('packageSize');
+        const packageDetails = document.getElementById('packageDetails');
+        const detailsGrid = document.getElementById('detailsGrid');
+        
+        packageCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards
+                packageCards.forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to clicked card
+                this.classList.add('selected');
+                
+                // Set the selected values
+                selectedPackageType = this.dataset.type;
+                selectedPackageSize = this.dataset.size;
+                
+                packageTypeInput.value = selectedPackageType;
+                packageSizeInput.value = selectedPackageSize;
+                
+                // Show package details
+                packageDetails.style.display = 'block';
+                
+                // Update details grid
+                updatePackageDetails();
+            });
+        });
+    }
+    
+    function updatePackageDetails() {
+        const detailsGrid = document.getElementById('detailsGrid');
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value;
+        
+        if (!packageType || !packageSize) return;
+        
+        // Map package types to descriptions
+        const typeDescriptions = {
+            'small': 'Small packages suitable for documents, small electronics, or clothing',
+            'medium': 'Medium packages for books, shoes, or small household items',
+            'large': 'Large packages for bulk items, furniture, or appliances',
+            'fragile': 'Fragile items requiring special handling and care'
+        };
+        
+        detailsGrid.innerHTML = `
+            <div class="detail-item">
+                <div class="detail-label">Package Type</div>
+                <div class="detail-value">${packageType.charAt(0).toUpperCase() + packageType.slice(1)}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Package Size</div>
+                <div class="detail-value">${packageSize}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Description</div>
+                <div class="detail-value">${typeDescriptions[packageType] || 'General package'}</div>
+            </div>
+            ${itemDescription ? `
+            <div class="detail-item">
+                <div class="detail-label">Item Details</div>
+                <div class="detail-value">${itemDescription.substring(0, 50)}${itemDescription.length > 50 ? '...' : ''}</div>
+            </div>
+            ` : ''}
+        `;
+    }
+    
+    // Initialize Character Counter
+    function initCharCounter() {
+        const textarea = document.getElementById('itemDescription');
+        const charCount = document.getElementById('charCount');
+        
+        textarea.addEventListener('input', function() {
+            const length = this.value.length;
+            charCount.textContent = `${length}/200`;
+            
+            if (length > 200) {
+                charCount.style.color = 'var(--error)';
+            } else if (length > 150) {
+                charCount.style.color = 'var(--warning)';
+            } else {
+                charCount.style.color = 'var(--gray)';
+            }
+            
+            // Update package details if they're visible
+            const packageDetails = document.getElementById('packageDetails');
+            if (packageDetails.style.display === 'block') {
+                updatePackageDetails();
+            }
+        });
+    }
+    
+    // Initialize Confirmation Modal
+    function initConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        const confirmationClose = document.getElementById('confirmationClose');
+        
+        confirmationClose.addEventListener('click', closeConfirmationModal);
+        
+        confirmationModal.addEventListener('click', function(e) {
+            if (e.target === confirmationModal) {
+                closeConfirmationModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && confirmationModal.classList.contains('active')) {
+                closeConfirmationModal();
+            }
+        });
+    }
+    
+    function openConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeConfirmationModal() {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Initialize Profile Modal
+    function initProfileModal() {
+        const profileModal = document.getElementById('userProfileModal');
+        const profileClose = document.getElementById('profileClose');
+        
+        profileClose.addEventListener('click', closeProfileModal);
+        
+        profileModal.addEventListener('click', function(e) {
+            if (e.target === profileModal) {
+                closeProfileModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && profileModal.classList.contains('active')) {
+                closeProfileModal();
+            }
+        });
+    }
+    
+    function openProfileModal() {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        const profileModal = document.getElementById('userProfileModal');
+        
+        // Update profile info before showing
+        updateUserProfileUI();
+        
+        profileModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeProfileModal() {
+        const profileModal = document.getElementById('userProfileModal');
+        profileModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Confirm Pickup Request
+    function confirmPickupRequest() {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        // Get form values
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const pickupLocation = document.getElementById('pickupLocation').value.trim();
+        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value.trim();
+        const specialInstructions = document.getElementById('specialInstructions').value.trim();
+        
+        // Validation
+        if (!customerName || !customerPhone || !pickupLocation || !deliveryLocation || !packageType || !packageSize || !itemDescription) {
+            showNotification('Please fill in all required fields', 'error');
+            return;
+        }
+        
+        if (itemDescription.length > 200) {
+            showNotification('Item description must be 200 characters or less', 'error');
+            return;
+        }
+        
+        // Generate tracking number
+        const trackingNumber = 'DSOG-' + Date.now().toString().slice(-6);
+        
+        // Build confirmation message
+        const confirmationBody = document.getElementById('confirmationBody');
+        confirmationBody.innerHTML = `
+            <div class="confirmation-details">
+                <h3>Pickup Request Details</h3>
+                <div style="display: grid; gap: 1rem;">
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Customer:</span>
+                        <div style="margin-top: 0.3rem;">${customerName} | ${customerPhone}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Pickup:</span>
+                        <div style="margin-top: 0.3rem;">${pickupLocation}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Delivery:</span>
+                        <div style="margin-top: 0.3rem;">${deliveryLocation}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Package:</span>
+                        <div style="margin-top: 0.3rem;">${packageType.charAt(0).toUpperCase() + packageType.slice(1)} - ${packageSize}</div>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Items:</span>
+                        <div style="margin-top: 0.3rem;">${itemDescription}</div>
+                    </div>
+                    ${specialInstructions ? `
+                    <div>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Special Instructions:</span>
+                        <div style="margin-top: 0.3rem;">${specialInstructions}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+            
+            <div class="confirmation-actions">
+                <button class="cancel-btn" onclick="closeConfirmationModal()">Cancel</button>
+                <button class="confirm-btn" onclick="submitPickupRequest('${trackingNumber}')">
+                    <i class="fab fa-whatsapp"></i> Send to WhatsApp
+                </button>
+            </div>
+        `;
+        
+        openConfirmationModal();
+    }
+    
+    // Submit Pickup Request via WhatsApp
+    async function submitPickupRequest(trackingNumber) {
+        if (!userProfile || !userProfile.googleId) {
+            showNotification('Please sign in first', 'error');
+            return;
+        }
+        
+        // Get form values
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const pickupLocation = document.getElementById('pickupLocation').value.trim();
+        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
+        const packageType = document.getElementById('packageType').value;
+        const packageSize = document.getElementById('packageSize').value;
+        const itemDescription = document.getElementById('itemDescription').value.trim();
+        const specialInstructions = document.getElementById('specialInstructions').value.trim();
+        
+        // Build order data for backend
+        const orderData = {
+            action: 'submitDeliveryRequest',
+            trackingNumber: trackingNumber,
+            customerName: customerName,
+            customerPhone: customerPhone,
+            pickupLocation: pickupLocation,
+            deliveryLocation: deliveryLocation,
+            packageType: packageType,
+            packageSize: packageSize,
+            itemDescription: itemDescription,
+            specialInstructions: specialInstructions,
+            requestDate: new Date().toISOString(),
+            status: 'pending',
+            googleUser: {
+                id: userProfile.googleId,
+                email: userProfile.email,
+                name: userProfile.name
+            }
+        };
+        
+        try {
+            // Submit to backend
+            const response = await fetch(scriptUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData)
+            });
+            
+            if (response.ok) {
+                // Build WhatsApp message for business owner
+                let whatsappMessage = `*📦 NEW PICKUP REQUEST - DSOG DELIVERY*%0A%0A`;
+                whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
+                whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A`;
+                whatsappMessage += `*Time:* ${new Date().toLocaleTimeString()}%0A%0A`;
+                
+                whatsappMessage += `*👤 CUSTOMER DETAILS*%0A`;
+                whatsappMessage += `Name: ${customerName}%0A`;
+                whatsappMessage += `Phone: ${customerPhone}%0A`;
+                whatsappMessage += `Google: ${userProfile.email}%0A%0A`;
+                
+                whatsappMessage += `*📍 PICKUP LOCATION*%0A`;
+                whatsappMessage += `${pickupLocation}%0A%0A`;
+                
+                whatsappMessage += `*🎯 DELIVERY DESTINATION*%0A`;
+                whatsappMessage += `${deliveryLocation}%0A%0A`;
+                
+                whatsappMessage += `*📦 PACKAGE DETAILS*%0A`;
+                whatsappMessage += `Type: ${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A`;
+                whatsappMessage += `Size: ${packageSize}%0A`;
+                whatsappMessage += `Items: ${itemDescription}%0A%0A`;
+                
+                if (specialInstructions) {
+                    whatsappMessage += `*📝 SPECIAL INSTRUCTIONS*%0A`;
+                    whatsappMessage += `${specialInstructions}%0A%0A`;
+                }
+                
+                whatsappMessage += `_Request submitted via DSOG Delivery Platform_%0A`;
+                whatsappMessage += `_Please assign to a delivery assistant_`;
+                
+                // Open WhatsApp with the business owner
+                const whatsappUrl = `https://wa.me/${DELIVERY_OWNER_WHATSAPP}?text=${whatsappMessage}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Also send a copy to the customer
+                let customerMessage = `*✅ PICKUP REQUEST CONFIRMED*%0A%0A`;
+                customerMessage += `*Tracking Number:* ${trackingNumber}%0A`;
+                customerMessage += `*Status:* Awaiting pickup assignment%0A%0A`;
+                customerMessage += `Your pickup request has been received. DSOG Delivery will contact you shortly to confirm pickup time.%0A%0A`;
+                customerMessage += `_Keep this tracking number for status updates_`;
+                
+                const customerWhatsappUrl = `https://wa.me/${customerPhone.replace(/\D/g, '')}?text=${customerMessage}`;
+                window.open(customerWhatsappUrl, '_blank');
+                
+                // Close confirmation modal
+                closeConfirmationModal();
+                
+                // Reset form
+                resetRequestForm();
+                
+                showNotification('Pickup request submitted successfully!');
+                
+                // Store tracking number for reference
+                storeTrackingNumber(trackingNumber);
+                
+            } else {
+                throw new Error('Failed to submit request to backend');
+            }
+            
+        } catch (error) {
+            console.error('Request submission error:', error);
+            
+            // Fallback: Direct WhatsApp submission
+            submitDirectWhatsAppRequest(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions);
+        }
+    }
+    
+    function submitDirectWhatsAppRequest(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions) {
+        // Build WhatsApp message for business owner
+        let whatsappMessage = `*📦 NEW PICKUP REQUEST - DSOG DELIVERY*%0A%0A`;
+        whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
+        whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A`;
+        whatsappMessage += `*Time:* ${new Date().toLocaleTimeString()}%0A%0A`;
+        
+        whatsappMessage += `*👤 CUSTOMER DETAILS*%0A`;
+        whatsappMessage += `Name: ${customerName}%0A`;
+        whatsappMessage += `Phone: ${customerPhone}%0A`;
+        whatsappMessage += `Google: ${userProfile.email}%0A%0A`;
+        
+        whatsappMessage += `*📍 PICKUP LOCATION*%0A`;
+        whatsappMessage += `${pickupLocation}%0A%0A`;
+        
+        whatsappMessage += `*🎯 DELIVERY DESTINATION*%0A`;
+        whatsappMessage += `${deliveryLocation}%0A%0A`;
+        
+        whatsappMessage += `*📦 PACKAGE DETAILS*%0A`;
+        whatsappMessage += `Type: ${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A`;
+        whatsappMessage += `Size: ${packageSize}%0A`;
+        whatsappMessage += `Items: ${itemDescription}%0A%0A`;
+        
+        if (specialInstructions) {
+            whatsappMessage += `*📝 SPECIAL INSTRUCTIONS*%0A`;
+            whatsappMessage += `${specialInstructions}%0A%0A`;
+        }
+        
+        whatsappMessage += `_Request submitted via DSOG Delivery Platform_%0A`;
+        whatsappMessage += `_Please assign to a delivery assistant_`;
+        
+        // Open WhatsApp with the business owner
+        const whatsappUrl = `https://wa.me/${DELIVERY_OWNER_WHATSAPP}?text=${whatsappMessage}`;
+        window.open(whatsappUrl, '_blank');
+        
+        // Also send a copy to the customer
+        let customerMessage = `*✅ PICKUP REQUEST CONFIRMED*%0A%0A`;
+        customerMessage += `*Tracking Number:* ${trackingNumber}%0A`;
+        customerMessage += `*Status:* Awaiting pickup assignment%0A%0A`;
+        customerMessage += `Your pickup request has been received. DSOG Delivery will contact you shortly to confirm pickup time.%0A%0A`;
+        customerMessage += `_Keep this tracking number for status updates_`;
+        
+        const customerWhatsappUrl = `https://wa.me/${customerPhone.replace(/\D/g, '')}?text=${customerMessage}`;
+        window.open(customerWhatsappUrl, '_blank');
+        
+        // Close confirmation modal
+        closeConfirmationModal();
+        
+        // Reset form
+        resetRequestForm();
+        
+        showNotification('Pickup request sent via WhatsApp!');
+        
+        // Store tracking number for reference
+        storeTrackingNumber(trackingNumber);
+    }
+    
+    function resetRequestForm() {
+        // Reset all form fields except name and phone
+        document.getElementById('pickupLocation').value = '';
+        document.getElementById('deliveryLocation').value = '';
+        document.getElementById('packageType').value = '';
+        document.getElementById('packageSize').value = '';
+        document.getElementById('itemDescription').value = '';
+        document.getElementById('specialInstructions').value = '';
+        document.getElementById('charCount').textContent = '0/200';
+        document.getElementById('charCount').style.color = 'var(--gray)';
+        
+        // Reset package type selection
+        const packageCards = document.querySelectorAll('.package-type-card');
+        packageCards.forEach(card => card.classList.remove('selected'));
+        
+        // Hide package details
+        document.getElementById('packageDetails').style.display = 'none';
+        
+        // Auto-fill pickup location from profile
+        if (userProfile && userProfile.defaultLocation) {
+            document.getElementById('pickupLocation').value = userProfile.defaultLocation;
+        }
+    }
+    
+    function storeTrackingNumber(trackingNumber) {
+        // Store tracking numbers in localStorage
+        let trackingNumbers = JSON.parse(localStorage.getItem('dsog_delivery_tracking')) || [];
+        trackingNumbers.push({
+            number: trackingNumber,
+            date: new Date().toISOString(),
+            status: 'pending'
+        });
+        localStorage.setItem('dsog_delivery_tracking', JSON.stringify(trackingNumbers));
+    }
+    
+    // Track Delivery Function
+    async function trackDelivery() {
+        const trackingNumber = document.getElementById('trackingNumber').value.trim();
+        const trackingResult = document.getElementById('trackingResult');
+        
+        if (!trackingNumber) {
+            showNotification('Please enter a tracking number', 'error');
+            return;
+        }
+        
+        // Show loading state
+        trackingResult.innerHTML = `
+            <div style="text-align: center; padding: 2rem;">
+                <div class="loading-spinner"></div>
+                <p style="margin-top: 1rem;">Tracking delivery...</p>
+            </div>
+        `;
+        trackingResult.classList.add('active');
+        
+        try {
+            // Query backend for tracking info
+            const response = await fetch(`${scriptUrl}?action=getDeliveryStatus&trackingNumber=${trackingNumber}`);
+            
+            if (response.ok) {
+                const result = await response.json();
+                
+                if (result.success) {
+                    const delivery = result.data;
+                    
+                    // Map status to display text and color
+                    const statusMap = {
+                        'pending': { text: 'Awaiting Pickup', color: 'var(--warning)' },
+                        'assigned': { text: 'Assigned to Assistant', color: 'var(--info)' },
+                        'picked_up': { text: 'Picked Up', color: 'var(--primary-green)' },
+                        'in_transit': { text: 'In Transit', color: 'var(--primary-green)' },
+                        'delivered': { text: 'Delivered', color: 'var(--success)' },
+                        'cancelled': { text: 'Cancelled', color: 'var(--error)' }
+                    };
+                    
+                    const statusInfo = statusMap[delivery.status] || { text: 'Unknown', color: 'var(--gray)' };
+                    
+                    trackingResult.innerHTML = `
+                        <div style="margin-bottom: 1.5rem;">
+                            <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
+                            <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border-left: 4px solid ${statusInfo.color};">
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Status</div>
+                                <div style="font-weight: 700; color: ${statusInfo.color};">${statusInfo.text}</div>
+                            </div>
+                            
+                            ${delivery.assignedAssistant ? `
+                            <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--info);">
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Assigned Assistant</div>
+                                <div style="font-weight: 700;">${delivery.assignedAssistant}</div>
+                            </div>
+                            ` : ''}
+                            
+                            <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary-gold);">
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Request Date</div>
+                                <div style="font-weight: 700;">${new Date(delivery.requestDate).toLocaleDateString()}</div>
+                            </div>
+                        </div>
+                        
+                        ${delivery.pickupLocation ? `
+                        <div style="margin-bottom: 1rem;">
+                            <span style="font-weight: 600; color: var(--text-secondary);">Pickup Location:</span>
+                            <div style="margin-top: 0.3rem;">${delivery.pickupLocation}</div>
+                        </div>
+                        ` : ''}
+                        
+                        ${delivery.deliveryLocation ? `
+                        <div style="margin-bottom: 1rem;">
+                            <span style="font-weight: 600; color: var(--text-secondary);">Delivery Destination:</span>
+                            <div style="margin-top: 0.3rem;">${delivery.deliveryLocation}</div>
+                        </div>
+                        ` : ''}
+                        
+                        ${delivery.estimatedDelivery ? `
+                        <div style="margin-bottom: 1rem;">
+                            <span style="font-weight: 600; color: var(--text-secondary);">Estimated Delivery:</span>
+                            <div style="margin-top: 0.3rem;">${new Date(delivery.estimatedDelivery).toLocaleDateString()}</div>
+                        </div>
+                        ` : ''}
+                        
+                        ${delivery.notes ? `
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(37, 211, 102, 0.1); border-radius: 8px; border-left: 4px solid var(--primary-green);">
+                            <div style="font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Delivery Notes:</div>
+                            <div>${delivery.notes}</div>
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                } else {
+                    throw new Error('Delivery not found');
+                }
+                
+            } else {
+                throw new Error('Failed to fetch tracking information');
+            }
+            
+        } catch (error) {
+            console.error('Tracking error:', error);
+            
+            // Check localStorage for tracking number
+            const trackingNumbers = JSON.parse(localStorage.getItem('dsog_delivery_tracking')) || [];
+            const storedDelivery = trackingNumbers.find(t => t.number === trackingNumber);
+            
+            if (storedDelivery) {
+                // Show stored tracking info
+                trackingResult.innerHTML = `
+                    <div style="margin-bottom: 1.5rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Tracking Number:</span>
+                        <div style="margin-top: 0.3rem; font-weight: 700; color: var(--primary-green);">${trackingNumber}</div>
+                    </div>
+                    
+                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--warning); margin-bottom: 1.5rem;">
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Status</div>
+                        <div style="font-weight: 700; color: var(--warning);">Awaiting Pickup Assignment</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Request Date:</span>
+                        <div style="margin-top: 0.3rem;">${new Date(storedDelivery.date).toLocaleDateString()}</div>
+                    </div>
+                    
+                    <div style="padding: 1rem; background: rgba(255, 165, 0, 0.1); border-radius: 8px; border-left: 4px solid var(--warning);">
+                        <div style="font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Note:</div>
+                        <div>Your pickup request has been received. DSOG Delivery will contact you shortly to confirm pickup time and assign a delivery assistant.</div>
+                    </div>
+                `;
+                
+            } else {
+                // Show error message
+                trackingResult.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: var(--error); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--error); margin-bottom: 0.5rem;">Tracking Number Not Found</h3>
+                        <p style="color: var(--text-secondary);">Please check the tracking number and try again.</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">If you just submitted a request, please wait a few minutes and try again.</p>
+                    </div>
+                `;
+            }
+        }
+    }
+    
+    // Load Delivery Assistants
+    async function loadDeliveryAssistants() {
+        const loadingElement = document.getElementById('assistantsLoading');
+        const gridElement = document.getElementById('assistantsGrid');
+        
+        loadingElement.classList.add('visible');
+        gridElement.innerHTML = '';
+        
+        try {
+            // Try to load from backend
+            const response = await fetch(`${scriptUrl}?action=getDeliveryAssistants&timestamp=${Date.now()}`);
+            
+            if (response.ok) {
+                const result = await response.json();
+                
+                if (result.success && Array.isArray(result.data)) {
+                    deliveryAssistants = result.data.map(assistant => ({
+                        id: assistant.id || `DA-${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+                        name: assistant.name || 'Unknown Assistant',
+                        phone: assistant.phone || '+254700000000',
+                        vehicle: assistant.vehicle || 'Vehicle not specified',
+                        status: assistant.status || 'available',
+                        currentCapacity: parseInt(assistant.currentCapacity) || 0,
+                        maxCapacity: parseInt(assistant.maxCapacity) || 10,
+                        rating: parseFloat(assistant.rating) || 4.5,
+                        completedDeliveries: parseInt(assistant.completedDeliveries) || 0,
+                        location: assistant.location || 'Location not specified',
+                        zones: Array.isArray(assistant.zones) ? assistant.zones : 
+                               (assistant.zones ? assistant.zones.split(',') : []),
+                        lastUpdated: assistant.lastUpdated || new Date().toISOString(),
+                        isActive: assistant.isActive !== false,
+                        notes: assistant.notes || ''
+                    }));
+                    
+                    console.log(`✅ Loaded ${deliveryAssistants.length} delivery assistants`);
+                    
+                } else {
+                    // Fallback to sample data
+                    loadSampleDeliveryAssistants();
+                }
+            } else {
+                // Fallback to sample data
+                loadSampleDeliveryAssistants();
+            }
+            
+        } catch (error) {
+            console.error('❌ Error loading delivery assistants:', error);
+            // Fallback to sample data
+            loadSampleDeliveryAssistants();
+        } finally {
+            // Display assistants
+            displayDeliveryAssistants();
+            
+            // Hide loading indicator
+            loadingElement.classList.remove('visible');
+        }
+    }
+    
+    function loadSampleDeliveryAssistants() {
+        console.log('🚚 Loading sample delivery assistants...');
+        
+        deliveryAssistants = [
+            {
+                id: 'DA001',
+                name: 'John Kamau',
+                phone: '+254712345678',
+                vehicle: 'Toyota Probox - KDA 123A',
+                status: 'available',
+                currentCapacity: 3,
+                maxCapacity: 10,
+                rating: 4.8,
+                completedDeliveries: 120,
+                location: 'Nairobi CBD',
+                zones: ['Nairobi', 'Thika', 'Kiambu'],
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Reliable and punctual'
+            },
+            {
+                id: 'DA002',
+                name: 'Susan Wanjiku',
+                phone: '+254723456789',
+                vehicle: 'Suzuki Every - KCB 456B',
+                status: 'available',
+                currentCapacity: 5,
+                maxCapacity: 8,
+                rating: 4.9,
+                completedDeliveries: 95,
+                location: 'Westlands',
+                zones: ['Westlands', 'Parklands', 'Lavington'],
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Excellent customer service'
+            },
+            {
+                id: 'DA003',
+                name: 'Peter Odhiambo',
+                phone: '+254734567890',
+                vehicle: 'Nissan NV350 - KDC 789C',
+                status: 'busy',
+                currentCapacity: 8,
+                maxCapacity: 12,
+                rating: 4.7,
+                completedDeliveries: 150,
+                location: 'Industrial Area',
+                zones: ['Industrial Area', 'South B', 'South C'],
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Handles large orders efficiently'
+            },
+            {
+                id: 'DA004',
+                name: 'Mary Achieng',
+                phone: '+254745678901',
+                vehicle: 'Toyota Sienta - KDD 012D',
+                status: 'available',
+                currentCapacity: 2,
+                maxCapacity: 6,
+                rating: 4.6,
+                completedDeliveries: 80,
+                location: 'Karen',
+                zones: ['Karen', 'Langata', 'Rongai'],
+                lastUpdated: new Date().toISOString(),
+                isActive: true,
+                notes: 'Specializes in fragile items'
+            }
+        ];
+        
+        console.log(`✅ Loaded ${deliveryAssistants.length} sample delivery assistants`);
+    }
+    
+    function displayDeliveryAssistants() {
+        const gridElement = document.getElementById('assistantsGrid');
+        
+        deliveryAssistants.forEach(assistant => {
+            const capacityPercentage = (assistant.currentCapacity / assistant.maxCapacity) * 100;
+            const capacityColor = capacityPercentage > 80 ? 'var(--error)' : 
+                                 capacityPercentage > 60 ? 'var(--warning)' : 
+                                 'var(--success)';
+            
+            const card = document.createElement('div');
+            card.className = 'assistant-card';
+            
+            card.innerHTML = `
+                <div class="assistant-header">
+                    <span class="assistant-status status-${assistant.status}">${assistant.status}</span>
+                    <h3 class="assistant-name">${assistant.name}</h3>
+                    <p class="assistant-id">ID: ${assistant.id}</p>
+                    <div class="assistant-vehicle">
+                        <i class="fas fa-car"></i>
+                        <span>${assistant.vehicle}</span>
+                    </div>
+                </div>
+                <div class="assistant-body">
+                    <div class="assistant-info">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="font-weight: 600; color: var(--text-secondary);">Phone:</span>
+                            <span>${assistant.phone}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="font-weight: 600; color: var(--text-secondary);">Location:</span>
+                            <span>${assistant.location}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="font-weight: 600; color: var(--text-secondary);">Rating:</span>
+                            <span><i class="fas fa-star" style="color: var(--primary-gold);"></i> ${assistant.rating} (${assistant.completedDeliveries})</span>
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                                <span style="font-size: 0.85rem; color: var(--text-secondary);">Current Capacity:</span>
+                                <span style="font-size: 0.85rem;">${assistant.currentCapacity}/${assistant.maxCapacity}</span>
+                            </div>
+                            <div style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
+                                <div style="height: 100%; width: ${capacityPercentage}%; background: ${capacityColor}; border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assistant-actions">
+                        <button class="assign-btn" onclick="assignPackage('${assistant.id}')" ${assistant.status === 'busy' ? 'disabled' : ''}>
+                            <i class="fas fa-truck-loading"></i>
+                            ${assistant.status === 'busy' ? 'Currently Busy' : 'Assign Package'}
+                        </button>
+                        <button class="whatsapp-btn" onclick="window.open('https://wa.me/${assistant.phone.replace(/\D/g, '')}', '_blank')">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            gridElement.appendChild(card);
+        });
+    }
+    
+    function assignPackage(assistantId) {
+        const assistant = deliveryAssistants.find(a => a.id === assistantId);
+        
+        if (!assistant) {
+            showNotification('Assistant not found', 'error');
+            return;
+        }
+        
+        // Get current package details from form
+        const customerName = document.getElementById('customerName').value.trim();
+        const pickupLocation = document.getElementById('pickupLocation').value.trim();
+        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
+        const packageType = document.getElementById('packageType').value;
+        
+        if (!customerName || !pickupLocation || !deliveryLocation || !packageType) {
+            showNotification('Please fill in the pickup request form first', 'error');
+            scrollToSection('request');
+            return;
+        }
+        
+        // Generate tracking number
+        const trackingNumber = 'DSOG-' + Date.now().toString().slice(-6);
+        
+        // Build WhatsApp message for business owner
+        let whatsappMessage = `*📦 PACKAGE ASSIGNMENT REQUEST*%0A%0A`;
+        whatsappMessage += `*Tracking:* ${trackingNumber}%0A`;
+        whatsappMessage += `*Assistant:* ${assistant.name} (${assistant.id})%0A`;
+        whatsappMessage += `*Date:* ${new Date().toLocaleDateString()}%0A%0A`;
+        
+        whatsappMessage += `*👤 CUSTOMER*%0A`;
+        whatsappMessage += `${customerName}%0A%0A`;
+        
+        whatsappMessage += `*📍 PICKUP*%0A`;
+        whatsappMessage += `${pickupLocation}%0A%0A`;
+        
+        whatsappMessage += `*🎯 DELIVERY*%0A`;
+        whatsappMessage += `${deliveryLocation}%0A%0A`;
+        
+        whatsappMessage += `*📦 PACKAGE*%0A`;
+        whatsappMessage += `${packageType.charAt(0).toUpperCase() + packageType.slice(1)}%0A%0A`;
+        
+        whatsappMessage += `_Please confirm assignment to ${assistant.name}_%0A`;
+        whatsappMessage += `_Assistant Phone: ${assistant.phone}_`;
+        
+        // Open WhatsApp with the business owner
+        const whatsappUrl = `https://wa.me/${DELIVERY_OWNER_WHATSAPP}?text=${whatsappMessage}`;
+        window.open(whatsappUrl, '_blank');
+        
+        showNotification(`Assignment request sent for ${assistant.name}`);
+    }
+    
+    // PWA Installation
+    function initPWA() {
+        if (window.matchMedia('(display-mode: standalone)').matches || 
+            window.navigator.standalone === true) {
+            isAppInstalled = true;
+            console.log('📱 Delivery app is installed as PWA');
+            hideInstallButton();
+        }
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('📱 PWA installation available for delivery app');
+            
+            setTimeout(() => {
+                if (!isAppInstalled && !isInstallPromptShown) {
+                    showInstallButton();
+                }
+            }, 3000);
+        });
+        
+        window.addEventListener('appinstalled', () => {
+            isAppInstalled = true;
+            deferredPrompt = null;
+            console.log('✅ Delivery PWA installed successfully');
+            hideInstallPrompt();
+            hideInstallButton();
+            showNotification('Delivery app installed successfully!');
+        });
+        
+        initInstallButtons();
+        registerServiceWorker();
+    }
+    
+    function registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/delivery-service-worker.js')
+                .then(registration => {
+                    console.log('✅ Delivery Service Worker registered:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('❌ Delivery Service Worker registration failed:', error);
+                });
+        }
+    }
+    
+    function initInstallButtons() {
+        const installBtn = document.getElementById('installAppBtn');
+        const installNowBtn = document.getElementById('pwaInstallNow');
+        const installLaterBtn = document.getElementById('pwaInstallLater');
+        const installCloseBtn = document.getElementById('pwaInstallClose');
+        
+        if (installBtn) {
+            installBtn.addEventListener('click', showInstallPrompt);
+        }
+        
+        if (installNowBtn) {
+            installNowBtn.addEventListener('click', installPWA);
+        }
+        
+        if (installLaterBtn) {
+            installLaterBtn.addEventListener('click', hideInstallPrompt);
+        }
+        
+        if (installCloseBtn) {
+            installCloseBtn.addEventListener('click', hideInstallPrompt);
+        }
+    }
+    
+    function showInstallButton() {
+        const installBtn = document.getElementById('installAppBtn');
+        if (installBtn) {
+            installBtn.style.display = 'flex';
+        }
+    }
+    
+    function hideInstallButton() {
+        const installBtn = document.getElementById('installAppBtn');
+        if (installBtn) {
+            installBtn.style.display = 'none';
+        }
+    }
+    
+    function showInstallPrompt() {
+        if (isAppInstalled) {
+            showNotification('Delivery app is already installed!');
+            return;
+        }
+        
+        if (!deferredPrompt) {
+            showNotification('App installation not available on this device');
+            return;
+        }
+        
+        const installPrompt = document.getElementById('pwaInstallPrompt');
+        if (installPrompt) {
+            installPrompt.style.display = 'flex';
+            isInstallPromptShown = true;
+        }
+    }
+    
+    function hideInstallPrompt() {
+        const installPrompt = document.getElementById('pwaInstallPrompt');
+        if (installPrompt) {
+            installPrompt.style.display = 'none';
+        }
+    }
+    
+    async function installPWA() {
+        if (!deferredPrompt) {
+            showNotification('Installation not available');
+            return;
+        }
+        
+        try {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                console.log('✅ User accepted delivery PWA installation');
+                isAppInstalled = true;
+                hideInstallPrompt();
+                hideInstallButton();
+            } else {
+                console.log('❌ User dismissed delivery PWA installation');
+            }
+            
+            deferredPrompt = null;
+        } catch (error) {
+            console.error('Error installing delivery PWA:', error);
+            showNotification('Error installing delivery app. Please try again.', 'error');
+        }
+    }
+    
+    // Notification system
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        
+        if (type === 'error') {
+            notification.style.background = 'var(--error)';
+        } else if (type === 'warning') {
+            notification.style.background = 'var(--warning)';
+            notification.style.color = 'var(--primary-black)';
+        }
+        
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 3000);
+    }
+    </script>
+</body>
+</html>
