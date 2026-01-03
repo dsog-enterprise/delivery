@@ -354,6 +354,113 @@
             transform: translateY(-2px);
         }
         
+        /* ENHANCED PROFESSIONAL GOOGLE SIGN-IN MODAL -->
+        <!-- New Charge Calculation Section Styles -->
+        .charge-calculation-section {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--primary-gold);
+        }
+        
+        .charge-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .charge-header i {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+        }
+        
+        .charge-input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .charge-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .charge-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+        }
+        
+        .charge-display {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.05), rgba(212, 175, 55, 0.05));
+            border-radius: 10px;
+            border: 1px solid rgba(37, 211, 102, 0.2);
+            display: none;
+        }
+        
+        .charge-display.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .charge-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .charge-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: var(--white);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-green);
+        }
+        
+        .charge-item.total {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-left: 4px solid var(--primary-gold);
+        }
+        
+        .charge-breakdown {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+        
+        .charge-breakdown ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .charge-breakdown li {
+            margin-bottom: 0.3rem;
+        }
+        
         /* ENHANCED PROFESSIONAL GOOGLE SIGN-IN MODAL */
         .google-signin-modal {
             position: fixed;
@@ -1120,6 +1227,23 @@
             opacity: 1;
         }
         
+        /* LOCATION INPUT SECTION - UPDATED -->
+        <!-- Updated Package Type Cards with Pricing -->
+        .package-type-card .package-price {
+            font-size: 0.85rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+        
+        .package-type-card.selected .package-price {
+            color: var(--white);
+            background: var(--primary-green);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
         /* LOCATION INPUT SECTION - UPDATED */
         .location-input-section {
             margin-bottom: 1.5rem;
@@ -1371,7 +1495,7 @@
             border-radius: 10px;
         }
         
-        /* PACKAGE TYPE SELECTION */
+        /* PACKAGE TYPE SELECTION WITH PRICING */
         .package-type-selection {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -1422,6 +1546,21 @@
         .package-size {
             font-size: 0.85rem;
             color: var(--gray);
+        }
+        
+        .package-price {
+            font-size: 0.85rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+        
+        .package-type-card.selected .package-price {
+            color: var(--white);
+            background: var(--primary-green);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
         }
         
         /* ASSISTANT SELECTION - FIXED VERSION */
@@ -1715,7 +1854,7 @@
             background: var(--secondary-black);
         }
         
-        /* PACKAGE DETAILS SECTION */
+        /* PACKAGE DETAILS SECTION WITH CHARGES */
         .package-details {
             background: var(--white);
             padding: 2rem;
@@ -1750,6 +1889,26 @@
             font-weight: 600;
             color: var(--text-primary);
             font-size: 1.1rem;
+        }
+        
+        /* Charge Summary in Package Details */
+        .charge-summary-item {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .charge-summary-item.total {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .charge-summary-item.total .detail-value {
+            color: var(--white);
         }
         
         /* SUBMIT BUTTON */
@@ -2268,6 +2427,10 @@
                 height: auto;
                 padding: 0.8rem;
             }
+            
+            .charge-input-group {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 480px) {
@@ -2615,6 +2778,69 @@
                 </div>
             </div>
             
+            <!-- Charge Calculation Section -->
+            <div class="charge-calculation-section">
+                <div class="charge-header">
+                    <i class="fas fa-calculator"></i>
+                    <h3 style="margin: 0; color: var(--primary-gold);">Delivery Charge Calculator</h3>
+                </div>
+                <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                    Enter delivery details to calculate estimated charges. Charges are automatically calculated based on package size and distance.
+                </p>
+                
+                <div class="charge-input-group">
+                    <div>
+                        <label for="deliveryDistance" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Delivery Distance *</label>
+                        <select id="deliveryDistance" class="charge-input" required onchange="calculateCharges()">
+                            <option value="">Select distance zone</option>
+                            <option value="same">Same Region/Zone (0-5km)</option>
+                            <option value="nearby">Nearby Region (5-10km)</option>
+                            <option value="far">Far Region (10-20km)</option>
+                            <option value="distant">Distant Region (20+ km)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="packageWeight" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Package Weight (kg) *</label>
+                        <input type="number" id="packageWeight" class="charge-input" min="0" max="30" step="0.1" 
+                               placeholder="Enter weight in kg" oninput="calculateCharges()">
+                    </div>
+                </div>
+                
+                <div class="charge-display" id="chargeDisplay">
+                    <h4 style="color: var(--primary-green); margin-bottom: 1rem;">Calculated Charges</h4>
+                    <div class="charge-summary">
+                        <div class="charge-item">
+                            <span>Base Charge:</span>
+                            <span id="baseCharge">Ksh 0</span>
+                        </div>
+                        <div class="charge-item">
+                            <span>Distance Surcharge:</span>
+                            <span id="distanceSurcharge">Ksh 0</span>
+                        </div>
+                        <div class="charge-item">
+                            <span>Weight Surcharge:</span>
+                            <span id="weightSurcharge">Ksh 0</span>
+                        </div>
+                        <div class="charge-item total">
+                            <span>Total Charge:</span>
+                            <span id="totalCharge">Ksh 0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="charge-breakdown">
+                        <strong>Pricing Structure:</strong>
+                        <ul>
+                            <li>Small (0-5kg): Base Ksh 200</li>
+                            <li>Medium (5-15kg): Base Ksh 290</li>
+                            <li>Large (15-30kg): Base Ksh 380</li>
+                            <li>Fragile Items: Base Ksh 250 + surcharges</li>
+                            <li>Distance surcharge: Same zone (0%), Nearby (+20%), Far (+40%), Distant (+60%)</li>
+                            <li>Weight surcharge: Over 15kg (+Ksh 50), Over 20kg (+Ksh 100)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
             <div class="request-form">
                 <div class="form-group">
                     <label for="customerName">Your Name *</label>
@@ -2641,37 +2867,41 @@
                     </div>
                 </div>
                 
-                <!-- Package Type Selection -->
+                <!-- Package Type Selection with Pricing -->
                 <div class="form-group">
                     <label>Package Type *</label>
                     <div class="package-type-selection" id="packageTypeSelection">
-                        <div class="package-type-card" data-type="small" data-size="Small (0-5kg)">
+                        <div class="package-type-card" data-type="small" data-size="Small (0-5kg)" data-price="200">
                             <div class="package-icon">
                                 <i class="fas fa-box"></i>
                             </div>
                             <div class="package-name">Small Package</div>
                             <div class="package-size">0-5 kg</div>
+                            <div class="package-price">From Ksh 200</div>
                         </div>
-                        <div class="package-type-card" data-type="medium" data-size="Medium (5-15kg)">
+                        <div class="package-type-card" data-type="medium" data-size="Medium (5-15kg)" data-price="290">
                             <div class="package-icon">
                                 <i class="fas fa-box-open"></i>
                             </div>
                             <div class="package-name">Medium Package</div>
                             <div class="package-size">5-15 kg</div>
+                            <div class="package-price">From Ksh 290</div>
                         </div>
-                        <div class="package-type-card" data-type="large" data-size="Large (15-30kg)">
+                        <div class="package-type-card" data-type="large" data-size="Large (15-30kg)" data-price="380">
                             <div class="package-icon">
                                 <i class="fas fa-pallet"></i>
                             </div>
                             <div class="package-name">Large Package</div>
                             <div class="package-size">15-30 kg</div>
+                            <div class="package-price">From Ksh 380</div>
                         </div>
-                        <div class="package-type-card" data-type="fragile" data-size="Fragile (Special)">
+                        <div class="package-type-card" data-type="fragile" data-size="Fragile (Special)" data-price="250">
                             <div class="package-icon">
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div class="package-name">Fragile Items</div>
                             <div class="package-size">Special handling</div>
+                            <div class="package-price">From Ksh 250</div>
                         </div>
                     </div>
                     <input type="hidden" id="packageType" required>
@@ -2735,11 +2965,14 @@
                     </div>
                 </div>
                 
-                <!-- Package Details Summary -->
+                <!-- Package Details Summary with Charges -->
                 <div class="package-details" id="packageDetails" style="display: none;">
-                    <h3>Package Details Summary</h3>
+                    <h3>Package Details & Charges Summary</h3>
                     <div class="details-grid" id="detailsGrid">
                         <!-- Details will be populated here -->
+                    </div>
+                    <div id="chargeSummaryDetails" style="margin-top: 1.5rem;">
+                        <!-- Charge details will be populated here -->
                     </div>
                 </div>
                 
@@ -2839,6 +3072,26 @@
         const SUPPORT_WHATSAPP = '254733737983';
         const GOOGLE_CLIENT_ID = '369304497158-8ub6b68v2bjvsfciome6q56flh2rd1m4.apps.googleusercontent.com';
         
+        // Pricing Configuration
+        const pricingConfig = {
+            baseCharges: {
+                small: 200,    // 0-5kg
+                medium: 290,   // 5-15kg (+90 from small)
+                large: 380,    // 15-30kg (+90 from medium)
+                fragile: 250   // Special handling
+            },
+            distanceMultipliers: {
+                same: 0.0,     // Same region/zone (0-5km): +0%
+                nearby: 0.2,   // Nearby region (5-10km): +20%
+                far: 0.4,      // Far region (10-20km): +40%
+                distant: 0.6   // Distant region (20+km): +60%
+            },
+            weightSurcharges: {
+                over15kg: 50,  // Additional charge for >15kg
+                over20kg: 100  // Additional charge for >20kg
+            }
+        };
+        
         // State management
         let userProfile = JSON.parse(localStorage.getItem('dsog_delivery_profile')) || null;
         let googleUser = null;
@@ -2850,6 +3103,15 @@
         let deliveryAssistants = [];
         let userDeliveryHistory = [];
         let currentSortMode = 'all';
+        let currentCharges = {
+            baseCharge: 0,
+            distanceSurcharge: 0,
+            weightSurcharge: 0,
+            totalCharge: 0,
+            packageType: '',
+            distanceZone: '',
+            weight: 0
+        };
         
         // PWA variables
         let deferredPrompt = null;
@@ -2911,6 +3173,80 @@
                     pickupLocationInput.value = this.value;
                 }
             });
+        }
+        
+        // Calculate Delivery Charges
+        function calculateCharges() {
+            const packageType = document.getElementById('packageType').value;
+            const distanceZone = document.getElementById('deliveryDistance').value;
+            const weightInput = document.getElementById('packageWeight');
+            const weight = parseFloat(weightInput.value) || 0;
+            
+            const chargeDisplay = document.getElementById('chargeDisplay');
+            
+            // Hide charge display if no package type or distance selected
+            if (!packageType || !distanceZone) {
+                chargeDisplay.classList.remove('active');
+                return;
+            }
+            
+            // Calculate base charge based on package type
+            let baseCharge = pricingConfig.baseCharges[packageType] || 0;
+            
+            // Calculate distance surcharge
+            const distanceMultiplier = pricingConfig.distanceMultipliers[distanceZone] || 0;
+            const distanceSurcharge = Math.round(baseCharge * distanceMultiplier);
+            
+            // Calculate weight surcharge
+            let weightSurcharge = 0;
+            if (weight > 20) {
+                weightSurcharge = pricingConfig.weightSurcharges.over20kg;
+            } else if (weight > 15) {
+                weightSurcharge = pricingConfig.weightSurcharges.over15kg;
+            }
+            
+            // Calculate total
+            const totalCharge = baseCharge + distanceSurcharge + weightSurcharge;
+            
+            // Update charge display
+            document.getElementById('baseCharge').textContent = `Ksh ${baseCharge}`;
+            document.getElementById('distanceSurcharge').textContent = `Ksh ${distanceSurcharge}`;
+            document.getElementById('weightSurcharge').textContent = `Ksh ${weightSurcharge}`;
+            document.getElementById('totalCharge').textContent = `Ksh ${totalCharge}`;
+            
+            // Show charge display
+            chargeDisplay.classList.add('active');
+            
+            // Update current charges state
+            currentCharges = {
+                baseCharge,
+                distanceSurcharge,
+                weightSurcharge,
+                totalCharge,
+                packageType,
+                distanceZone,
+                weight
+            };
+            
+            // Update package details if selected
+            if (selectedAssistant) {
+                const packageDetails = document.getElementById('packageDetails');
+                if (packageDetails) packageDetails.style.display = 'block';
+                updatePackageDetails();
+            }
+            
+            // Update weight input validation
+            if (packageType === 'small' && weight > 5) {
+                weightInput.setCustomValidity('Small packages should be 0-5kg');
+            } else if (packageType === 'medium' && (weight < 5 || weight > 15)) {
+                weightInput.setCustomValidity('Medium packages should be 5-15kg');
+            } else if (packageType === 'large' && (weight < 15 || weight > 30)) {
+                weightInput.setCustomValidity('Large packages should be 15-30kg');
+            } else if (packageType === 'fragile' && weight > 15) {
+                weightInput.setCustomValidity('Fragile packages should be under 15kg');
+            } else {
+                weightInput.setCustomValidity('');
+            }
         }
         
         // Google Sign-in Functions
@@ -3210,7 +3546,6 @@
             showNotification('Location set successfully! Nearby assistants will be prioritized.');
         }
         
-        // Load all delivery assistants - FIXED VERSION
         // Load all delivery assistants - COMPLETELY FIXED VERSION
         async function loadAllDeliveryAssistants() {
             const loadingElement = document.getElementById('assistantsLoading');
@@ -3921,6 +4256,9 @@
                     if (packageTypeInput) packageTypeInput.value = selectedPackageType;
                     if (packageSizeInput) packageSizeInput.value = selectedPackageSize;
                     
+                    // Trigger charge calculation
+                    calculateCharges();
+                    
                     if (selectedAssistant && packageDetails) {
                         packageDetails.style.display = 'block';
                         updatePackageDetails();
@@ -3931,6 +4269,7 @@
         
         function updatePackageDetails() {
             const detailsGrid = document.getElementById('detailsGrid');
+            const chargeSummaryDetails = document.getElementById('chargeSummaryDetails');
             const packageType = document.getElementById('packageType');
             const packageSize = document.getElementById('packageSize');
             const itemDescription = document.getElementById('itemDescription');
@@ -3967,6 +4306,38 @@
                 </div>
                 ` : ''}
             `;
+            
+            // Update charge summary
+            if (chargeSummaryDetails && currentCharges.totalCharge > 0) {
+                const distanceZoneLabels = {
+                    same: 'Same Region (0-5km)',
+                    nearby: 'Nearby Region (5-10km)',
+                    far: 'Far Region (10-20km)',
+                    distant: 'Distant Region (20+ km)'
+                };
+                
+                chargeSummaryDetails.innerHTML = `
+                    <h4 style="color: var(--primary-gold); margin-bottom: 1rem; border-bottom: 2px solid var(--primary-gold); padding-bottom: 0.5rem;">Delivery Charges</h4>
+                    <div class="details-grid">
+                        <div class="charge-summary-item">
+                            <div class="detail-label">Base Charge (${packageTypeValue})</div>
+                            <div class="detail-value">Ksh ${currentCharges.baseCharge}</div>
+                        </div>
+                        <div class="charge-summary-item">
+                            <div class="detail-label">Distance Surcharge (${distanceZoneLabels[currentCharges.distanceZone] || 'N/A'})</div>
+                            <div class="detail-value">Ksh ${currentCharges.distanceSurcharge}</div>
+                        </div>
+                        <div class="charge-summary-item">
+                            <div class="detail-label">Weight Surcharge (${currentCharges.weight}kg)</div>
+                            <div class="detail-value">Ksh ${currentCharges.weightSurcharge}</div>
+                        </div>
+                        <div class="charge-summary-item total">
+                            <div class="detail-label">Total Delivery Charge</div>
+                            <div class="detail-value">Ksh ${currentCharges.totalCharge}</div>
+                        </div>
+                    </div>
+                `;
+            }
         }
         
         // Initialize Character Counter
@@ -4054,9 +4425,11 @@
             const packageSize = document.getElementById('packageSize');
             const itemDescription = document.getElementById('itemDescription');
             const specialInstructions = document.getElementById('specialInstructions');
+            const deliveryDistance = document.getElementById('deliveryDistance');
+            const packageWeight = document.getElementById('packageWeight');
             
             if (!customerName || !customerPhone || !pickupLocation || !deliveryLocation || 
-                !packageType || !packageSize || !itemDescription) return;
+                !packageType || !packageSize || !itemDescription || !deliveryDistance || !packageWeight) return;
             
             const customerNameValue = customerName.value.trim();
             const customerPhoneValue = customerPhone.value.trim();
@@ -4066,10 +4439,13 @@
             const packageSizeValue = packageSize.value;
             const itemDescriptionValue = itemDescription.value.trim();
             const specialInstructionsValue = specialInstructions ? specialInstructions.value.trim() : '';
+            const distanceZone = deliveryDistance.value;
+            const weight = packageWeight.value;
             
             // Validation
             if (!customerNameValue || !customerPhoneValue || !pickupLocationValue || 
-                !deliveryLocationValue || !packageTypeValue || !packageSizeValue || !itemDescriptionValue) {
+                !deliveryLocationValue || !packageTypeValue || !packageSizeValue || !itemDescriptionValue || 
+                !distanceZone || !weight) {
                 showNotification('Please fill in all required fields', 'error');
                 return;
             }
@@ -4084,12 +4460,35 @@
                 return;
             }
             
+            // Validate weight based on package type
+            const weightNum = parseFloat(weight);
+            if (packageTypeValue === 'small' && (weightNum < 0 || weightNum > 5)) {
+                showNotification('Small packages must be 0-5kg', 'error');
+                return;
+            } else if (packageTypeValue === 'medium' && (weightNum < 5 || weightNum > 15)) {
+                showNotification('Medium packages must be 5-15kg', 'error');
+                return;
+            } else if (packageTypeValue === 'large' && (weightNum < 15 || weightNum > 30)) {
+                showNotification('Large packages must be 15-30kg', 'error');
+                return;
+            } else if (packageTypeValue === 'fragile' && (weightNum < 0 || weightNum > 15)) {
+                showNotification('Fragile packages must be 0-15kg', 'error');
+                return;
+            }
+            
             // Generate tracking number
             const trackingNumber = 'DSOG-' + Date.now().toString().slice(-6);
             
             // Build confirmation message
             const confirmationBody = document.getElementById('confirmationBody');
             if (!confirmationBody) return;
+            
+            const distanceZoneLabels = {
+                same: 'Same Region (0-5km)',
+                nearby: 'Nearby Region (5-10km)',
+                far: 'Far Region (10-20km)',
+                distant: 'Distant Region (20+ km)'
+            };
             
             confirmationBody.innerHTML = `
                 <div class="confirmation-details">
@@ -4123,7 +4522,11 @@
                         </div>
                         <div>
                             <span style="font-weight: 600; color: var(--text-secondary);">Package:</span>
-                            <div style="margin-top: 0.3rem;">${packageTypeValue.charAt(0).toUpperCase() + packageTypeValue.slice(1)} - ${packageSizeValue}</div>
+                            <div style="margin-top: 0.3rem;">${packageTypeValue.charAt(0).toUpperCase() + packageTypeValue.slice(1)} - ${packageSizeValue} (${weight}kg)</div>
+                        </div>
+                        <div>
+                            <span style="font-weight: 600; color: var(--text-secondary);">Distance Zone:</span>
+                            <div style="margin-top: 0.3rem;">${distanceZoneLabels[distanceZone] || distanceZone}</div>
                         </div>
                         <div>
                             <span style="font-weight: 600; color: var(--text-secondary);">Items:</span>
@@ -4135,6 +4538,27 @@
                             <div style="margin-top: 0.3rem;">${specialInstructionsValue}</div>
                         </div>
                         ` : ''}
+                        <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(37, 211, 102, 0.1)); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary-gold); margin-top: 1rem;">
+                            <h4 style="color: var(--primary-gold); margin-bottom: 0.8rem;">Delivery Charges</h4>
+                            <div style="display: grid; gap: 0.5rem;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Base Charge:</span>
+                                    <span style="font-weight: 600;">Ksh ${currentCharges.baseCharge}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Distance Surcharge:</span>
+                                    <span style="font-weight: 600;">Ksh ${currentCharges.distanceSurcharge}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Weight Surcharge:</span>
+                                    <span style="font-weight: 600;">Ksh ${currentCharges.weightSurcharge}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 0.5rem; margin-top: 0.5rem;">
+                                    <span style="font-weight: 700;">Total Charge:</span>
+                                    <span style="font-weight: 700; color: var(--primary-green); font-size: 1.1rem;">Ksh ${currentCharges.totalCharge}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -4174,9 +4598,12 @@
             const packageSize = document.getElementById('packageSize');
             const itemDescription = document.getElementById('itemDescription');
             const specialInstructions = document.getElementById('specialInstructions');
+            const deliveryDistance = document.getElementById('deliveryDistance');
+            const packageWeight = document.getElementById('packageWeight');
             
             if (!customerName || !customerPhone || !pickupLocation || !deliveryLocation || 
-                !packageType || !packageSize || !itemDescription || !selectedAssistant) return;
+                !packageType || !packageSize || !itemDescription || !selectedAssistant || 
+                !deliveryDistance || !packageWeight) return;
             
             const customerNameValue = customerName.value.trim();
             const customerPhoneValue = customerPhone.value.trim();
@@ -4186,6 +4613,8 @@
             const packageSizeValue = packageSize.value;
             const itemDescriptionValue = itemDescription.value.trim();
             const specialInstructionsValue = specialInstructions ? specialInstructions.value.trim() : '';
+            const distanceZone = deliveryDistance.value;
+            const weight = packageWeight.value;
             
             // Build WhatsApp message for the assistant
             let whatsappMessage = `*📦 NEW PICKUP REQUEST - DSOG DELIVERY*%0A%0A`;
@@ -4207,7 +4636,14 @@
             whatsappMessage += `*📦 PACKAGE DETAILS*%0A`;
             whatsappMessage += `Type: ${packageTypeValue.charAt(0).toUpperCase() + packageTypeValue.slice(1)}%0A`;
             whatsappMessage += `Size: ${packageSizeValue}%0A`;
+            whatsappMessage += `Weight: ${weight}kg%0A`;
             whatsappMessage += `Items: ${itemDescriptionValue}%0A%0A`;
+            
+            whatsappMessage += `*💰 DELIVERY CHARGES*%0A`;
+            whatsappMessage += `Base Charge: Ksh ${currentCharges.baseCharge}%0A`;
+            whatsappMessage += `Distance Surcharge: Ksh ${currentCharges.distanceSurcharge}%0A`;
+            whatsappMessage += `Weight Surcharge: Ksh ${currentCharges.weightSurcharge}%0A`;
+            whatsappMessage += `*Total: Ksh ${currentCharges.totalCharge}*%0A%0A`;
             
             if (specialInstructionsValue) {
                 whatsappMessage += `*📝 SPECIAL INSTRUCTIONS*%0A`;
@@ -4215,7 +4651,8 @@
             }
             
             whatsappMessage += `_Please confirm pickup time and provide ETA_%0A`;
-            whatsappMessage += `_Customer will track delivery via this WhatsApp conversation_`;
+            whatsappMessage += `_Customer will track delivery via this WhatsApp conversation_%0A`;
+            whatsappMessage += `_Payment: Cash on Delivery (Ksh ${currentCharges.totalCharge})_`;
             
             // Open WhatsApp with the selected assistant
             const assistantPhone = selectedAssistant.phone.replace(/\D/g, '');
@@ -4227,7 +4664,7 @@
             const supportWhatsappUrl = `https://wa.me/${SUPPORT_WHATSAPP}?text=${supportMessage}`;
             window.open(supportWhatsappUrl, '_blank');
             
-            // Save to local history
+            // Save to local history with charges
             saveToDeliveryHistory(
                 trackingNumber,
                 customerNameValue,
@@ -4239,7 +4676,10 @@
                 itemDescriptionValue,
                 specialInstructionsValue,
                 selectedAssistant.name,
-                selectedAssistant.phone
+                selectedAssistant.phone,
+                distanceZone,
+                parseFloat(weight),
+                currentCharges
             );
             
             // Close confirmation modal
@@ -4258,7 +4698,7 @@
             }, 1000);
         }
         
-        function saveToDeliveryHistory(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions, assistantName, assistantPhone) {
+        function saveToDeliveryHistory(trackingNumber, customerName, customerPhone, pickupLocation, deliveryLocation, packageType, packageSize, itemDescription, specialInstructions, assistantName, assistantPhone, distanceZone, weight, charges) {
             const deliveryRecord = {
                 trackingNumber,
                 customerName,
@@ -4271,6 +4711,9 @@
                 specialInstructions,
                 assistantName,
                 assistantPhone,
+                distanceZone,
+                weight,
+                charges,
                 status: 'pending',
                 requestDate: new Date().toISOString(),
                 googleUserId: userProfile.googleId
@@ -4311,17 +4754,23 @@
             const packageSize = document.getElementById('packageSize');
             const itemDescription = document.getElementById('itemDescription');
             const specialInstructions = document.getElementById('specialInstructions');
+            const deliveryDistance = document.getElementById('deliveryDistance');
+            const packageWeight = document.getElementById('packageWeight');
             const charCount = document.getElementById('charCount');
+            const chargeDisplay = document.getElementById('chargeDisplay');
             
             if (deliveryLocation) deliveryLocation.value = '';
             if (packageType) packageType.value = '';
             if (packageSize) packageSize.value = '';
             if (itemDescription) itemDescription.value = '';
             if (specialInstructions) specialInstructions.value = '';
+            if (deliveryDistance) deliveryDistance.value = '';
+            if (packageWeight) packageWeight.value = '';
             if (charCount) {
                 charCount.textContent = '0/200';
                 charCount.style.color = 'var(--gray)';
             }
+            if (chargeDisplay) chargeDisplay.classList.remove('active');
             
             const packageCards = document.querySelectorAll('.package-type-card');
             packageCards.forEach(card => card.classList.remove('selected'));
@@ -4330,6 +4779,16 @@
             assistantCards.forEach(card => card.classList.remove('selected'));
             
             selectedAssistant = null;
+            currentCharges = {
+                baseCharge: 0,
+                distanceSurcharge: 0,
+                weightSurcharge: 0,
+                totalCharge: 0,
+                packageType: '',
+                distanceZone: '',
+                weight: 0
+            };
+            
             const packageDetails = document.getElementById('packageDetails');
             if (packageDetails) packageDetails.style.display = 'none';
         }
@@ -4504,6 +4963,19 @@
                     statusText = 'Delivered';
                 }
                 
+                // Format charges if available
+                let chargesHtml = '';
+                if (delivery.charges) {
+                    chargesHtml = `
+                        <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(212, 175, 55, 0.1); border-radius: 6px; border-left: 3px solid var(--primary-gold);">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                <span>Charges:</span>
+                                <span style="font-weight: 600; color: var(--primary-green);">Ksh ${delivery.charges.totalCharge || 0}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
                 historyItem.innerHTML = `
                     <div class="history-header">
                         <div>
@@ -4534,6 +5006,8 @@
                         </div>
                     </div>
                     
+                    ${chargesHtml}
+                    
                     <div class="history-actions">
                         ${delivery.assistantPhone ? `
                         <button class="track-btn" onclick="trackViaWhatsApp('${delivery.trackingNumber}', '${delivery.assistantPhone}')">
@@ -4554,7 +5028,19 @@
             const delivery = userDeliveryHistory.find(d => d.trackingNumber === trackingNumber);
             
             if (delivery) {
-                alert(`Delivery Details:\n\nTracking: ${delivery.trackingNumber}\nStatus: ${delivery.status}\nFrom: ${delivery.pickupLocation}\nTo: ${delivery.deliveryLocation}\nAssistant: ${delivery.assistantName || 'Not assigned'}\nPackage: ${delivery.packageType}\nDate: ${new Date(delivery.requestDate).toLocaleString()}`);
+                let details = `Delivery Details:\n\n`;
+                details += `Tracking: ${delivery.trackingNumber}\n`;
+                details += `Status: ${delivery.status}\n`;
+                details += `From: ${delivery.pickupLocation}\n`;
+                details += `To: ${delivery.deliveryLocation}\n`;
+                details += `Assistant: ${delivery.assistantName || 'Not assigned'}\n`;
+                details += `Package: ${delivery.packageType}\n`;
+                if (delivery.charges) {
+                    details += `Charges: Ksh ${delivery.charges.totalCharge}\n`;
+                }
+                details += `Date: ${new Date(delivery.requestDate).toLocaleString()}`;
+                
+                alert(details);
             }
         }
         
