@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=1.0, user-scalable=no">
     
     <!-- App Version -->
-    <meta name="app-version" content="2.2.0">
+    <meta name="app-version" content="2.3.0">
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#25D366">
@@ -88,7 +88,233 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-bottom: 70px;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        /* ===== PRELOADER ===== */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-black) 0%, #0d0d0d 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .preloader-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .preloader-logo {
+            height: 100px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 4px 12px rgba(37, 211, 102, 0.3));
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        
+        .preloader-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .preloader-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+        
+        .loading-progress {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 2rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-gold));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .loading-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .loading-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .loading-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.3s ease;
+        }
+        
+        .loading-step.active {
+            color: var(--primary-green);
+        }
+        
+        .loading-step.completed {
+            color: var(--primary-gold);
+        }
+        
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .loading-step.active .step-icon {
+            background: var(--primary-green);
+            color: var(--white);
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-step.completed .step-icon {
+            background: var(--primary-gold);
+            color: var(--white);
+        }
+        
+        .loading-step.completed .step-icon i {
+            animation: checkMark 0.3s ease;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes checkMark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .preloader-message {
+            margin-top: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        /* Animated Background */
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 211, 102, 0.1) 0%, rgba(37, 211, 102, 0) 70%);
+            animation: float 20s infinite linear;
+        }
+        
+        .bg-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .bg-circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            right: 10%;
+            animation-delay: -5s;
+            animation-duration: 25s;
+        }
+        
+        .bg-circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            right: -50px;
+            animation-delay: -10s;
+            animation-duration: 30s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, 30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
         }
         
         /* STEP PROGRESS INDICATOR */
@@ -278,6 +504,7 @@
             z-index: 1000;
             box-shadow: 0 2px 20px rgba(0,0,0,0.2);
             border-bottom: 3px solid var(--primary-green);
+            display: none;
         }
         
         .header-content {
@@ -302,6 +529,7 @@
             margin-left: auto;
             margin-right: 1rem;
             cursor: pointer;
+            display: none;
         }
         
         .user-avatar {
@@ -724,11 +952,13 @@
             transition: var(--transition);
             padding: 2rem;
             backdrop-filter: blur(10px);
+            display: none;
         }
         
         .google-signin-modal.active {
             opacity: 1;
             visibility: visible;
+            display: flex;
         }
         
         .google-signin-content {
@@ -1071,11 +1301,13 @@
             visibility: hidden;
             transition: var(--transition);
             padding: 1rem;
+            display: none;
         }
         
         .user-registration-modal.active {
             opacity: 1;
             visibility: visible;
+            display: flex;
         }
         
         .registration-content {
@@ -1209,11 +1441,13 @@
             visibility: hidden;
             transition: var(--transition);
             padding: 1rem;
+            display: none;
         }
         
         .user-profile-modal.active {
             opacity: 1;
             visibility: visible;
+            display: flex;
         }
         
         .profile-content {
@@ -2069,11 +2303,13 @@
             visibility: hidden;
             transition: var(--transition);
             padding: 1rem;
+            display: none;
         }
         
         .confirmation-modal.active {
             opacity: 1;
             visibility: visible;
+            display: flex;
         }
         
         .confirmation-content {
@@ -2239,6 +2475,11 @@
             font-weight: 600;
             border: 2px solid var(--primary-gold);
             backdrop-filter: blur(10px);
+            display: none;
+        }
+        
+        .notification.show {
+            display: block;
         }
         
         @keyframes slideIn {
@@ -2258,6 +2499,7 @@
             z-index: 1000;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
             padding: 0.5rem;
+            display: none;
         }
         
         .bottom-nav-container {
@@ -2315,6 +2557,7 @@
             text-align: center;
             padding: 2rem;
             backdrop-filter: blur(10px);
+            display: none;
         }
         
         .content-overlay h2 {
@@ -2423,6 +2666,19 @@
                 padding: 0.8rem 1.5rem;
                 min-width: 120px;
             }
+            
+            /* Preloader mobile */
+            .preloader-title {
+                font-size: 2rem;
+            }
+            
+            .preloader-subtitle {
+                font-size: 1rem;
+            }
+            
+            .preloader-logo {
+                height: 80px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -2459,6 +2715,51 @@
     </style>
 </head>
 <body>
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="animated-bg">
+            <div class="bg-circle"></div>
+            <div class="bg-circle"></div>
+            <div class="bg-circle"></div>
+        </div>
+        <div class="preloader-content">
+            <img src="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png" alt="DSOG Delivery" class="preloader-logo">
+            <h1 class="preloader-title">DSOG DELIVERY</h1>
+            <p class="preloader-subtitle">WhatsApp-Powered Delivery Platform</p>
+            
+            <div class="loading-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="loading-text">
+                    <span>Loading Platform</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+            </div>
+            
+            <div class="loading-steps">
+                <div class="loading-step" id="step1Loading">
+                    <div class="step-icon"><i class="fas fa-cog"></i></div>
+                    <span>Initializing platform...</span>
+                </div>
+                <div class="loading-step" id="step2Loading">
+                    <div class="step-icon"><i class="fas fa-user-shield"></i></div>
+                    <span>Checking authentication...</span>
+                </div>
+                <div class="loading-step" id="step3Loading">
+                    <div class="step-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <span>Loading location services...</span>
+                </div>
+                <div class="loading-step" id="step4Loading">
+                    <div class="step-icon"><i class="fas fa-truck"></i></div>
+                    <span>Connecting to assistants...</span>
+                </div>
+            </div>
+            
+            <p class="preloader-message">Professional delivery at your fingertips</p>
+        </div>
+    </div>
+
     <!-- ENHANCED PROFESSIONAL GOOGLE SIGN-IN MODAL -->
     <div class="google-signin-modal" id="googleSigninModal">
         <div class="google-signin-content">
@@ -2475,7 +2776,7 @@
                 <ul class="signin-features">
                     <li>Direct WhatsApp communication with assistants</li>
                     <li>Manual location entry for pickup</li>
-                    <li>Prioritized nearby assistants with all shown</li>
+                    <li>See only assistants in your area</li>
                     <li>Real-time WhatsApp tracking</li>
                     <li>Secure customer data protection</li>
                 </ul>
@@ -2483,7 +2784,7 @@
                 <div style="margin-top: auto; text-align: center; width: 100%;">
                     <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); margin-top: 2rem;">
                         <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i>
-                        Manual location input with assistant prioritization
+                        Location-based assistant matching
                     </p>
                 </div>
             </div>
@@ -2494,7 +2795,7 @@
                     <h2 class="signin-title">Welcome to DSOG Delivery Platform</h2>
                     <p class="signin-subtitle">
                         Sign in with your Google account to request pickups and track deliveries via WhatsApp.
-                        Enter your location manually to find prioritized nearby delivery assistants.
+                        Enter your location to see only available delivery assistants in your area.
                     </p>
                 </div>
                 
@@ -2504,7 +2805,7 @@
                         <ul class="requirements-list">
                             <li>Valid Google account for authentication</li>
                             <li>WhatsApp installed on your device</li>
-                            <li>Manual location entry for pickup</li>
+                            <li>Exact location entry for pickup</li>
                             <li>Package details must be accurate</li>
                             <li>Delivery-specific use only</li>
                         </ul>
@@ -2546,10 +2847,10 @@
                 <div class="signin-footer">
                     <p>
                         <i class="fas fa-copyright"></i> 2024 DSOG Delivery System. 
-                        <span style="color: var(--primary-green); font-weight: 600;">Manual Location Entry</span>
+                        <span style="color: var(--primary-green); font-weight: 600;">Location-Based Matching</span>
                     </p>
                     <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">
-                        Version 2.2.0 • WhatsApp Edition
+                        Version 2.3.0 • WhatsApp Edition
                     </p>
                 </div>
             </div>
@@ -2667,7 +2968,7 @@
     </div>
 
     <!-- Content Overlay (shown when not signed in) -->
-    <div class="content-overlay" id="contentOverlay" style="display: none;">
+    <div class="content-overlay" id="contentOverlay">
         <div>
             <h2>Sign In Required</h2>
             <p>Please sign in with Google to access the delivery platform</p>
@@ -2676,12 +2977,12 @@
     </div>
 
     <!-- Enhanced Header -->
-    <header style="display: none;">
+    <header>
         <div class="header-content">
             <img src="https://i.postimg.cc/kMZ1jTww/Untitled-design-4-removebg-preview.png" alt="DSOG Delivery" class="logo">
             
             <!-- User Profile -->
-            <div class="user-profile-header" onclick="openProfileModal()" id="userProfileHeader" style="display: none;">
+            <div class="user-profile-header" onclick="openProfileModal()" id="userProfileHeader">
                 <div class="user-avatar" id="userAvatar">
                     <!-- Avatar will be populated -->
                 </div>
@@ -2732,7 +3033,7 @@
     <div class="menu-backdrop" id="menuBackdrop"></div>
 
     <!-- Main Content -->
-    <main id="mainContent" style="display: none;">
+    <main id="mainContent">
         <!-- Step Progress Indicator -->
         <div class="step-progress" id="stepProgress">
             <div class="step-progress-bar" id="stepProgressBar"></div>
@@ -2762,15 +3063,28 @@
                     <h3>Enter Your Location</h3>
                 </div>
                 <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
-                    Enter your pickup location to prioritize nearby delivery assistants. All available assistants will still be shown.
+                    <strong>IMPORTANT:</strong> Enter your exact pickup location to find assistants available in your area.
                 </p>
                 
                 <div class="location-input-group">
                     <input type="text" id="manualLocationInput" class="location-input" 
-                           placeholder="Enter your pickup location (e.g., Nairobi CBD, Westlands, etc.)">
+                           placeholder="Enter your exact pickup location (e.g., Nairobi CBD, Westlands Mall, etc.)">
                     <button class="location-btn" onclick="useManualLocation()">
                         <i class="fas fa-check"></i> Set Location
                     </button>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(37, 211, 102, 0.1)); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--primary-gold);">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-info-circle" style="color: var(--primary-gold);"></i>
+                        <strong style="color: var(--text-primary);">How it works:</strong>
+                    </div>
+                    <ul style="color: var(--text-secondary); font-size: 0.9rem; padding-left: 1.5rem;">
+                        <li>Enter your exact pickup location</li>
+                        <li>We'll show only assistants available in your area</li>
+                        <li>Assistants are filtered by their operational zones</li>
+                        <li>No location = No assistants will be shown</li>
+                    </ul>
                 </div>
                 
                 <div class="current-location-display" id="currentLocationDisplay">
@@ -2780,7 +3094,7 @@
                     </div>
                     <p id="currentLocationText" style="margin: 0.5rem 0; font-size: 1.1rem; font-weight: 600;">No location set</p>
                     <small style="color: var(--text-secondary);">
-                        <i class="fas fa-info-circle"></i> Nearby assistants will be prioritized in the list below.
+                        <i class="fas fa-info-circle"></i> Only assistants in your area will be shown.
                     </small>
                 </div>
             </div>
@@ -2982,14 +3296,14 @@
                 <div class="assistant-header">
                     <h3>Available Delivery Assistants</h3>
                     <div class="assistant-sorting">
-                        <button class="sort-btn" onclick="sortAssistants('distance')" id="sortDistance">
-                            <i class="fas fa-map-marker-alt"></i> Nearby
+                        <button class="sort-btn active" onclick="filterAssistants('all')" id="sortAll">
+                            <i class="fas fa-list"></i> All in Your Area
                         </button>
-                        <button class="sort-btn" onclick="sortAssistants('rating')" id="sortRating">
+                        <button class="sort-btn" onclick="filterAssistants('rating')" id="sortRating">
                             <i class="fas fa-star"></i> Top Rated
                         </button>
-                        <button class="sort-btn active" onclick="sortAssistants('all')" id="sortAll">
-                            <i class="fas fa-list"></i> All
+                        <button class="sort-btn" onclick="filterAssistants('distance')" id="sortDistance">
+                            <i class="fas fa-bolt"></i> Fastest
                         </button>
                     </div>
                 </div>
@@ -2997,14 +3311,24 @@
                 <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
                     <i class="fas fa-info-circle"></i> 
                     <span id="assistantCount">Loading assistants...</span>
-                    <span id="nearbyCount" style="display: none; color: var(--primary-green); margin-left: 1rem;">
-                        • <span id="nearbyNumber">0</span> nearby assistants
+                    <span id="locationFilterStatus" style="display: none; color: var(--primary-green); margin-left: 1rem;">
+                        • Filtered by your location
                     </span>
                 </p>
                 
+                <div id="locationWarning" style="display: none; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05)); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--warning); margin-bottom: 1.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i>
+                        <strong style="color: var(--text-primary);">No location set</strong>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">
+                        Please go back to Step 1 and set your pickup location to see available assistants in your area.
+                    </p>
+                </div>
+                
                 <div class="loading" id="assistantsLoading">
                     <div class="loading-spinner"></div>
-                    <p>Loading available delivery assistants...</p>
+                    <p>Loading delivery assistants in your area...</p>
                 </div>
                 
                 <div class="assistants-grid" id="assistantsGrid">
@@ -3013,9 +3337,12 @@
                 
                 <div class="no-assistants" id="noAssistants" style="display: none;">
                     <i class="fas fa-users-slash"></i>
-                    <h4>No Assistants Available</h4>
-                    <p>There are currently no delivery assistants available.</p>
-                    <button class="step-btn next" onclick="loadAllDeliveryAssistants()" style="margin-top: 1rem; width: auto;">
+                    <h4>No Assistants Available in Your Area</h4>
+                    <p>There are currently no delivery assistants available in your location.</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                        <i class="fas fa-lightbulb"></i> Try entering a different location or check back later.
+                    </p>
+                    <button class="step-btn next" onclick="loadDeliveryAssistants()" style="margin-top: 1rem; width: auto;">
                         <i class="fas fa-sync-alt"></i> Refresh Assistants
                     </button>
                 </div>
@@ -3097,7 +3424,7 @@
     </main>
 
     <!-- Bottom Navigation -->
-    <nav class="bottom-nav" style="display: none;">
+    <nav class="bottom-nav">
         <div class="bottom-nav-container">
             <button class="nav-item active" onclick="goToStep(1)">
                 <i class="fas fa-map-marker-alt nav-icon"></i>
@@ -3159,7 +3486,7 @@
         let userLocation = null;
         let deliveryAssistants = [];
         let userDeliveryHistory = [];
-        let currentSortMode = 'all';
+        let currentFilterMode = 'all';
         let currentCharges = {
             baseCharge: 0,
             distanceSurcharge: 0,
@@ -3176,31 +3503,126 @@
         let isAppInstalled = false;
         let isInstallPromptShown = false;
         
+        // Location to zone mapping
+        const locationZoneMapping = {
+            // Nairobi Zones
+            'nairobi cbd': ['Central', 'Nairobi CBD'],
+            'westlands': ['West', 'Westlands'],
+            'parklands': ['West', 'Parklands'],
+            'lavington': ['West', 'Lavington'],
+            'kilimani': ['Central', 'Kilimani'],
+            'karen': ['South West', 'Karen'],
+            'langata': ['South West', 'Langata'],
+            'rongai': ['South West', 'Rongai'],
+            'industrial area': ['South', 'Industrial Area'],
+            'south b': ['South', 'South B'],
+            'south c': ['South', 'South C'],
+            'eastleigh': ['North East', 'Eastleigh'],
+            'pangani': ['North East', 'Pangani'],
+            'huruma': ['North East', 'Huruma'],
+            'kasarani': ['North', 'Kasarani'],
+            'ruaka': ['West', 'Ruaka'],
+            'ruiru': ['East', 'Ruiru'],
+            'thika': ['East', 'Thika'],
+            'juja': ['East', 'Juja'],
+            
+            // Common variations
+            'cbd': ['Central', 'Nairobi CBD'],
+            'industrial': ['South', 'Industrial Area'],
+            'west lands': ['West', 'Westlands'],
+            
+            // General areas
+            'central': ['Central', 'Central Nairobi'],
+            'west': ['West', 'West Nairobi'],
+            'south': ['South', 'South Nairobi'],
+            'east': ['East', 'East Nairobi'],
+            'north': ['North', 'North Nairobi']
+        };
+        
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 DSOG Delivery Platform v2.2.0 - Enhanced Step-by-Step Flow');
+            console.log('🚀 DSOG Delivery Platform v2.3.0 - Location-Based Assistant Filtering');
             
-            // Initialize components
-            initMobileMenu();
-            initPackageTypeSelection();
-            initCharCounter();
-            initConfirmationModal();
-            initPWA();
-            initProfileModal();
-            initRegistrationModal();
-            initLocationInput();
-            initStepNavigation();
+            // Start preloader
+            startPreloader();
             
-            // Check for existing Google Sign-in
-            if (checkGoogleSignIn()) {
-                showMainContent();
-            } else {
-                showGoogleSignInModal();
-            }
-            
-            // Initialize Google Sign-in
-            setTimeout(initializeGoogleSignIn, 1000);
+            // Initialize components after preloader
+            setTimeout(() => {
+                initMobileMenu();
+                initPackageTypeSelection();
+                initCharCounter();
+                initConfirmationModal();
+                initPWA();
+                initProfileModal();
+                initRegistrationModal();
+                initLocationInput();
+                initStepNavigation();
+                
+                // Check for existing Google Sign-in
+                if (checkGoogleSignIn()) {
+                    hidePreloader();
+                    showMainContent();
+                } else {
+                    hidePreloader();
+                    setTimeout(() => {
+                        showGoogleSignInModal();
+                    }, 500);
+                }
+                
+                // Initialize Google Sign-in
+                setTimeout(initializeGoogleSignIn, 1000);
+            }, 2500);
         });
+        
+        // Preloader Functions
+        function startPreloader() {
+            const preloader = document.getElementById('preloader');
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            const steps = [
+                document.getElementById('step1Loading'),
+                document.getElementById('step2Loading'),
+                document.getElementById('step3Loading'),
+                document.getElementById('step4Loading')
+            ];
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 1;
+                if (progress <= 100) {
+                    progressFill.style.width = progress + '%';
+                    progressPercent.textContent = progress + '%';
+                    
+                    // Update steps based on progress
+                    if (progress >= 25 && progress < 25) {
+                        steps[0].classList.add('active');
+                    } else if (progress >= 25 && progress < 50) {
+                        steps[0].classList.remove('active');
+                        steps[0].classList.add('completed');
+                        steps[1].classList.add('active');
+                    } else if (progress >= 50 && progress < 75) {
+                        steps[1].classList.remove('active');
+                        steps[1].classList.add('completed');
+                        steps[2].classList.add('active');
+                    } else if (progress >= 75 && progress < 100) {
+                        steps[2].classList.remove('active');
+                        steps[2].classList.add('completed');
+                        steps[3].classList.add('active');
+                    } else if (progress >= 100) {
+                        steps[3].classList.remove('active');
+                        steps[3].classList.add('completed');
+                        clearInterval(interval);
+                    }
+                }
+            }, 25); // Faster loading for better UX
+        }
+        
+        function hidePreloader() {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 500);
+        }
         
         // Initialize Step Navigation
         function initStepNavigation() {
@@ -3215,6 +3637,7 @@
                 const hasDistance = deliveryDistance && deliveryDistance.value;
                 const hasWeight = packageWeight && packageWeight.value && parseFloat(packageWeight.value) > 0;
                 step1NextBtn.disabled = !(hasLocation && hasDistance && hasWeight);
+                return hasLocation && hasDistance && hasWeight;
             }
             
             if (manualLocationInput) {
@@ -3243,6 +3666,7 @@
                 const hasDescription = itemDescription && itemDescription.value.trim();
                 const hasPackageType = selectedPackageType;
                 step2NextBtn.disabled = !(hasName && hasPhone && hasPickup && hasDelivery && hasDescription && hasPackageType);
+                return hasName && hasPhone && hasPickup && hasDelivery && hasDescription && hasPackageType;
             }
             
             if (customerName) customerName.addEventListener('input', validateStep2);
@@ -3256,7 +3680,11 @@
             
             function validateStep3() {
                 step3NextBtn.disabled = !selectedAssistant;
+                return !!selectedAssistant;
             }
+            
+            // Auto-validate when assistant is selected
+            window.validateStep3 = validateStep3;
         }
         
         // Step Navigation Functions
@@ -3285,8 +3713,12 @@
                 currentStepContent.classList.add('active');
                 
                 // Load assistants when step 3 is active
-                if (stepNumber === 3 && deliveryAssistants.length === 0) {
-                    loadAllDeliveryAssistants();
+                if (stepNumber === 3) {
+                    if (!userLocation || !userLocation.address) {
+                        showLocationWarning();
+                    } else {
+                        loadDeliveryAssistants();
+                    }
                 }
                 
                 // Update review when step 4 is active
@@ -3325,68 +3757,6 @@
                 default:
                     return true;
             }
-        }
-        
-        function validateStep1() {
-            const hasLocation = userLocation && userLocation.address;
-            const hasDistance = document.getElementById('deliveryDistance')?.value;
-            const hasWeight = document.getElementById('packageWeight')?.value && parseFloat(document.getElementById('packageWeight').value) > 0;
-            
-            if (!hasLocation) {
-                showNotification('Please set your location first', 'error');
-                return false;
-            }
-            if (!hasDistance) {
-                showNotification('Please select delivery distance', 'error');
-                return false;
-            }
-            if (!hasWeight) {
-                showNotification('Please enter package weight', 'error');
-                return false;
-            }
-            return true;
-        }
-        
-        function validateStep2() {
-            const customerName = document.getElementById('customerName')?.value.trim();
-            const customerPhone = document.getElementById('customerPhone')?.value.trim();
-            const pickupLocation = document.getElementById('pickupLocation')?.value.trim();
-            const deliveryLocation = document.getElementById('deliveryLocation')?.value.trim();
-            const itemDescription = document.getElementById('itemDescription')?.value.trim();
-            
-            if (!customerName) {
-                showNotification('Please enter your name', 'error');
-                return false;
-            }
-            if (!customerPhone) {
-                showNotification('Please enter your phone number', 'error');
-                return false;
-            }
-            if (!pickupLocation) {
-                showNotification('Please enter pickup location', 'error');
-                return false;
-            }
-            if (!deliveryLocation) {
-                showNotification('Please enter delivery destination', 'error');
-                return false;
-            }
-            if (!itemDescription) {
-                showNotification('Please describe your items', 'error');
-                return false;
-            }
-            if (!selectedPackageType) {
-                showNotification('Please select package type', 'error');
-                return false;
-            }
-            return true;
-        }
-        
-        function validateStep3() {
-            if (!selectedAssistant) {
-                showNotification('Please select a delivery assistant', 'error');
-                return false;
-            }
-            return true;
         }
         
         function updateStepProgress() {
@@ -3529,15 +3899,82 @@
             
             locationText.textContent = manualLocation;
             pickupField.value = manualLocation;
-            userLocation = { manual: true, address: manualLocation };
+            userLocation = { 
+                manual: true, 
+                address: manualLocation,
+                zone: getZoneFromLocation(manualLocation)
+            };
             
             // Show location display
             locationDisplay.classList.add('active');
             
+            // Update location filter status
+            const locationFilterStatus = document.getElementById('locationFilterStatus');
+            if (locationFilterStatus) {
+                locationFilterStatus.style.display = 'inline';
+            }
+            
             // Validate step 1
             validateStep1();
             
-            showNotification('Location set successfully! Nearby assistants will be prioritized.');
+            showNotification('Location set successfully! Only assistants in your area will be shown.');
+            
+            // If we're on step 3, reload assistants
+            if (currentStep === 3) {
+                hideLocationWarning();
+                loadDeliveryAssistants();
+            }
+        }
+        
+        function getZoneFromLocation(location) {
+            const locationLower = location.toLowerCase().trim();
+            
+            // Check for exact matches
+            for (const [key, zones] of Object.entries(locationZoneMapping)) {
+                if (locationLower.includes(key)) {
+                    return zones[0]; // Return primary zone
+                }
+            }
+            
+            // Check for partial matches
+            for (const [key, zones] of Object.entries(locationZoneMapping)) {
+                const keyParts = key.split(' ');
+                let matchCount = 0;
+                for (const part of keyParts) {
+                    if (locationLower.includes(part)) {
+                        matchCount++;
+                    }
+                }
+                if (matchCount >= keyParts.length / 2) {
+                    return zones[0];
+                }
+            }
+            
+            // Default to Central if no match found
+            return 'Central';
+        }
+        
+        function showLocationWarning() {
+            const warning = document.getElementById('locationWarning');
+            const assistantsLoading = document.getElementById('assistantsLoading');
+            const assistantsGrid = document.getElementById('assistantsGrid');
+            const noAssistants = document.getElementById('noAssistants');
+            
+            if (warning) warning.style.display = 'block';
+            if (assistantsLoading) assistantsLoading.classList.remove('visible');
+            if (assistantsGrid) assistantsGrid.innerHTML = '';
+            if (noAssistants) noAssistants.style.display = 'none';
+            
+            // Update assistant count
+            const assistantCount = document.getElementById('assistantCount');
+            if (assistantCount) {
+                assistantCount.textContent = 'Set location to see assistants';
+            }
+        }
+        
+        function hideLocationWarning() {
+            const warning = document.getElementById('locationWarning');
+            if (warning) warning.style.display = 'none';
         }
         
         // Initialize Package Type Selection
@@ -3905,23 +4342,29 @@
             showNotification('Registration completed successfully!');
         }
         
-        // Load all delivery assistants
-        async function loadAllDeliveryAssistants() {
+        // Load delivery assistants filtered by location
+        async function loadDeliveryAssistants() {
             const loadingElement = document.getElementById('assistantsLoading');
             const gridElement = document.getElementById('assistantsGrid');
             const noAssistantsElement = document.getElementById('noAssistants');
             const assistantCount = document.getElementById('assistantCount');
-            const nearbyCount = document.getElementById('nearbyCount');
-            const nearbyNumber = document.getElementById('nearbyNumber');
             
             if (!loadingElement || !gridElement || !noAssistantsElement || !assistantCount) return;
+            
+            // Check if location is set
+            if (!userLocation || !userLocation.address) {
+                showLocationWarning();
+                return;
+            }
             
             loadingElement.classList.add('visible');
             gridElement.innerHTML = '';
             noAssistantsElement.style.display = 'none';
+            hideLocationWarning();
             
             try {
-                console.log('📡 Loading delivery assistants from Google Apps Script...');
+                console.log('📡 Loading delivery assistants filtered by location...');
+                console.log('User location:', userLocation);
                 
                 const scriptUrl = 'https://script.google.com/macros/s/AKfycbzmBoCu_jXpp8oKpNAnX7Ly-bqvfdfhgiHge74ZW0oYae0wUlZERDERJYB-ZC76J9kQYQ/exec';
                 
@@ -3936,8 +4379,10 @@
                     const result = await response.json();
                     console.log('API Response:', result);
                     
+                    let assistants = [];
+                    
                     if (result && result.success && Array.isArray(result.data)) {
-                        deliveryAssistants = result.data.map(assistant => ({
+                        assistants = result.data.map(assistant => ({
                             id: assistant.id || assistant.assistant_id || `DA-${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
                             name: assistant.name || assistant.assistant_name || 'Unknown Assistant',
                             phone: assistant.phone || assistant.phone_number || '+254700000000',
@@ -3957,12 +4402,12 @@
                             notes: assistant.notes || ''
                         }));
                         
-                        console.log(`✅ Successfully loaded ${deliveryAssistants.length} assistants from backend`);
+                        console.log(`✅ Successfully loaded ${assistants.length} assistants from backend`);
                         
                     } else {
                         console.log('API returned invalid data format, using fallback');
                         if (result && Array.isArray(result)) {
-                            deliveryAssistants = result.map(item => ({
+                            assistants = result.map(item => ({
                                 id: item.id || `DA-${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
                                 name: item.name || 'Unknown Assistant',
                                 phone: item.phone || '+254700000000',
@@ -3979,77 +4424,108 @@
                                 isActive: true,
                                 notes: item.notes || ''
                             }));
-                            console.log(`✅ Extracted ${deliveryAssistants.length} assistants from array response`);
+                            console.log(`✅ Extracted ${assistants.length} assistants from array response`);
                         } else {
-                            loadSampleDeliveryAssistants();
+                            // Use sample data
+                            assistants = getSampleAssistants();
                         }
                     }
                 } else {
                     console.log('Network response not ok, using sample data');
-                    loadSampleDeliveryAssistants();
+                    assistants = getSampleAssistants();
                 }
                 
             } catch (error) {
                 console.error('❌ Error loading assistants:', error);
                 console.log('Using sample assistant data as fallback');
-                loadSampleDeliveryAssistants();
+                assistants = getSampleAssistants();
             }
             
-            // Filter to only active assistants
-            deliveryAssistants = deliveryAssistants.filter(assistant => 
-                assistant.isActive !== false && 
-                assistant.status !== 'offline'
-            );
+            // Filter assistants by location
+            deliveryAssistants = filterAssistantsByLocation(assistants, userLocation.zone);
             
-            console.log(`🔄 Processing ${deliveryAssistants.length} active assistants`);
-            
-            // Calculate distances if user location is set
-            if (userLocation && userLocation.address) {
-                deliveryAssistants.forEach(assistant => {
-                    assistant.distance = calculateAreaDistance(userLocation.address, assistant.area);
-                    assistant.isNearby = assistant.distance <= 2;
-                });
-            } else {
-                deliveryAssistants.forEach(assistant => {
-                    assistant.distance = null;
-                    assistant.isNearby = false;
-                });
-            }
-            
-            // Count nearby assistants
-            const nearbyAssistants = deliveryAssistants.filter(a => a.isNearby).length;
-            if (nearbyNumber) nearbyNumber.textContent = nearbyAssistants;
+            console.log(`📍 Filtered to ${deliveryAssistants.length} assistants in ${userLocation.zone} zone`);
             
             // Update display info
             if (assistantCount) {
-                assistantCount.textContent = `${deliveryAssistants.length} assistant${deliveryAssistants.length !== 1 ? 's' : ''} available`;
-            }
-            
-            if (nearbyCount) {
-                if (nearbyAssistants > 0) {
-                    nearbyCount.style.display = 'inline';
+                if (deliveryAssistants.length === 0) {
+                    assistantCount.textContent = `No assistants available in ${userLocation.zone}`;
                 } else {
-                    nearbyCount.style.display = 'none';
+                    assistantCount.textContent = `${deliveryAssistants.length} assistant${deliveryAssistants.length !== 1 ? 's' : ''} available in ${userLocation.zone}`;
                 }
             }
             
-            // Sort and display assistants
-            sortAssistants(currentSortMode);
+            // Apply current filter
+            filterAssistants(currentFilterMode);
             
             // Hide loading indicator
             loadingElement.classList.remove('visible');
             
-            // If no assistants after loading, show message
+            // If no assistants after filtering, show message
             if (deliveryAssistants.length === 0) {
                 noAssistantsElement.style.display = 'block';
             }
         }
         
-        // Load sample assistants as fallback
-        function loadSampleDeliveryAssistants() {
-            console.log('🚚 Loading sample delivery assistants...');
-            
-            deliveryAssistants = [
+        function filterAssistantsByLocation(assistants, userZone) {
+            return assistants.filter(assistant => {
+                // Check if assistant is active
+                if (assistant.isActive === false || assistant.status === 'offline') {
+                    return false;
+                }
+                
+                // Check if assistant has capacity
+                if (assistant.currentCapacity >= assistant.maxCapacity) {
+                    return false;
+                }
+                
+                // Check if assistant serves the user's zone
+                const assistantZones = Array.isArray(assistant.zones) ? assistant.zones : [];
+                const assistantArea = assistant.area || '';
+                
+                // Check if assistant's zones include user's zone
+                if (assistantZones.length > 0) {
+                    const zoneMatch = assistantZones.some(zone => 
+                        zone.toLowerCase().includes(userZone.toLowerCase()) ||
+                        userZone.toLowerCase().includes(zone.toLowerCase())
+                    );
+                    if (zoneMatch) return true;
+                }
+                
+                // Check if assistant's area matches user's zone
+                if (assistantArea && assistantArea.toLowerCase().includes(userZone.toLowerCase())) {
+                    return true;
+                }
+                
+                // Check for common zone mappings
+                const zoneVariations = {
+                    'Central': ['cbd', 'central', 'nairobi', 'downtown'],
+                    'West': ['west', 'westlands', 'parklands', 'lavington', 'ruaka'],
+                    'South': ['south', 'industrial', 'langata', 'karen'],
+                    'East': ['east', 'thika', 'ruiru', 'juja'],
+                    'North East': ['eastleigh', 'pangani', 'huruma'],
+                    'South West': ['south west', 'karen', 'langata', 'rongai']
+                };
+                
+                if (zoneVariations[userZone]) {
+                    for (const variation of zoneVariations[userZone]) {
+                        if (assistantArea && assistantArea.toLowerCase().includes(variation)) {
+                            return true;
+                        }
+                        for (const zone of assistantZones) {
+                            if (zone.toLowerCase().includes(variation)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                
+                return false;
+            });
+        }
+        
+        function getSampleAssistants() {
+            return [
                 {
                     id: 'DA001',
                     name: 'John Kamau',
@@ -4089,7 +4565,7 @@
                     name: 'Peter Odhiambo',
                     phone: '+254734567890',
                     vehicle: 'Nissan NV350 - KDC 789C',
-                    status: 'busy',
+                    status: 'available',
                     currentCapacity: 8,
                     maxCapacity: 12,
                     rating: 4.7,
@@ -4134,98 +4610,44 @@
                     lastUpdated: new Date().toISOString(),
                     isActive: true,
                     notes: 'Long distance specialist'
-                },
-                {
-                    id: 'DA006',
-                    name: 'James Omondi',
-                    phone: '+254767890123',
-                    vehicle: 'Mazda Bongo - KDF 678F',
-                    status: 'available',
-                    currentCapacity: 6,
-                    maxCapacity: 10,
-                    rating: 4.4,
-                    completedDeliveries: 110,
-                    location: 'Eastleigh',
-                    area: 'North East',
-                    zones: ['Eastleigh', 'Pangani', 'Huruma'],
-                    lastUpdated: new Date().toISOString(),
-                    isActive: true,
-                    notes: 'Quick pickup and delivery'
                 }
             ];
-            
-            console.log(`✅ Loaded ${deliveryAssistants.length} sample delivery assistants`);
         }
         
-        // Calculate area-based distance (simplified)
-        function calculateAreaDistance(userLocation, assistantArea) {
-            if (!userLocation || !assistantArea) return 999;
+        // Filter assistants based on mode
+        function filterAssistants(mode) {
+            currentFilterMode = mode;
             
-            const areaDistances = {
-                'Central': { 'Central': 0, 'West': 1, 'South': 2, 'East': 3, 'South West': 3 },
-                'West': { 'Central': 1, 'West': 0, 'South': 3, 'East': 4, 'South West': 2 },
-                'South': { 'Central': 2, 'West': 3, 'South': 0, 'East': 5, 'South West': 1 },
-                'East': { 'Central': 3, 'West': 4, 'South': 5, 'East': 0, 'South West': 6 },
-                'South West': { 'Central': 3, 'West': 2, 'South': 1, 'East': 6, 'South West': 0 }
-            };
-            
-            const userLocationLower = userLocation.toLowerCase();
-            let userArea = 'Central';
-            
-            if (userLocationLower.includes('westlands') || userLocationLower.includes('parklands') || userLocationLower.includes('lavington')) {
-                userArea = 'West';
-            } else if (userLocationLower.includes('industrial') || userLocationLower.includes('south b') || userLocationLower.includes('south c')) {
-                userArea = 'South';
-            } else if (userLocationLower.includes('thika') || userLocationLower.includes('ruiru') || userLocationLower.includes('juja')) {
-                userArea = 'East';
-            } else if (userLocationLower.includes('karen') || userLocationLower.includes('langata') || userLocationLower.includes('rongai')) {
-                userArea = 'South West';
-            }
-            
-            return areaDistances[userArea]?.[assistantArea] || 999;
-        }
-        
-        // Sort assistants based on mode
-        function sortAssistants(mode) {
-            currentSortMode = mode;
-            
-            // Update active sort button
+            // Update active filter button
             document.querySelectorAll('.sort-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            const sortButton = document.getElementById(`sort${mode.charAt(0).toUpperCase() + mode.slice(1)}`);
-            if (sortButton) sortButton.classList.add('active');
+            const filterButton = document.getElementById(`sort${mode.charAt(0).toUpperCase() + mode.slice(1)}`);
+            if (filterButton) filterButton.classList.add('active');
             
-            let sortedAssistants = [...deliveryAssistants];
+            let filteredAssistants = [...deliveryAssistants];
             
             switch(mode) {
-                case 'distance':
-                    sortedAssistants.sort((a, b) => {
-                        if (a.isNearby && !b.isNearby) return -1;
-                        if (!a.isNearby && b.isNearby) return 1;
-                        if (a.distance !== null && b.distance !== null) {
-                            return a.distance - b.distance;
-                        }
-                        return 0;
-                    });
+                case 'rating':
+                    filteredAssistants.sort((a, b) => b.rating - a.rating);
                     break;
                     
-                case 'rating':
-                    sortedAssistants.sort((a, b) => b.rating - a.rating);
+                case 'distance':
+                    filteredAssistants.sort((a, b) => a.currentCapacity - b.currentCapacity);
                     break;
                     
                 case 'all':
                 default:
-                    sortedAssistants.sort((a, b) => {
+                    filteredAssistants.sort((a, b) => {
                         if (a.status === 'available' && b.status !== 'available') return -1;
                         if (a.status !== 'available' && b.status === 'available') return 1;
-                        return 0;
+                        return b.rating - a.rating;
                     });
                     break;
             }
             
-            displayAssistants(sortedAssistants);
+            displayAssistants(filteredAssistants);
         }
         
         function displayAssistants(assistants) {
@@ -4256,7 +4678,7 @@
                 card.innerHTML = `
                     <div class="assistant-card-header">
                         <span class="assistant-status status-${assistant.status}">${assistant.status}</span>
-                        <h3 class="assistant-name">${assistant.name} ${assistant.isNearby ? '<span class="nearby-badge">Nearby</span>' : ''}</h3>
+                        <h3 class="assistant-name">${assistant.name}</h3>
                         <p class="assistant-id">ID: ${assistant.id}</p>
                         <div class="assistant-vehicle">
                             <i class="fas fa-car"></i>
@@ -4274,17 +4696,16 @@
                                 <span>${assistant.location}</span>
                             </div>
                             <div class="assistant-detail">
+                                <span>Zone:</span>
+                                <span>${assistant.area}</span>
+                            </div>
+                            <div class="assistant-detail">
                                 <span>Rating:</span>
                                 <div class="assistant-rating">
                                     <i class="fas fa-star"></i>
-                                    <span>${assistant.rating} (${assistant.completedDeliveries})</span>
+                                    <span>${assistant.rating} (${assistant.completedDeliveries} deliveries)</span>
                                 </div>
                             </div>
-                            ${assistant.isNearby ? `
-                            <div class="distance-indicator">
-                                <i class="fas fa-map-marker-alt"></i> In your area
-                            </div>
-                            ` : ''}
                             <div class="capacity-bar">
                                 <div class="capacity-label">
                                     <span>Current Load:</span>
@@ -4668,7 +5089,6 @@
                             <span style="font-weight: 600; color: var(--text-secondary);">Selected Assistant:</span>
                             <div style="margin-top: 0.3rem;">
                                 ${selectedAssistant.name} (${selectedAssistant.phone})
-                                ${selectedAssistant.isNearby ? '<span class="nearby-badge">Nearby</span>' : ''}
                                 <div style="font-size: 0.9rem; color: var(--text-secondary);">
                                     <i class="fas fa-info-circle"></i> You will communicate directly with this assistant via WhatsApp
                                 </div>
@@ -5195,10 +5615,16 @@
             
             notification.textContent = message;
             document.body.appendChild(notification);
+            notification.classList.add('show');
             
             setTimeout(() => {
                 if (notification.parentNode) {
-                    notification.remove();
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.remove();
+                        }
+                    }, 300);
                 }
             }, 3000);
         }
